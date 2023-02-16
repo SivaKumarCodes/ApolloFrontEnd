@@ -1,0 +1,28 @@
+<div class="carousel__container">
+  <input
+    *ngFor="let state of checked; let i = index"
+    [attr.data-index]="i"
+    [checked]="state"
+    type="checkbox"
+    id="{{ 'radio' + i }}"
+    (change)="onCheck(i)"
+  />
+  <div class="slides">
+    <div
+      class="slide-container"
+      *ngFor="let img of imgs; let i = index"
+      [ngClass]="{ slide__first: i == 0 }"
+    >
+      <img src="{{ img }}" [attr.data-index]="i" alt="" class="slide" />
+    </div>
+  </div>
+  <div class="navigation-manual">
+    <label
+      *ngFor="let e of checked; let i = index"
+      [for]="'radio' + i"
+      [ngClass]="{ checked: e }"
+      class="btn-manual"
+      (change)="onCheck(i)"
+    ></label>
+  </div>
+</div>

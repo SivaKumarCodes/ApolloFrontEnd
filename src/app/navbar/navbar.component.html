@@ -1,0 +1,78 @@
+<nav class="grid-container">
+  <a routerLink="/" class="logo-container">
+    <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
+  </a>
+  <header class="header">
+    <!-- <app-searchbar></app-searchbar> -->
+    <div class="searchBar">
+      <img class="search-icon" src="/assets/img/search.svg" alt="" />
+      <input
+        type="text"
+        class="search-text"
+        title="Search for Medicines"
+        autocomplete="off"
+        placeholder="Search for Medicines and Supplements"
+      />
+    </div>
+    <div class="user">
+      <a routerLink="/profile" class="cart profile">
+        <img
+          src="assets/img/profile-svgrepo-com (2).svg"
+          alt=""
+          class="cart-img profile-img"
+        />
+        <p class="icon-text">profile</p>
+      </a>
+      <a routerLink="/cart" class="cart">
+        <img src="assets/bag.png" alt="" class="cart-img" />
+        <p class="icon-text profile-text">cart</p>
+      </a>
+    </div>
+  </header>
+  <nav class="header-nav">
+    <a href="#" (click)="$event.preventDefault()" class="nav-option"
+      >Vitamins & Nutrition
+    </a>
+    <a href="#" (click)="$event.preventDefault()" class="nav-option"
+      >Healthcare Devices
+    </a>
+    <a href="#" (click)="$event.preventDefault()" class="nav-option"
+      >Personal Care
+    </a>
+    <a href="#" (click)="$event.preventDefault()" class="nav-option"
+      >Ayurveda Products
+    </a>
+    <a href="#" (click)="$event.preventDefault()" class="nav-option"
+      >Healthcare Devices
+    </a>
+    <a href="#" (click)="$event.preventDefault()" class="nav-option"
+      >Homeopathy
+    </a>
+  </nav>
+</nav>
+<div class="dropdown" id="dropdown">
+  <div class="actual-dropdown">
+    <section class="dropdown-section">
+      <h3 class="dropdown-list-heading">Vitamins</h3>
+      <ul class="dropdown-list">
+        <li class="dropdown-option">Vitamin C</li>
+        <li class="dropdown-option">Vitamin D</li>
+        <li class="dropdown-option">Vitamin E</li>
+        <li class="dropdown-option">Vitamin K</li>
+        <li class="dropdown-option">Vitamin R</li>
+        <li class="dropdown-option">Vitamin A</li>
+      </ul>
+    </section>
+    <section class="dropdown-section">
+      <h3 class="dropdown-list-heading">Minerals</h3>
+      <ul class="dropdown-list">
+        <li class="dropdown-option">Magnesium</li>
+        <li class="dropdown-option">Pottasium</li>
+        <li class="dropdown-option">Sulpher</li>
+        <li class="dropdown-option">Sulpher</li>
+        <li class="dropdown-option">Sulpher</li>
+        <li class="dropdown-option">Sulpher</li>
+      </ul>
+    </section>
+  </div>
+</div>

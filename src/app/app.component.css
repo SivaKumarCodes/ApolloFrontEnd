@@ -1,0 +1,6 @@
+app-navbar {
+  display: block;
+  position: sticky;
+  width: 100%;
+  height: auto;
+}
