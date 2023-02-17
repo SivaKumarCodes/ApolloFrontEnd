@@ -7,9 +7,9 @@
 
 .title__container {
   width: 100%;
-  height: 5rem;
+  height: 4rem;
   background-color: #fff;
-  border: 2px solid #e0e0e0;
+  border: var(--border-thin);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,17 +21,7 @@
   font-weight: 400;
 }
 
-.style__container {
-  width: 100%;
-  height: 100%;
-}
-
-.style__heading {
-  display: flex;
-  justify-self: center;
-}
-
-.style__title {
+.slider {
   display: block;
-  color: rgb(49, 49, 49);
+  margin-top: 2.5rem;
 }

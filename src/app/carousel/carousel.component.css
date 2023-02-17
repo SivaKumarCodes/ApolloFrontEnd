@@ -3,7 +3,7 @@
 }
 .carousel__container {
   width: 100vw;
-  height: 38vh;
+  height: 35vh;
   position: relative;
   -webkit-user-select: none;
   user-select: none;
@@ -22,8 +22,8 @@
 .slide-container {
   width: 20%;
   height: 100%;
-  padding: 1.5rem;
-  transition: 2s ease-in-out;
+  /* padding: 0.5rem; */
+  transition: 2s;
 }
 
 .slide {
@@ -31,7 +31,7 @@
   width: 100%;
   display: block;
   margin-right: 0.5rem;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .slide__first {
