@@ -1,6 +1,6 @@
 .slider__container {
   max-width: 100vw;
-  height: 15rem;
+  height: 16rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,8 @@
 .slider__controls {
   padding-left: 1rem;
   padding-right: 1rem;
-  width: 85%;
+  width: 80%;
+  height: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,13 +47,12 @@
 
 .slider__main {
   width: 100%;
-  height: 12rem;
+  height: 85%;
   background-color: #fff;
   display: flex;
   justify-content: center;
-  /* border: var(--border-thin); */
   overflow: hidden;
-  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: var(--shadow);
 }
 
 .slider__actual {

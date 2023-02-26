@@ -6,6 +6,7 @@
   --landing-page-background: #f6f6f6;
   --grey: #61676f;
   --border-thin: 2px solid #e0e0e0;
+  --shadow: 0 0 7px 0 rgba(0, 0, 0, 0.14);
 }
 
 :host {
