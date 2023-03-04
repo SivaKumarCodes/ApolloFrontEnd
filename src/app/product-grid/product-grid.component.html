@@ -1,0 +1,9 @@
+<div class="productGrid">
+  <div class="grid__container">
+    <app-product-batch
+      class="product__tile"
+      *ngFor="let product of products$ | async"
+      [product]="product"
+    ></app-product-batch>
+  </div>
+</div>

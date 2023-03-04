@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <div class="sidebar-col">
+    <div
+      [style.background-image]="
+        'url(http://localhost:8080/api/v1/img/' + img + ')'
+      "
+      alt="image"
+      class="sidebar-img"
+      [ngClass]="active === i ? 'sidebar-img active' : 'sidebar-img'"
+      *ngFor="let img of images; let i = index"
+      (mouseover)="onImgHover(i)"
+    ></div>
+  </div>
+  <div
+    class="sidebar-main-img-container"
+    [style.background-image]="
+      'url(http://localhost:8080/api/v1/img/' + mainImg + ')'
+    "
+  >
+    <!-- <img [src]="mainimg" alt="image" class="sidebar-main-img-container" /> -->
+  </div>
+</div>

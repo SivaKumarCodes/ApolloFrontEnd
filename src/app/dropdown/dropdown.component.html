@@ -1,0 +1,34 @@
+<div
+  class="dropdown"
+  id="dropdown"
+  [ngClass]="isVisible ? 'dropdown-visible' : ''"
+>
+  <div
+    class="actual-dropdown"
+    (mouseenter)="setVisible(true)"
+    (mouseleave)="setVisible(false)"
+  >
+    <section class="dropdown-section">
+      <h3 class="dropdown-list-heading">Vitamins</h3>
+      <ul class="dropdown-list">
+        <li class="dropdown-option">Vitamin C</li>
+        <li class="dropdown-option">Vitamin D</li>
+        <li class="dropdown-option">Vitamin E</li>
+        <li class="dropdown-option">Vitamin K</li>
+        <li class="dropdown-option">Vitamin R</li>
+        <li class="dropdown-option">Vitamin A</li>
+      </ul>
+    </section>
+    <section class="dropdown-section">
+      <h3 class="dropdown-list-heading">Minerals</h3>
+      <ul class="dropdown-list">
+        <li class="dropdown-option">Magnesium</li>
+        <li class="dropdown-option">Pottasium</li>
+        <li class="dropdown-option">Sulpher</li>
+        <li class="dropdown-option">Sulpher</li>
+        <li class="dropdown-option">Sulpher</li>
+        <li class="dropdown-option">Sulpher</li>
+      </ul>
+    </section>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Host, OnInit } from '@angular/core';
+import { Component, EventEmitter, Host, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,20 @@ import { Component, Host, OnInit } from '@angular/core';
   },
 })
 export class NavbarComponent implements OnInit {
+  @Output() dropdown = new EventEmitter<boolean>();
+  navbarOptions: string[] = [
+    'Vitamins & Nutriton',
+    'Healthcare Devices',
+    'Personal Care',
+    'Ayurveda Products',
+    'Homeopathy',
+  ];
+
   constructor() {}
+
+  showDropDown(value: boolean) {
+    this.dropdown.emit(value);
+  }
 
   ngOnInit(): void {}
 }

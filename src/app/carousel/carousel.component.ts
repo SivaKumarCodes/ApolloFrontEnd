@@ -16,15 +16,16 @@ export class CarouselComponent implements OnInit {
     '/assets/carousel/glucometer_test_strips_deals.avif',
     '/assets/carousel/ca664d03-a01a-4889-be7f-ddb58477b0f9_1655293525.png',
   ];
+  intervalId: any;
+
   @ViewChild('#slide') slide: any;
   constructor() {
-    console.log('hello');
     this.slideIndx = 0;
     this.checked = Array(this.imgs.length).fill(false);
     this.checked[this.slideIndx] = true;
     this.marginLeft = 0;
 
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       if (this.slideIndx >= 0 && this.slideIndx < this.imgs.length - 1)
         this.slideIndx++;
       else this.slideIndx = 0;
@@ -34,7 +35,6 @@ export class CarouselComponent implements OnInit {
   }
 
   onCheck(n: number) {
-    console.log('hoe');
     for (let i = 0; i < this.checked.length; i++) this.checked[i] = false;
     this.checked[n] = true;
     this.slideIndx = n;
@@ -49,4 +49,10 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    clearInterval(this.intervalId);
+  }
 }

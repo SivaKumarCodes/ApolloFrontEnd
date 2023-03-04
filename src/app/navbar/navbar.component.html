@@ -29,50 +29,14 @@
       </a>
     </div>
   </header>
-  <nav class="header-nav">
-    <a href="#" (click)="$event.preventDefault()" class="nav-option"
-      >Vitamins & Nutrition
-    </a>
-    <a href="#" (click)="$event.preventDefault()" class="nav-option"
-      >Healthcare Devices
-    </a>
-    <a href="#" (click)="$event.preventDefault()" class="nav-option"
-      >Personal Care
-    </a>
-    <a href="#" (click)="$event.preventDefault()" class="nav-option"
-      >Ayurveda Products
-    </a>
-    <a href="#" (click)="$event.preventDefault()" class="nav-option"
-      >Healthcare Devices
-    </a>
-    <a href="#" (click)="$event.preventDefault()" class="nav-option"
-      >Homeopathy
+  <nav class="header-nav" (mouseleave)="showDropDown(false)">
+    <a
+      href="#"
+      *ngFor="let option of navbarOptions"
+      (mouseenter)="showDropDown(true)"
+      (click)="$event.preventDefault()"
+      class="nav-option"
+      >{{ option }}
     </a>
   </nav>
 </nav>
-<div class="dropdown" id="dropdown">
-  <div class="actual-dropdown">
-    <section class="dropdown-section">
-      <h3 class="dropdown-list-heading">Vitamins</h3>
-      <ul class="dropdown-list">
-        <li class="dropdown-option">Vitamin C</li>
-        <li class="dropdown-option">Vitamin D</li>
-        <li class="dropdown-option">Vitamin E</li>
-        <li class="dropdown-option">Vitamin K</li>
-        <li class="dropdown-option">Vitamin R</li>
-        <li class="dropdown-option">Vitamin A</li>
-      </ul>
-    </section>
-    <section class="dropdown-section">
-      <h3 class="dropdown-list-heading">Minerals</h3>
-      <ul class="dropdown-list">
-        <li class="dropdown-option">Magnesium</li>
-        <li class="dropdown-option">Pottasium</li>
-        <li class="dropdown-option">Sulpher</li>
-        <li class="dropdown-option">Sulpher</li>
-        <li class="dropdown-option">Sulpher</li>
-        <li class="dropdown-option">Sulpher</li>
-      </ul>
-    </section>
-  </div>
-</div>
