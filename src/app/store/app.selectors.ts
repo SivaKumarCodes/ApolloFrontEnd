@@ -1,7 +1,4 @@
-import { state } from '@angular/animations';
-import { RouterState } from '@ngrx/router-store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { pipe } from 'rxjs';
 import { ProductState } from './app.store';
 import { getCurrentRoute } from './router.selectors';
 
@@ -24,4 +21,17 @@ export const getProductById = createSelector(
   getProducts,
   getCurrentRoute,
   (state, route) => state.find((p) => p.productId == route.state.params['id'])
+);
+
+export const getProductsByType = createSelector(
+  getProducts,
+  getCurrentRoute,
+  (state, route) => {
+    if (route.state.params['type']) {
+      console.log(
+        state.filter((p) => p.productType == route.state.params['type'])
+      );
+      return state.filter((p) => p.productType == route.state.params['type']);
+    } else return state.filter((p) => p.brand == route.state.params['brand']);
+  }
 );

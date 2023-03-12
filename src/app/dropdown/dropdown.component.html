@@ -5,30 +5,19 @@
 >
   <div
     class="actual-dropdown"
-    (mouseenter)="setVisible(true)"
-    (mouseleave)="setVisible(false)"
+    (mouseenter)="setVisible({ value: true })"
+    (mouseleave)="setVisible({ value: false })"
   >
-    <section class="dropdown-section">
-      <h3 class="dropdown-list-heading">Vitamins</h3>
-      <ul class="dropdown-list">
-        <li class="dropdown-option">Vitamin C</li>
-        <li class="dropdown-option">Vitamin D</li>
-        <li class="dropdown-option">Vitamin E</li>
-        <li class="dropdown-option">Vitamin K</li>
-        <li class="dropdown-option">Vitamin R</li>
-        <li class="dropdown-option">Vitamin A</li>
-      </ul>
-    </section>
-    <section class="dropdown-section">
-      <h3 class="dropdown-list-heading">Minerals</h3>
-      <ul class="dropdown-list">
-        <li class="dropdown-option">Magnesium</li>
-        <li class="dropdown-option">Pottasium</li>
-        <li class="dropdown-option">Sulpher</li>
-        <li class="dropdown-option">Sulpher</li>
-        <li class="dropdown-option">Sulpher</li>
-        <li class="dropdown-option">Sulpher</li>
-      </ul>
-    </section>
+    <div class="dropdown-list">
+      <a
+        *ngFor="let option of options"
+        class="dropdown-option"
+        [routerLink]="['/products/', option.link]"
+        (click)="setVisible({ value: false })"
+      >
+        <img class="option__img" src="{{ option.url }}" alt="" />
+        <p class="option__name">{{ option.name }}</p>
+      </a>
+    </div>
   </div>
 </div>

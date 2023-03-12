@@ -3,11 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'products',
+    path: 'products/:type',
     pathMatch: 'full',
     loadChildren: () =>
       import('./product-grid/product-grid.module').then(
         (m) => m.ProductGridModule
+      ),
+  },
+  {
+    path: 'product/:id',
+    loadChildren: () =>
+      import('./product-page/product-page.module').then(
+        (m) => m.ProductPageModule
+      ),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login-component/login-component.module').then(
+        (m) => m.LoginComponentModule
       ),
   },
   {
@@ -16,13 +30,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./landing-page/landing-page.module').then(
         (m) => m.LandingPageModule
-      ),
-  },
-  {
-    path: 'product/:id',
-    loadChildren: () =>
-      import('./product-page/product-page.module').then(
-        (m) => m.ProductPageModule
       ),
   },
 ];

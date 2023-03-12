@@ -16,6 +16,9 @@ import { ProductEffects } from './store/app.effects';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/customSerializer';
+import { AuthEffects } from './authStore/auth.effects';
+import { AuthenticationReducer } from './authStore/auth.reducer';
+import { AuthDropdownComponent } from './auth-dropdown/auth-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +26,19 @@ import { CustomSerializer } from './store/customSerializer';
     NavbarComponent,
     BatchComponent,
     DropdownComponent,
+    AuthDropdownComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FontAwesomeModule,
-    StoreModule.forRoot({ products: ProductReducer, router: routerReducer }),
-    EffectsModule.forRoot([ProductEffects]),
+    StoreModule.forRoot({
+      products: ProductReducer,
+      router: routerReducer,
+      auth: AuthenticationReducer,
+    }),
+    EffectsModule.forRoot([ProductEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,

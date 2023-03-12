@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { dropdownOption } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,7 +9,17 @@ import { Component, Input } from '@angular/core';
 export class DropdownComponent {
   @Input() isVisible!: boolean;
 
-  setVisible(value: boolean) {
+  @Input() options!: dropdownOption[];
+
+  @Input() activeNav!: number;
+
+  @Output() setactive: EventEmitter<number> = new EventEmitter();
+
+  @Output() setAllinactive: EventEmitter<void> = new EventEmitter();
+
+  setVisible({ value }: { value: boolean }) {
     this.isVisible = value;
+    this.setactive.emit(this.activeNav);
+    this.setAllinactive.emit();
   }
 }

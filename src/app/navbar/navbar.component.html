@@ -3,7 +3,6 @@
     <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
   </a>
   <header class="header">
-    <!-- <app-searchbar></app-searchbar> -->
     <div class="searchBar">
       <img class="search-icon" src="/assets/img/search.svg" alt="" />
       <input
@@ -15,7 +14,7 @@
       />
     </div>
     <div class="user">
-      <a routerLink="/profile" class="cart profile">
+      <a class="cart profile">
         <img
           src="assets/img/profile-svgrepo-com (2).svg"
           alt=""
@@ -23,20 +22,24 @@
         />
         <p class="icon-text">profile</p>
       </a>
-      <a routerLink="/cart" class="cart">
+      <a class="cart">
         <img src="assets/bag.png" alt="" class="cart-img" />
         <p class="icon-text profile-text">cart</p>
       </a>
     </div>
   </header>
-  <nav class="header-nav" (mouseleave)="showDropDown(false)">
-    <a
-      href="#"
-      *ngFor="let option of navbarOptions"
-      (mouseenter)="showDropDown(true)"
-      (click)="$event.preventDefault()"
+  <nav class="header-nav">
+    <div
+      *ngFor="let option of navbarOptions; let i = index"
+      [attr.data-index]="i"
+      (mouseenter)="
+        showDropDown({ options: options[i], index: i, value: true })
+      "
+      (mouseleave)="showDropDown({ options: [], index: i, value: false })"
+      [ngClass]="isactive[i] ? 'option__active' : ''"
       class="nav-option"
-      >{{ option }}
-    </a>
+    >
+      {{ option }}
+    </div>
   </nav>
 </nav>

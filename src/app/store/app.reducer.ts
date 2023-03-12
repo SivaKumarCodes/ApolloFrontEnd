@@ -1,10 +1,10 @@
-import { createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import {
   loadingProdctsSucess,
   loadingProductFailure,
   loadingProducts,
 } from './app.actions';
-import { initialState } from './app.store';
+import { initialState, ProductState } from './app.store';
 
 const _productReducer = createReducer(
   initialState,

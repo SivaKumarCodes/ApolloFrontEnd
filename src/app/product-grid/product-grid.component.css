@@ -1,9 +1,11 @@
-.product__grid {
-  width: 100%;
+:host {
+  margin-top: 5px;
   height: 100%;
+  display: block;
 }
+
 .productGrid {
-  padding-top: 5rem;
+  padding-top: 3rem;
   width: 100%;
   height: auto;
   display: flex;
@@ -14,16 +16,19 @@
 .grid__container {
   width: 70%;
   height: auto;
+  min-height: 83vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 2rem;
   /* margin: 0 2rem 0 2rem; */
   justify-content: center;
+  text-decoration: none;
 }
 
 .product__tile {
   background-color: white;
-  width: 20rem;
+  width: 18rem;
+  height: 25rem;
   box-shadow: var(--shadow);
   border-radius: 10px;
 }
