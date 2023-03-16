@@ -1,1 +1,26 @@
-<div class="dropdown__container"></div>
+<div class="dropdown__container">
+  <div id="notLoggedIn" *ngIf="!(authState$ | async)">
+    <h3 id="dropdown__welcome">welcome</h3>
+    <p class="dropdown__text">To acess account and manage orders</p>
+    <div id="login">
+      <button id="login__button">Login / signup</button>
+    </div>
+  </div>
+  <div class="loggedIn" *ngIf="authState$ | async">
+    <img
+      id="profile__img"
+      src="/assets/img/profile-circle-svgrepo-com.svg"
+      alt=""
+    />
+    <p id="name" class="dropdown__text">
+      {{ (user$ | async)?.firstName + " " + (user$ | async)?.lastName }}
+      <fa-icon id="edit__icon" [icon]="penicon"> </fa-icon>
+    </p>
+    <p class="dropdown__text options">Orders</p>
+    <p class="dropdown__text options">Saved Addresses</p>
+  </div>
+  <div class="information">
+    <p class="dropdown__text options">About Us</p>
+    <p class="dropdown__text options">Contact Us</p>
+  </div>
+</div>

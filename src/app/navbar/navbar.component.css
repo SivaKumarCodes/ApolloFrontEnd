@@ -85,7 +85,7 @@
   text-decoration: none;
   border-radius: 2px;
   border-bottom: 0.3rem solid white;
-  transition: border 200ms ease-out;
+  transition: border 100ms ease-in;
   cursor: pointer;
   /* padding-bottom: 0.1rem; */
 }
@@ -119,6 +119,8 @@ a {
   height: 2rem;
   margin-left: 10px;
   display: block;
+  position: relative;
+  cursor: pointer;
 }
 .cart-img {
   width: 100%;
@@ -137,7 +139,17 @@ a {
   font-size: 1.2rem;
   font-weight: 100;
   color: black;
-  border-bottom: none;
+  border-bottom: 5px solid white;
+  width: 3.8rem;
+  padding-bottom: 8px;
+}
+
+.profile__text:hover {
+  border-bottom: 4px solid var(--main-color);
+}
+
+.profile__text__active {
+  border-bottom: 4px solid var(--main-color);
 }
 
 /* .dropdown {
@@ -150,4 +162,16 @@ a {
 
 .option__active {
   border-bottom: 0.3rem solid var(--main-color);
+}
+
+.profile__dropdown {
+  position: absolute;
+  z-index: 999;
+  left: -8rem;
+  visibility: hidden;
+  transition: all 100ms ease-in;
+}
+
+.profile__dropdown__visible {
+  visibility: visible;
 }

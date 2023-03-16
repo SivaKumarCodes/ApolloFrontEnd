@@ -38,10 +38,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 50ms ease-out;
 }
 
 .slider__veiw__more:hover {
   cursor: pointer;
+}
+
+.slider__veiw__more:active {
+  transform: scale(0.95);
 }
 
 .slider__veiw__more span {

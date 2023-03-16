@@ -1,5 +1,12 @@
+import { state } from '@angular/animations';
+import { act } from '@ngrx/effects';
 import { createReducer, on } from '@ngrx/store';
-import { authenticationSucessful } from './auth.actions';
+import {
+  authenticationSucessful,
+  logout,
+  repopulateFailure,
+  repopulateSuccessful,
+} from './auth.actions';
 import { Auth, initialState } from './auth.store';
 
 const _AuthenticateReducer = createReducer(
@@ -9,6 +16,22 @@ const _AuthenticateReducer = createReducer(
     user: action.auth.user,
     token: action.auth.token,
     sucess: true,
+  })),
+  on(repopulateSuccessful, (state, action) => ({
+    ...state,
+    user: action.auth.user,
+    token: action.auth.token,
+    sucess: true,
+  })),
+  on(repopulateFailure, (state) => ({
+    ...state,
+    sucess: false,
+  })),
+  on(logout, (state) => ({
+    ...state,
+    user: null,
+    token: '',
+    sucess: false,
   }))
 );
 

@@ -1,5 +1,87 @@
 .dropdown__container {
-  width: 8rem;
-  height: 6rem;
-  background-color: grey;
+  width: 20rem;
+  height: 16rem;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1rem;
+  color: rgb(74, 74, 74);
+}
+
+#dropdown__welcome {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.dropdown__text {
+  font-size: 0.8rem;
+  /* font-weight: 100; */
+}
+
+#login {
+  /* margin-top: 0.8rem; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 5rem;
+  border-bottom: var(--border-thinnest);
+}
+
+#login__button {
+  width: 10rem;
+  height: 3rem;
+  background-color: white;
+  outline: none;
+  border: var(--border-thinnest);
+  color: var(--main-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: border 100ms ease-in;
+}
+
+#login__button:hover {
+  border: 1px solid var(--main-color);
+}
+
+#login__button:active {
+  transform: scale(0.95);
+}
+
+.information {
+  padding: 1rem;
+}
+
+.options {
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+}
+
+.options:hover {
+  font-weight: 600;
+  color: black;
+}
+
+.loggedIn {
+  border-bottom: var(--border-thinnest);
+  height: 10rem;
+  padding: 1rem;
+}
+
+#name {
+  font-size: 1rem;
+  color: var(--main-color);
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+}
+
+#profile__img {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
+
+#edit__icon {
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
 }

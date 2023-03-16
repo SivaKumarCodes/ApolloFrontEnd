@@ -13,6 +13,8 @@ export class NavbarComponent implements OnInit {
 
   @Output() dropdown = new EventEmitter<dropdownContent>();
 
+  authDropDown: boolean = false;
+
   navbarOptions: string[] = [
     'Vitamins & Nutriton',
     'Healthcare Devices',
@@ -23,6 +25,10 @@ export class NavbarComponent implements OnInit {
 
   toggleActive(state: boolean, ind: number) {
     this.isactive[ind] = state;
+  }
+
+  toggleProfile(flag: boolean) {
+    this.authDropDown = flag;
   }
 
   options: dropdownOption[][] = [

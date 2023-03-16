@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { resultMemoize } from '@ngrx/store';
 import { Auth } from './auth.store';
 
 @Injectable({
@@ -20,5 +21,17 @@ export class AuthService {
     };
 
     return this.http.get<Auth>('http://localhost:8080/api/v1/token/', options);
+  }
+
+  checkEmail(email: string) {
+    const result = this.http.get<{ value: boolean }>(
+      'http://localhost:8080/api/v1/checkmail/',
+      {
+        params: {
+          email,
+        },
+      }
+    );
+    return result;
   }
 }

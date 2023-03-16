@@ -14,13 +14,29 @@
       />
     </div>
     <div class="user">
-      <a class="cart profile">
+      <a
+        class="cart profile"
+        (mouseenter)="toggleProfile(true)"
+        (mouseleave)="toggleProfile(false)"
+      >
         <img
           src="assets/img/profile-svgrepo-com (2).svg"
           alt=""
           class="cart-img profile-img"
         />
-        <p class="icon-text">profile</p>
+        <p
+          id="profile__text"
+          class="icon-text"
+          [ngClass]="authDropDown ? 'profile__text__active' : ''"
+        >
+          profile
+        </p>
+        <app-auth-dropdown
+          routerLink="/login"
+          (click)="toggleProfile(false)"
+          [ngClass]="authDropDown ? 'profile__dropdown__visible' : ''"
+          class="profile__dropdown"
+        ></app-auth-dropdown>
       </a>
       <a class="cart">
         <img src="assets/bag.png" alt="" class="cart-img" />

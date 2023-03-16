@@ -1,20 +1,240 @@
-<p>login-component works!</p>
+<div class="Login__form">
+  <form
+    class="form"
+    (ngSubmit)="onLogin()"
+    [formGroup]="loginForm"
+    *ngIf="!formActive"
+  >
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="email"
+        [ngClass]="
+          email && email.touched && email.dirty && email.invalid
+            ? 'input__error'
+            : ''
+        "
+        autocomplete="true"
+        placeholder="Enter email"
+        formControlName="email"
+      />
+      <span
+        class="email__error"
+        *ngIf="email && email.dirty && email.touched && email.hasError('email')"
+        >invalid email</span
+      >
+    </div>
 
-<form [formGroup]="loginForm">
-  <input
-    type="email"
-    autocomplete="true"
-    placeholder="Email"
-    formControlName="user"
-  />
-  <br />
-  <br />
-  <input
-    type="password"
-    placeholder="Enter Password"
-    formControlName="password"
-  />
-  <br />
-  <br />
-  <button type="button" (click)="onLogin()">Login</button>
-</form>
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="password"
+        placeholder="Enter password"
+        formControlName="password"
+        [ngClass]="
+          password &&
+          password.dirty &&
+          password.touched &&
+          password.hasError('minlength')
+            ? 'input__error'
+            : ''
+        "
+      />
+      <span
+        class="email__error"
+        *ngIf="
+          password &&
+          password.dirty &&
+          password.hasError('minlength') &&
+          password?.touched
+        "
+        >password must be atleast 8 characters long</span
+      >
+    </div>
+    <div class="login__controls">
+      <input
+        class="form__button"
+        [disabled]="loginForm.touched && loginForm.invalid"
+        type="submit"
+        value="Sign up"
+      />
+      <a class="control__link" (click)="toggleActiveForm()">
+        Not Registered yet ? Sign up <fa-icon [icon]="arrow"></fa-icon>
+      </a>
+    </div>
+  </form>
+  <form
+    class="Register__form"
+    [formGroup]="RegisterForm"
+    (ngSubmit)="onLogin()"
+    *ngIf="formActive"
+  >
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="text"
+        [ngClass]=""
+        autocomplete="true"
+        placeholder="Enter firstname"
+        formControlName="firstName"
+        [ngClass]="
+          firstName && firstName.touched && firstName.dirty && firstName.invalid
+            ? 'input__error'
+            : ''
+        "
+      />
+      <span
+        class="email__error"
+        *ngIf="
+          firstName &&
+          firstName.dirty &&
+          firstName.touched &&
+          firstName.hasError('pattern')
+        "
+        >Name should only contain alphabets</span
+      >
+      <span
+        class="email__error"
+        *ngIf="
+          firstName &&
+          firstName.dirty &&
+          firstName.touched &&
+          firstName.hasError('minlength')
+        "
+        >Name must contain atleast 2 characters
+      </span>
+    </div>
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="text"
+        autocomplete="true"
+        placeholder="Enter lastname"
+        formControlName="lastName"
+        [ngClass]="
+          lastName && lastName.touched && lastName.dirty && lastName.invalid
+            ? 'input__error'
+            : ''
+        "
+      />
+
+      <span
+        class="email__error"
+        *ngIf="
+          lastName &&
+          lastName.dirty &&
+          lastName.touched &&
+          lastName.hasError('pattern')
+        "
+        >Name should only contain alphabets</span
+      >
+      <span
+        class="email__error"
+        *ngIf="
+          lastName &&
+          lastName.dirty &&
+          lastName.touched &&
+          lastName.hasError('minlength')
+        "
+        >Name must contain atleast 2 characters
+      </span>
+    </div>
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="text"
+        autocomplete="true"
+        placeholder="Enter email"
+        formControlName="email"
+        [ngClass]="
+          Email &&
+          Email.touched &&
+          Email.dirty &&
+          (Email.hasError('email') || Email.hasError('usernameAlreadyExists'))
+            ? 'input__error'
+            : ''
+        "
+      />
+      <span
+        *ngIf="Email && Email.dirty && Email.touched && Email.hasError('email')"
+        class="email__error"
+        >invalid email</span
+      >
+      <span
+        *ngIf="
+          Email &&
+          Email.dirty &&
+          Email.touched &&
+          Email.hasError('usernameAlreadyExists')
+        "
+        class="email__error"
+        >Someone is already using this email</span
+      >
+    </div>
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="password"
+        autocomplete="true"
+        placeholder="Enter password"
+        formControlName="password"
+        [ngClass]="
+          Password && Password.touched && Password.dirty && Password.invalid
+            ? 'input__error'
+            : ''
+        "
+      />
+      <span
+        *ngIf="
+          Password &&
+          Password.touched &&
+          Password.dirty &&
+          Password.hasError('minlength')
+        "
+        class="email__error"
+      >
+        password must be atleast 8 characters long
+      </span>
+    </div>
+    <div class="form__section">
+      <input
+        class="form__input"
+        type="password"
+        autocomplete="true"
+        placeholder="Renter password"
+        formControlName="rePassword"
+        [ngClass]="
+          rePassword &&
+          rePassword.touched &&
+          rePassword.dirty &&
+          rePassword.invalid
+            ? 'input__error'
+            : ''
+        "
+      />
+
+      <span
+        class="email__error"
+        *ngIf="
+          rePassword &&
+          rePassword.touched &&
+          rePassword.dirty &&
+          rePassword.hasError('notMatching')
+        "
+      >
+        passwords are not matching
+      </span>
+    </div>
+    <div class="login__controls">
+      <input
+        class="form__button"
+        type="submit"
+        value="Sign up"
+        [disabled]="RegisterForm.touched && RegisterForm.invalid"
+      />
+      <a class="control__link" (click)="toggleActiveForm()">
+        Already Registered ? Login <fa-icon [icon]="arrow"></fa-icon>
+      </a>
+    </div>
+  </form>
+</div>

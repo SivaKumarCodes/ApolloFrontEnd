@@ -16,7 +16,7 @@
 .grid__container {
   width: 70%;
   height: auto;
-  min-height: 83vh;
+  min-height: calc(100vh - 6rem);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 2rem;

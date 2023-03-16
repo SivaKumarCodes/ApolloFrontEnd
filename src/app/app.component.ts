@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { authenticateUser } from './authStore/auth.actions';
+import {
+  authenticateUser,
+  repopulateFromLocalStroage,
+} from './authStore/auth.actions';
 import { dropdownContent, dropdownOption } from './navbar/navbar.component';
 import { loadingProducts } from './store/app.actions';
 import { Product } from './store/app.store';
@@ -23,8 +26,8 @@ export class AppComponent {
 
   activeIndex!: number;
 
-  setactive(ind: number) {
-    this.activeState[ind] = !this.activeState[ind];
+  setactive(value: { ind: number; flag: boolean }) {
+    this.activeState[value.ind] = value.flag;
   }
 
   setactiveStateallFalse() {
@@ -42,6 +45,6 @@ export class AppComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.state.dispatch(loadingProducts());
-    this.state.dispatch(authenticateUser());
+    this.state.dispatch(repopulateFromLocalStroage());
   }
 }

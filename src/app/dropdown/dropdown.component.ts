@@ -13,13 +13,14 @@ export class DropdownComponent {
 
   @Input() activeNav!: number;
 
-  @Output() setactive: EventEmitter<number> = new EventEmitter();
+  @Output() setactive: EventEmitter<{ ind: number; flag: boolean }> =
+    new EventEmitter();
 
   @Output() setAllinactive: EventEmitter<void> = new EventEmitter();
 
   setVisible({ value }: { value: boolean }) {
     this.isVisible = value;
-    this.setactive.emit(this.activeNav);
+    this.setactive.emit({ ind: this.activeNav, flag: value });
     this.setAllinactive.emit();
   }
 }
