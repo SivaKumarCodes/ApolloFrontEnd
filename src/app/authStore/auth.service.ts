@@ -27,6 +27,22 @@ export class AuthService {
       .pipe(catchError((err) => throwError(() => 'invalid username')));
   }
 
+  register(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string
+  ) {
+    const user = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+
+    this.http.post('http://localhost:8080/api/v1/register/', user);
+  }
+
   checkEmail(email: string) {
     const result = this.http.get<{ value: boolean }>(
       'http://localhost:8080/api/v1/checkmail/',
