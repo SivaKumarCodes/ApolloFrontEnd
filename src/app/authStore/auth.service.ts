@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { resultMemoize } from '@ngrx/store';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Auth } from './auth.store';
 
 @Injectable({
@@ -20,7 +20,11 @@ export class AuthService {
       }),
     };
 
-    return this.http.get<Auth>('http://localhost:8080/api/v1/token/', options);
+    console.log('helllo');
+
+    return this.http
+      .get<Auth>('http://localhost:8080/api/v1/token/', options)
+      .pipe(catchError((err) => throwError(() => 'invalid username')));
   }
 
   checkEmail(email: string) {

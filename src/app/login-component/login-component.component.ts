@@ -9,7 +9,9 @@ import {
 } from '@angular/forms';
 import { ɵafterNextNavigation } from '@angular/router';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
 import { debounceTime, map, Observable, of } from 'rxjs';
+import { authenticateUser } from '../authStore/auth.actions';
 import { AuthService } from '../authStore/auth.service';
 
 @Component({
@@ -26,11 +28,13 @@ export class LoginComponentComponent {
     ]),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private store: Store) {}
 
   arrow = faArrowRight;
 
   formActive: boolean = false;
+
+  passwordError: boolean = false;
 
   toggleActiveForm() {
     this.formActive = !this.formActive;
@@ -55,6 +59,9 @@ export class LoginComponentComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
+      Validators.pattern(
+        '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+      ),
     ]),
     rePassword: new FormControl('', [
       Validators.required,
@@ -64,7 +71,12 @@ export class LoginComponentComponent {
   });
 
   onLogin() {
-    console.warn(this.loginForm);
+    this.store.dispatch(
+      authenticateUser({
+        email: this.loginForm?.value.email!,
+        password: this.loginForm?.value.password!,
+      })
+    );
   }
 
   doesEmailExists(authService: AuthService): AsyncValidatorFn {
@@ -86,6 +98,13 @@ export class LoginComponentComponent {
       return { notMatching: true };
 
     return null;
+  }
+
+  showPasswordError() {
+    this.passwordError = true;
+    setTimeout(() => {
+      this.passwordError = false;
+    }, 5000);
   }
 
   get Password() {

@@ -10,7 +10,7 @@ export interface User {
   email: string;
 }
 
-export const initialState: Auth = {
+export const initialState: Auth | null = {
   user: null,
   token: '',
   sucess: false,

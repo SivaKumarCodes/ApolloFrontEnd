@@ -169,6 +169,7 @@ a {
   z-index: 999;
   left: -8rem;
   visibility: hidden;
+  box-shadow: var(--shadow);
   transition: all 100ms ease-in;
 }
 

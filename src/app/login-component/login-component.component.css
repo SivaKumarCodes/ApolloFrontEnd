@@ -95,3 +95,42 @@
   background-color: rgba(128, 128, 128, 0.574);
   cursor: not-allowed;
 }
+
+#password_in {
+  position: relative;
+}
+
+.password__toolTip {
+  font-size: 1rem;
+  position: absolute;
+  background: #ffa1a1;
+  width: 23rem;
+  padding: 1rem;
+  border-radius: 5px;
+  top: 0%;
+  color: rgb(209, 4, 4);
+  white-space: nowrap;
+  transform: translateY(-110%);
+  z-index: 99;
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.password__toolTip ul {
+  width: 90%;
+  margin-top: 10px;
+  margin-left: 18px;
+}
+
+.password__toolTip::before {
+  content: "";
+  position: absolute;
+  transform: translateX(-50%);
+  border: 15px solid;
+  border-color: #ffa1a1 #ffa1a100 #ffa1a100 #ffa1a100;
+  left: 10%;
+  top: 99%;
+}

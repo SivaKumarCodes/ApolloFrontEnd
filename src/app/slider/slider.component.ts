@@ -28,8 +28,6 @@ export class SliderComponent implements OnInit {
     this.currInd++;
     this.margin += 7 * 7.2;
 
-    console.log(this.margin);
-
     if (remaining < 1) {
       this.rightVisible = false;
       this.leftVisible = true;

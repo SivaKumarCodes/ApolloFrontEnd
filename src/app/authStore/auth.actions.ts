@@ -18,11 +18,14 @@ export const repopulateSuccessful = createAction(
 );
 export const repopulateFailure = createAction(_RepopulateFailure);
 
-export const authenticateUser = createAction(_AuthenticateUser);
+export const authenticateUser = createAction(
+  _AuthenticateUser,
+  props<{ email: string | null; password: string | null }>()
+);
 
 export const authenticationSucessful = createAction(
   _AuthenticationSucessful,
-  props<{ auth: Auth }>()
+  props<{ auth: Auth | null }>()
 );
 
 export const authenticationFailure = createAction(_AuthenticationFailure);

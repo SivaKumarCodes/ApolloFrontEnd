@@ -13,8 +13,8 @@ const _AuthenticateReducer = createReducer(
   initialState,
   on(authenticationSucessful, (state, action) => ({
     ...state,
-    user: action.auth.user,
-    token: action.auth.token,
+    user: action.auth?.user!,
+    token: action.auth?.token!,
     sucess: true,
   })),
   on(repopulateSuccessful, (state, action) => ({
@@ -24,7 +24,7 @@ const _AuthenticateReducer = createReducer(
     sucess: true,
   })),
   on(repopulateFailure, (state) => ({
-    ...state,
+    ...state!,
     sucess: false,
   })),
   on(logout, (state) => ({

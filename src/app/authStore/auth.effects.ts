@@ -1,6 +1,17 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, Observable } from 'rxjs';
+import {
+  catchError,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  repeat,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import {
   authenticateUser,
   authenticationFailure,
@@ -17,20 +28,32 @@ export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authenticateUser),
-      mergeMap(() => {
+      mergeMap((action) => {
         const result = this.authService.authenticate(
-          'sivakumar.av2312@gmail.com',
-          'password'
+          action.email!,
+          action.password!
         );
-        result.forEach((data) => {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('fname', data.user!.firstName);
-          localStorage.setItem('lname', data.user!.lastName);
-          localStorage.setItem('email', data.user!.email);
-        });
+        console.log('hai');
         return result;
       }),
-      map((data) => authenticationSucessful({ auth: data }))
+      map((data) => {
+        console.log(data);
+        if (data == null) return authenticationFailure();
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('fname', data.user!.firstName);
+        localStorage.setItem('lname', data.user!.lastName);
+        localStorage.setItem('email', data.user!.email);
+
+        return authenticationSucessful({ auth: data });
+      }),
+      tap((data) => {
+        if (data != null) this.location.back();
+      }),
+      catchError((err) => {
+        return of(authenticationFailure());
+      }),
+      repeat()
     )
   );
 
@@ -58,5 +81,9 @@ export class AuthEffects {
     )
   );
 
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private location: Location,
+    private authService: AuthService
+  ) {}
 }
