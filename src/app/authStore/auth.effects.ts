@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { act, Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   catchError,
   map,
@@ -16,6 +16,7 @@ import {
   authenticateUser,
   authenticationFailure,
   authenticationSucessful,
+  registerUser,
   repopulateFailure,
   repopulateFromLocalStroage,
   repopulateSuccessful,
@@ -33,11 +34,9 @@ export class AuthEffects {
           action.email!,
           action.password!
         );
-        console.log('hai');
         return result;
       }),
       map((data) => {
-        console.log(data);
         if (data == null) return authenticationFailure();
 
         localStorage.setItem('token', data.token);
@@ -56,6 +55,22 @@ export class AuthEffects {
       repeat()
     )
   );
+
+  register$ = createEffect(() => {
+    let email: string;
+    let password: string;
+    return this.actions$.pipe(
+      ofType(registerUser),
+      switchMap((action) => {
+        email = action.email;
+        password = action.password;
+        return this.authService.register(action);
+      }),
+      map((data) => {
+        return authenticateUser({ email, password });
+      })
+    );
+  });
 
   repopulate$ = createEffect(() =>
     this.actions$.pipe(

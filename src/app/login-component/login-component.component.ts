@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { debounceTime, map, Observable, of } from 'rxjs';
 import { authenticateUser } from '../authStore/auth.actions';
 import { AuthService } from '../authStore/auth.service';
+import { registerUser } from '../authStore/auth.actions';
 
 @Component({
   selector: 'app-login-component',
@@ -75,6 +76,17 @@ export class LoginComponentComponent {
       authenticateUser({
         email: this.loginForm?.value.email!,
         password: this.loginForm?.value.password!,
+      })
+    );
+  }
+
+  userRegister() {
+    this.store.dispatch(
+      registerUser({
+        firstName: this.firstName?.value!,
+        lastName: this.lastName?.value!,
+        email: this.Email?.value!,
+        password: this.password?.value!,
       })
     );
   }

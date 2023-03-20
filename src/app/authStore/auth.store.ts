@@ -15,3 +15,10 @@ export const initialState: Auth | null = {
   token: '',
   sucess: false,
 };
+
+export interface UserRegistration {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}

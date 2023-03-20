@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Auth } from './auth.store';
+import { Auth, UserRegistration } from './auth.store';
 
 @Injectable({
   providedIn: 'root',
@@ -20,27 +20,13 @@ export class AuthService {
       }),
     };
 
-    console.log('helllo');
-
     return this.http
       .get<Auth>('http://localhost:8080/api/v1/token/', options)
       .pipe(catchError((err) => throwError(() => 'invalid username')));
   }
 
-  register(
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string
-  ) {
-    const user = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
-
-    this.http.post('http://localhost:8080/api/v1/register/', user);
+  register(user: UserRegistration) {
+    return this.http.post<void>('http://localhost:8080/api/v1/register/', user);
   }
 
   checkEmail(email: string) {

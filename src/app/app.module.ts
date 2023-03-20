@@ -19,6 +19,7 @@ import { CustomSerializer } from './store/customSerializer';
 import { AuthEffects } from './authStore/auth.effects';
 import { AuthenticationReducer } from './authStore/auth.reducer';
 import { AuthDropdownComponent } from './auth-dropdown/auth-dropdown.component';
+import { cartReducer } from './cartStore/cart.reducer';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthDropdownComponent } from './auth-dropdown/auth-dropdown.component';
       products: ProductReducer,
       router: routerReducer,
       auth: AuthenticationReducer,
+      cart: cartReducer,
     }),
     EffectsModule.forRoot([ProductEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
