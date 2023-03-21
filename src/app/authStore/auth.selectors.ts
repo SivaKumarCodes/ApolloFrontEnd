@@ -9,3 +9,5 @@ export const getAuthSucess = createSelector(
 );
 
 export const getUser = createSelector(getAuthState, (state) => state.user);
+
+export const getToken = createSelector(getAuthState, (state) => state.token);

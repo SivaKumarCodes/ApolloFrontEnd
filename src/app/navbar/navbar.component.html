@@ -38,9 +38,12 @@
           class="profile__dropdown"
         ></app-auth-dropdown>
       </a>
-      <a class="cart">
+      <a class="cart" routerLink="/cart">
         <img src="assets/bag.png" alt="" class="cart-img" />
         <p class="icon-text profile-text">cart</p>
+        <div *ngIf="cartCount$ | async" class="cart__count">
+          <p class="count__text">{{ cartCount$ | async }}</p>
+        </div>
       </a>
     </div>
   </header>

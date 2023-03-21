@@ -20,6 +20,8 @@ export class AuthService {
       }),
     };
 
+    console.log(options);
+
     return this.http
       .get<Auth>('http://localhost:8080/api/v1/token/', options)
       .pipe(catchError((err) => throwError(() => 'invalid username')));
@@ -32,6 +34,7 @@ export class AuthService {
   checkEmail(email: string) {
     const result = this.http.get<{ value: boolean }>(
       'http://localhost:8080/api/v1/checkmail/',
+
       {
         params: {
           email,

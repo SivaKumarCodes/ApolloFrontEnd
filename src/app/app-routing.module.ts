@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartPageComponent } from './cart-page/cart-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       import('./login-component/login-component.module').then(
         (m) => m.LoginComponentModule
       ),
+  },
+  {
+    path: 'cart',
+    component: CartPageComponent,
   },
   {
     path: '',

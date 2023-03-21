@@ -127,3 +127,8 @@
 .rating__number {
   display: block;
 }
+
+.checkmark {
+  width: 1.5rem;
+  height: auto;
+}

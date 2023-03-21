@@ -10,6 +10,7 @@
           "font-smooth"
         ]
       }
-    ]
+    ],
+    "detect-css-reflows/layout": "off"
   }
 }

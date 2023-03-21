@@ -4,6 +4,10 @@ import {
   authenticateUser,
   repopulateFromLocalStroage,
 } from './authStore/auth.actions';
+import {
+  repopulateCart,
+  repopulteCartSucessful,
+} from './cartStore/cart.actions';
 import { dropdownContent, dropdownOption } from './navbar/navbar.component';
 import { loadingProducts } from './store/app.actions';
 import { Product } from './store/app.store';
@@ -46,5 +50,6 @@ export class AppComponent {
     //Add 'implements OnInit' to the class.
     this.state.dispatch(loadingProducts());
     this.state.dispatch(repopulateFromLocalStroage());
+    this.state.dispatch(repopulateCart());
   }
 }

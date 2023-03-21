@@ -36,6 +36,10 @@ export class ProductPageComponent {
     this.selectedVariant = this.product?.variants[n];
   }
 
+  addToCart() {
+    // this.state.dispatch();
+  }
+
   constructor(private state: Store) {}
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getCartCount } from '../cartStore/cart.selectors';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +16,8 @@ export class NavbarComponent implements OnInit {
   @Output() dropdown = new EventEmitter<dropdownContent>();
 
   authDropDown: boolean = false;
+
+  cartCount$ = this.state.select(getCartCount);
 
   navbarOptions: string[] = [
     'Vitamins & Nutriton',
@@ -67,7 +71,7 @@ export class NavbarComponent implements OnInit {
     [],
   ];
 
-  constructor() {}
+  constructor(private state: Store) {}
 
   showDropDown(value: dropdownContent) {
     this.dropdown.emit(value);

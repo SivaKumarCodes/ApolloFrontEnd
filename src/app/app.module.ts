@@ -20,6 +20,8 @@ import { AuthEffects } from './authStore/auth.effects';
 import { AuthenticationReducer } from './authStore/auth.reducer';
 import { AuthDropdownComponent } from './auth-dropdown/auth-dropdown.component';
 import { cartReducer } from './cartStore/cart.reducer';
+import { CartEffects } from './cartStore/cart.effects';
+import { CartPageComponent } from './cart-page/cart-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { cartReducer } from './cartStore/cart.reducer';
     BatchComponent,
     DropdownComponent,
     AuthDropdownComponent,
+    CartPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import { cartReducer } from './cartStore/cart.reducer';
       auth: AuthenticationReducer,
       cart: cartReducer,
     }),
-    EffectsModule.forRoot([ProductEffects, AuthEffects]),
+    EffectsModule.forRoot([ProductEffects, AuthEffects, CartEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
