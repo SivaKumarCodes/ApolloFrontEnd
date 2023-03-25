@@ -1,1 +1,104 @@
-<p>cart-page works!</p>
+<div class="cart_container">
+  <div class="left__side">
+    <div class="items__selection"></div>
+    <div class="empty" *ngIf="allItemInCart == 0">
+      <p>There is nothing in ur cart</p>
+      <div class="continue__shopping" routerLink="/">Continue Shopping</div>
+    </div>
+    <div *ngIf="allItemInCart > 0" class="selection__controls">
+      <div
+        class="select_all"
+        (click)="invertSelection()"
+        [ngClass]="totalSelected > 0 ? 'selected' : ''"
+      >
+        <fa-icon class="checkmark" [icon]="getIcon()"></fa-icon>
+      </div>
+      <p>{{ totalSelected }}/{{ allItemInCart }} ITEMS SELECTED</p>
+      <h6 class="remove_all">Remove</h6>
+    </div>
+    <div
+      class="cart__items"
+      *ngFor="let item of cartItems; let i = index"
+      [attr.data-index]="i"
+    >
+      <div
+        class="product__img"
+        [style.background-image]="
+          'url(http://localhost:8080/api/v1/img/' + item.image + ')'
+        "
+      >
+        <div
+          class="selection"
+          (click)="select(i)"
+          [ngClass]="isSelected[i] ? 'selected' : ''"
+        >
+          <fa-icon class="checkmark" [icon]="checkMarkIcon"></fa-icon>
+        </div>
+      </div>
+      <div class="product__details">
+        <div class="brand__title">
+          <p class="product__brand">{{ item.brand }}</p>
+          <p
+            routerLink="/product/{{ cartData[i].productId }}"
+            class="product__name"
+          >
+            {{ item.title }}
+          </p>
+        </div>
+        <div class="quantity__container">
+          <div class="quatity__information quantity">
+            <p class="product__quantity">
+              {{ item.quantity + " " + item.mesurement }}
+            </p>
+          </div>
+          <div class="quantity__picker quantity" (click)="showPicker(i)">
+            <p class="quantity__picker__text">
+              Qty : {{ item.purchaseQuantity }}
+              <fa-icon [icon]="downIcon"></fa-icon>
+            </p>
+          </div>
+        </div>
+        <p class="product__price">
+          <fa-icon [icon]="rupeeIcon"></fa-icon>
+          {{ currencyFormat(item.price * item.purchaseQuantity) }}
+        </p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          class="close__mark"
+          (click)="removeFromCart(i)"
+        >
+          <path
+            fill="#000"
+            fill-rule="evenodd"
+            d="M9.031 8l6.756-6.756a.731.731 0 0 0 0-1.031.732.732 0 0 0-1.031 0L8 6.969 1.244.213a.732.732 0 0 0-1.031 0 .731.731 0 0 0 0 1.03L6.969 8 .213 14.756a.731.731 0 0 0 0 1.031.732.732 0 0 0 1.031 0L8 9.031l6.756 6.756a.732.732 0 0 0 1.031 0 .731.731 0 0 0 0-1.03L9.031 8z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="right__side">
+    <div class="total__price">
+      <div class="price__information">
+        <div class="totalPrice">
+          <p>Total Amount</p>
+          <p>
+            <fa-icon [icon]="rupeeIcon" class="rupeeSign"></fa-icon>
+            {{ currencyFormat(totalAmount) }}
+          </p>
+        </div>
+      </div>
+      <div class="placeOrder">
+        <p class="placeOrder__text">PLACE ORDER</p>
+      </div>
+    </div>
+  </div>
+  <app-quantity-picker
+    [showup]="showQuantityPicker"
+    [start]="activeCartItem"
+    (change)="changeQuantity($event)"
+    (close)="closePicker()"
+  ></app-quantity-picker>
+</div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { addToCartEffect } from '../cartStore/cart.actions';
 import { getProductById } from '../store/app.selectors';
 import { Product, Variant } from '../store/app.store';
 
@@ -37,7 +38,14 @@ export class ProductPageComponent {
   }
 
   addToCart() {
-    // this.state.dispatch();
+    this.state.dispatch(
+      addToCartEffect({
+        productId: this.product?.productId!,
+        variantId: this.selectedVariant?.variantId!,
+        quantity: this.quantity,
+        addenOn: new Date(),
+      })
+    );
   }
 
   constructor(private state: Store) {}

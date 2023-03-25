@@ -10,6 +10,7 @@ const _addToCartSucessful = '[cart] add to cart sucessful';
 
 export const _addToCartEffect = '[cart] addToCartEffect';
 export const _removeFromCartEffect = '[cart] remove from cart Effect';
+export const _removeFromCartSuccessful = '[cart] remove from cart successful';
 
 export const _repopulateCartEffect = '[cart] repopulate cart Effect';
 
@@ -34,5 +35,7 @@ export const RemoveFromCartEffect = createAction(
   _removeFromCartEffect,
   props<cartItem>()
 );
+
+export const RemoveFromCartSuccessful = createAction(_removeFromCartSuccessful);
 
 export const addToCartSuccessful = createAction(_addToCartSucessful);

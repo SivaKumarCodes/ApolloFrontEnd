@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { TitleStrategy } from '@angular/router';
+import { act, Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, of, switchMap, withLatestFrom } from 'rxjs';
 import { getToken } from '../authStore/auth.selectors';
@@ -7,6 +8,9 @@ import {
   addToCart,
   addToCartEffect,
   addToCartSuccessful,
+  removeFromCart,
+  RemoveFromCartEffect,
+  RemoveFromCartSuccessful,
   repopulateCart,
   repopulteCartSucessful,
 } from './cart.actions';
@@ -26,6 +30,19 @@ export class CartEffects {
       map(() => addToCartSuccessful())
     )
   );
+
+  removeFromCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RemoveFromCartEffect),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([actions, token]) => {
+        this.state.dispatch(removeFromCart(actions));
+        return this.cartService.removeFromCart(actions, token);
+      }),
+      map(() => RemoveFromCartSuccessful())
+    )
+  );
+
   loadCart = createEffect(() =>
     this.actions$.pipe(
       ofType(repopulateCart),

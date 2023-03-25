@@ -22,6 +22,7 @@ import { AuthDropdownComponent } from './auth-dropdown/auth-dropdown.component';
 import { cartReducer } from './cartStore/cart.reducer';
 import { CartEffects } from './cartStore/cart.effects';
 import { CartPageComponent } from './cart-page/cart-page.component';
+import { QuantityPickerComponent } from './quantity-picker/quantity-picker.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CartPageComponent } from './cart-page/cart-page.component';
     DropdownComponent,
     AuthDropdownComponent,
     CartPageComponent,
+    QuantityPickerComponent,
   ],
   imports: [
     BrowserModule,

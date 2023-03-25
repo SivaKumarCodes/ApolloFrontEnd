@@ -1,0 +1,264 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.cart_container {
+  width: 100%;
+  min-height: calc(100vh - 6rem);
+  margin-top: 1rem;
+  height: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.left__side {
+  width: 50%;
+  min-height: 90%;
+
+  background-color: white;
+  padding: 1rem;
+}
+
+.cart__items {
+  width: 100%;
+  height: 13rem;
+  border-radius: 5px;
+  border: var(--border-thinnest);
+  padding: 0.8rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.product__img {
+  width: 20%;
+  height: 100%;
+  position: relative;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.product__details {
+  padding: 0.8rem;
+  /* background-color: aliceblue; */
+  width: 78%;
+  height: 100%;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.close__mark {
+  position: absolute;
+  right: 2%;
+  top: 5%;
+}
+
+.product__brand {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.product__brand {
+  font-weight: 700;
+}
+
+.product__name {
+  font-weight: 400;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.quantity__container {
+  width: auto;
+  height: 2rem;
+  margin-left: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.product__quantity {
+  font-weight: 400;
+}
+
+.quatity__information {
+  width: auto;
+  margin-right: 2rem;
+}
+
+.product__price {
+  font-weight: 700;
+}
+
+.quantity {
+  background-color: aliceblue;
+  font-size: 1rem;
+  padding: 5px;
+}
+
+.quantity__picker {
+  font-size: 1rem;
+}
+
+.selection {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  background-color: white;
+  top: 3%;
+  left: 3%;
+  border: 2px solid var(--main-color);
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkmark {
+  font-size: 1rem;
+  color: white;
+}
+
+.selection__controls {
+  border: var(--border-thinnest);
+  height: 3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.select_all {
+  background-color: white;
+  border: 2px solid var(--main-color);
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: var(--main-color);
+}
+
+.selection__controls > p {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.remove_all {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-left: 60%;
+  cursor: pointer;
+  color: rgb(50, 50, 50);
+}
+
+.empty {
+  height: calc(90vh - 6rem);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty > p {
+  font-size: 2rem;
+  color: gray;
+  margin-bottom: 4rem;
+}
+
+.continue__shopping {
+  width: 16rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-color);
+  font-size: 1.6rem;
+  font-weight: 500;
+  border: 2px solid var(--main-color);
+  cursor: pointer;
+}
+
+.right__side {
+  width: 20%;
+  height: 90%;
+  background-color: white;
+  display: flex;
+  padding-top: 2rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.total__price {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: var(--border-thinnest);
+  padding: 1rem;
+}
+
+.placeOrder {
+  height: 3rem;
+  width: 100%;
+  background-color: var(--main-color);
+  border-radius: 3px;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 70ms ease-in;
+}
+
+.placeOrder:active {
+  transform: scale(0.97);
+}
+
+.price__information {
+  height: calc(100% - 3rem);
+  width: 100%;
+}
+
+.totalPrice {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rupeeSign {
+  font-size: 1rem;
+}

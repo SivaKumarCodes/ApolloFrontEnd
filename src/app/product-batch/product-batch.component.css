@@ -19,7 +19,7 @@
 
 .productbatch__title {
   width: 90%;
-  height: 35px;
+  height: auto;
   overflow: hidden;
   color: #212121;
   margin-bottom: 0.6rem;
@@ -131,4 +131,21 @@
 .checkmark {
   width: 1.5rem;
   height: auto;
+  display: block;
+  margin-left: 5px;
+}
+
+.added {
+  font-size: 1rem;
+  color: var(--main-color);
+  display: block;
+}
+
+.added_container {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 5px;
 }

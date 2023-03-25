@@ -8,6 +8,8 @@ export interface ProductVariant {
 
 const getCartState = createFeatureSelector<cartState>('cart');
 
+export const getCart = createSelector(getCartState, (state) => state.cart);
+
 export const getCartItems = createSelector(getCartState, (state) =>
   state.cart.map((a) => ({ productId: a.productId, variantId: a.variantId }))
 );
@@ -15,4 +17,8 @@ export const getCartItems = createSelector(getCartState, (state) =>
 export const getCartCount = createSelector(
   getCartState,
   (state) => state.cart.length
+);
+
+export const existsOnCart = createSelector(getCartState, (state) =>
+  state.cart.map((i) => ({ productId: i.productId, variantId: i.variantId }))
 );

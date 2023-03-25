@@ -8,6 +8,12 @@ export const getProducts = createSelector(
   getProductState,
   (state) => state.products
 );
+
+export const getProduct = (id: number) =>
+  createSelector(getProductState, (state) =>
+    state.products.find((i) => i.productId == id)
+  );
+
 export const getLoading = createSelector(
   getProductState,
   (state) => state.loading

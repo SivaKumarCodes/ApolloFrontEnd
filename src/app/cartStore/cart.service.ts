@@ -31,6 +31,31 @@ export class CartService {
     );
   }
 
+  removeFromCart(item: cartItem, token: string) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    const body = {
+      productId: item.productId,
+      variantId: item.variantId,
+      quantity: item.quantity,
+    };
+
+    return this.http.post<void>(
+      'http://localhost:8080/api/v1/removefromcart',
+      body,
+      options
+    );
+  }
+
   getItemsCart(token: string) {
     const options = {
       headers: new HttpHeaders({

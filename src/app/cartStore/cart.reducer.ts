@@ -11,7 +11,10 @@ const _cartReducer = createReducer(
   on(addToCart, (state, action) => {
     const newCart: cartItem[] = JSON.parse(JSON.stringify(state.cart));
 
-    const item = newCart.find((item) => item.productId == action.productId);
+    const item = newCart.find(
+      (item) =>
+        item.productId == action.productId && action.variantId == item.variantId
+    );
 
     console.log(item);
 
@@ -30,9 +33,16 @@ const _cartReducer = createReducer(
   on(removeFromCart, (state, action) => {
     const newCart: cartItem[] = JSON.parse(JSON.stringify(state.cart));
 
-    const item = newCart.find((item) => item.productId == action.productId);
+    console.log(action);
 
-    if (item?.quantity)
+    const item: cartItem | undefined = newCart.find(
+      (item) =>
+        item.productId == action.productId && item.variantId == action.variantId
+    );
+
+    console.log(item);
+
+    if (item != undefined)
       if (action.quantity < item.quantity) {
         item.quantity -= action.quantity;
         return {
@@ -40,9 +50,13 @@ const _cartReducer = createReducer(
           cart: [...newCart],
         };
       } else {
-        const newCart = state.cart.filter(
-          (item) => item.productId != action.productId
+        const newCart: cartItem[] = state.cart.filter(
+          (item) =>
+            item.productId != action.productId ||
+            item.variantId != action.variantId
         );
+
+        console.log(newCart);
 
         return {
           ...state,
