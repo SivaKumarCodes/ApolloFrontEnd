@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Auth, User, UserRegistration } from './auth.store';
+import { address, Auth, User, UserRegistration } from './auth.store';
 
 const _AuthenticateUser = '[Auth] Authenticate user';
 const _AuthenticationSucessful = '[Auth] Authentication Sucessful';
@@ -10,6 +10,10 @@ const _RepopulateFailure = '[Auth] Repopulate LocalStorage Failure';
 
 const _RegisterUser = '[Register] Register User';
 const _RegisterUserSucessful = '[Register] Register User Sucessful';
+
+const _getUserAddresses = '[Address] get user addresses';
+
+const _getUserAddressesSucessful = '[Address] get user addresses sucessful';
 
 const _LogOut = '[Auth] logout';
 
@@ -38,4 +42,11 @@ export const logout = createAction(_LogOut);
 export const registerUser = createAction(
   _RegisterUser,
   props<UserRegistration>()
+);
+
+export const getUserAddresses = createAction(_getUserAddresses);
+
+export const getUserAddressesSucessful = createAction(
+  _getUserAddressesSucessful,
+  props<{ addresses: address[] }>()
 );

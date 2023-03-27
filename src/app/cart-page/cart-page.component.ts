@@ -8,6 +8,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { getUserAddresses } from '../authStore/auth.actions';
 import {
   addToCart,
   addToCartEffect,
@@ -56,6 +57,12 @@ export class CartPageComponent {
   cartSubscription!: Subscription;
 
   totalAmount: number = 0;
+
+  addressVisible: boolean = true;
+
+  setAddressVisible() {
+    this.addressVisible = !this.addressVisible;
+  }
 
   getIcon() {
     if (this.totalSelected == this.allItemInCart) return this.checkMarkIcon;
@@ -130,6 +137,8 @@ export class CartPageComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    this.state.dispatch(getUserAddresses());
+
     this.cartSubscription = this.state.select(getCart).subscribe((data) => {
       let result: cartEntity[] = [];
       data.forEach((item) => {

@@ -1,5 +1,19 @@
 <div class="cart_container">
   <div class="left__side">
+    <div class="address" *ngIf="allItemInCart > 0">
+      <div class="address__block">
+        <p class="address__text">
+          Deliver to: <span class="delivery__name">Siva Kumar , 500084</span>
+        </p>
+        <p class="address__text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor saepe
+          quis tenetur.
+        </p>
+      </div>
+      <div (click)="setAddressVisible()" class="change__address">
+        CHANGE ADDRESS
+      </div>
+    </div>
     <div class="items__selection"></div>
     <div class="empty" *ngIf="allItemInCart == 0">
       <p>There is nothing in ur cart</p>
@@ -80,7 +94,7 @@
     </div>
   </div>
   <div class="right__side">
-    <div class="total__price">
+    <div class="total__price" *ngIf="allItemInCart > 0">
       <div class="price__information">
         <div class="totalPrice">
           <p>Total Amount</p>
@@ -101,4 +115,5 @@
     (change)="changeQuantity($event)"
     (close)="closePicker()"
   ></app-quantity-picker>
+  <app-address-changer [visible]="addressVisible"> </app-address-changer>
 </div>

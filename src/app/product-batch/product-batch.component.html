@@ -42,7 +42,8 @@
   </div>
   <div class="productbatch___price">
     <p class="productbatch___price__text">
-      &#8377;{{ currencyFormat(product.variants[0].price) }}
+      <fa-icon [icon]="rupeeIcon"> </fa-icon>
+      {{ currencyFormat(product.variants[0].price) }}
     </p>
     <span class="add" *ngIf="!existsOnCart" (click)="addToCart($event)">
       <p class="add__text">Add</p>

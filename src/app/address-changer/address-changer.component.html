@@ -1,0 +1,113 @@
+<div class="change__address" [ngClass]="visible ? 'visible' : ''">
+  <div class="actual__dropdown">
+    <div class="first__form" *ngIf="showAddressForm">
+      <div class="title__section">
+        <p class="title">CHANGE ADDRESS</p>
+        <div class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            class="close__mark"
+          >
+            <path
+              fill="#000"
+              fill-rule="evenodd"
+              d="M9.031 8l6.756-6.756a.731.731 0 0 0 0-1.031.732.732 0 0 0-1.031 0L8 6.969 1.244.213a.732.732 0 0 0-1.031 0 .731.731 0 0 0 0 1.03L6.969 8 .213 14.756a.731.731 0 0 0 0 1.031.732.732 0 0 0 1.031 0L8 9.031l6.756 6.756a.732.732 0 0 0 1.031 0 .731.731 0 0 0 0-1.03L9.031 8z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="main">
+        <div class="addreess"></div>
+        <div class="add__address">
+          <p>ADD NEW ADDRESS</p>
+        </div>
+      </div>
+    </div>
+    <div class="second__form">
+      <div class="title__section">
+        <p class="title">ADD NEW ADDRESS</p>
+        <div class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            class="close__mark"
+          >
+            <path
+              fill="#000"
+              fill-rule="evenodd"
+              d="M9.031 8l6.756-6.756a.731.731 0 0 0 0-1.031.732.732 0 0 0-1.031 0L8 6.969 1.244.213a.732.732 0 0 0-1.031 0 .731.731 0 0 0 0 1.03L6.969 8 .213 14.756a.731.731 0 0 0 0 1.031.732.732 0 0 0 1.031 0L8 9.031l6.756 6.756a.732.732 0 0 0 1.031 0 .731.731 0 0 0 0-1.03L9.031 8z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="addaddress__form">
+        <p class="form__section__title">CONTACT DETAILS</p>
+        <form [formGroup]="addAddressForm">
+          <input
+            type="text"
+            formControlName="name"
+            class="addresss__input"
+            placeholder="Name*"
+          />
+          <input
+            type="number"
+            class="addresss__input"
+            placeholder="Mobile No*"
+          />
+          <p class="form__section__title">ADDRESS</p>
+          <input
+            class="addresss__input"
+            type="number"
+            placeholder="Pin Code*"
+          />
+          <input
+            class="addresss__input"
+            type="text"
+            placeholder="Address(House No,Building,Street,Area)*"
+          />
+          <input
+            type="text"
+            class="addresss__input"
+            placeholder="Locality/Town*"
+            id="town__input"
+          />
+          <input
+            type="text"
+            id="state__input"
+            class="addresss__input"
+            placeholder="State*"
+          />
+          <p class="form__section__title" id="save__address_as">
+            SAVE ADDRESS AS
+          </p>
+          <div class="address__type__selection">
+            <div
+              [ngClass]="addressType == 'HOME' ? 'selected' : ''"
+              (click)="changeAddressType('HOME')"
+              class="address__type"
+            >
+              <p>Home</p>
+            </div>
+            <div
+              [ngClass]="addressType == 'WORK' ? 'selected' : ''"
+              (click)="changeAddressType('WORK')"
+              class="address__type"
+            >
+              <p>Work</p>
+            </div>
+          </div>
+          <div class="isDefault">
+            <input type="checkbox" name="default" id="isdefault" />
+            <label for="isdefault">Make this my default address</label>
+          </div>
+        </form>
+      </div>
+      <input class="add__address" type="submit" value="ADD ADDRESS" />
+    </div>
+  </div>
+</div>

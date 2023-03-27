@@ -1,0 +1,170 @@
+.change__address {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.407);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.actual__dropdown {
+  width: 30rem;
+  min-height: 30rem;
+  height: auto;
+  background-color: white;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding-left: 10px;
+}
+
+.title__section {
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+.close {
+  cursor: pointer;
+}
+
+.add__address {
+  width: 100%;
+  height: 3rem;
+  border: 3px solid var(--main-color);
+  color: var(--main-color);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  background-color: white;
+  transition: 50ms ease-in;
+}
+
+.add__address:active {
+  transform: scale(0.98);
+}
+
+.main {
+  height: 22.5rem;
+  max-height: auto;
+}
+.addreess {
+  height: 100%;
+}
+
+.form__section__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  margin-left: 10px;
+}
+
+.addresss__input {
+  width: 100%;
+  outline: none;
+  height: 2.5rem;
+  padding: 5px;
+  border: 1px solid rgb(213, 214, 215);
+  border-radius: 2px;
+  color: black;
+  margin-bottom: 1rem;
+  padding-left: 10px;
+}
+
+.addresss__input:active {
+  width: 100%;
+}
+
+#town__input {
+  width: 49%;
+  margin-right: 2%;
+}
+
+#state__input {
+  width: 49%;
+}
+
+.isDefault {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 2rem;
+}
+
+.isDefault > label {
+  font-size: 1rem;
+  color: #282c3f;
+  font-weight: 400;
+}
+
+.address__type__selection {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.address__type {
+  height: 2rem;
+  width: 5rem;
+  border-radius: 20px;
+  border: 1px solid grey;
+  color: grey;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+}
+
+.selected {
+  border: 2px solid var(--main-color);
+  color: var(--main-color);
+}
+
+.address__type > p {
+  display: block;
+}
+#save__address_as {
+  margin-top: 1rem;
+}
+
+#isdefault {
+  height: 1rem;
+  width: 1rem;
+  outline: none;
+}
+
+#isdefault:active {
+  outline: none;
+  background-color: var(--main-color);
+}
+
+#isdefault:checked {
+  background-color: var(--main-color);
+}

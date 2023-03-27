@@ -6,7 +6,7 @@
 .cart_container {
   width: 100%;
   min-height: calc(100vh - 6rem);
-  margin-top: 1rem;
+  padding-top: 1rem;
   height: auto;
   position: relative;
   display: flex;
@@ -261,4 +261,40 @@
 
 .rupeeSign {
   font-size: 1rem;
+}
+
+.address {
+  height: 4.5rem;
+  width: 100%;
+  padding: 1rem;
+  border: var(--border-thinnest);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.address__text {
+  font-size: 1rem;
+}
+
+.change__address {
+  width: auto;
+  padding: 1rem;
+  color: var(--main-color);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  transition: all 50ms ease-in;
+}
+
+.change__address:active {
+  transform: scale(0.97);
+}
+
+.delivery__name {
+  font-weight: 700;
 }

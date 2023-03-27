@@ -23,6 +23,8 @@ import { cartReducer } from './cartStore/cart.reducer';
 import { CartEffects } from './cartStore/cart.effects';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { QuantityPickerComponent } from './quantity-picker/quantity-picker.component';
+import { AddressChangerComponent } from './address-changer/address-changer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import { QuantityPickerComponent } from './quantity-picker/quantity-picker.compo
     AuthDropdownComponent,
     CartPageComponent,
     QuantityPickerComponent,
+    AddressChangerComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     FontAwesomeModule,
     StoreModule.forRoot({

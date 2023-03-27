@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { act, Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import {
   catchError,
   map,
@@ -11,16 +12,20 @@ import {
   switchMap,
   tap,
   throwError,
+  withLatestFrom,
 } from 'rxjs';
 import {
   authenticateUser,
   authenticationFailure,
   authenticationSucessful,
+  getUserAddresses,
+  getUserAddressesSucessful,
   registerUser,
   repopulateFailure,
   repopulateFromLocalStroage,
   repopulateSuccessful,
 } from './auth.actions';
+import { getToken } from './auth.selectors';
 import { AuthService } from './auth.service';
 import { Auth } from './auth.store';
 
@@ -85,6 +90,7 @@ export class AuthEffects {
               email: localStorage.getItem('email')!,
             },
             sucess: true,
+            addresses: null,
           });
         });
         return result;
@@ -96,9 +102,21 @@ export class AuthEffects {
     )
   );
 
+  loadAddresses$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserAddresses),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.getAddresses(token);
+      }),
+      map((data) => getUserAddressesSucessful({ addresses: data }))
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private state: Store
   ) {}
 }
