@@ -16,7 +16,7 @@
 }
 
 .actual__dropdown {
-  width: 30rem;
+  width: 32rem;
   min-height: 30rem;
   height: auto;
   background-color: white;
@@ -82,6 +82,7 @@
 
 .addresss__input {
   width: 100%;
+  font-size: 1rem;
   outline: none;
   height: 2.5rem;
   padding: 5px;
@@ -147,6 +148,15 @@
   color: var(--main-color);
 }
 
+.input__error {
+  border: 2px solid red;
+  color: red;
+}
+
+.input__error::placeholder {
+  color: red;
+}
+
 .address__type > p {
   display: block;
 }
@@ -167,4 +177,77 @@
 
 #isdefault:checked {
   background-color: var(--main-color);
+}
+
+.address__block {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 1.5rem;
+  padding: 1rem;
+  border: var(--border-thin);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.address__block__selection {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--main-color);
+  border-radius: 2rem;
+  background-color: white;
+  outline: none;
+}
+
+.or {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: grey;
+}
+
+.selected__address {
+  border: 3px solid var(--main-color);
+}
+
+.addreess {
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.address__block__name {
+  font-weight: 700;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.address__block__name > span {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.address__block__text {
+  margin-bottom: 2px;
+}
+
+#scrollbared::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+#scrollbared::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+#scrollbared::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  border-radius: 8px;
 }

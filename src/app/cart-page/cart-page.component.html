@@ -1,16 +1,28 @@
-<div class="cart_container">
+<div class="cart_container" *ngIf="OrderStep == 0">
   <div class="left__side">
     <div class="address" *ngIf="allItemInCart > 0">
-      <div class="address__block">
+      <div
+        *ngIf="addresses && addresses.length > 0 && selectedAddress >= 0"
+        class="address__block"
+      >
         <p class="address__text">
-          Deliver to: <span class="delivery__name">Siva Kumar , 500084</span>
+          Deliver to:
+          <span class="delivery__name"
+            >{{ addresses[selectedAddress].name + " " }},
+            {{ addresses[selectedAddress].pin }}</span
+          >
         </p>
         <p class="address__text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor saepe
-          quis tenetur.
+          {{
+            addresses[selectedAddress].totalAddress +
+              "," +
+              addresses[selectedAddress].town +
+              "," +
+              addresses[selectedAddress].district
+          }}
         </p>
       </div>
-      <div (click)="setAddressVisible()" class="change__address">
+      <div (click)="setAddressVisible(true)" class="change__address">
         CHANGE ADDRESS
       </div>
     </div>
@@ -104,7 +116,7 @@
           </p>
         </div>
       </div>
-      <div class="placeOrder">
+      <div class="placeOrder" (click)="setOrderStep(1)">
         <p class="placeOrder__text">PLACE ORDER</p>
       </div>
     </div>
@@ -115,5 +127,31 @@
     (change)="changeQuantity($event)"
     (close)="closePicker()"
   ></app-quantity-picker>
-  <app-address-changer [visible]="addressVisible"> </app-address-changer>
+  <app-address-changer
+    [data]="addresses"
+    (close)="setAddressVisible(false)"
+    [visible]="addressVisible"
+    (selectAddress)="selectAddress($event)"
+  >
+  </app-address-changer>
+</div>
+
+<div class="conform__address" *ngIf="OrderStep == 1">
+  <div class="select__address__left">
+    <div class="select__address__title">
+      <h1>Select Delivery Address</h1>
+      <div class="select__large__button">
+        <p>ADD NEW ADDRESS</p>
+      </div>
+    </div>
+    <div class="select__address__title__second">
+      <p class="select__default__address">DEFAULT ADDRESS</p>
+    </div>
+    <div class="select__address__main">
+      <div class="select__address__main__button">
+        <p><fa-icon [icon]="plustIcon"></fa-icon> ADD NEW ADDRESS</p>
+      </div>
+    </div>
+  </div>
+  <div class="select__address__right"></div>
 </div>

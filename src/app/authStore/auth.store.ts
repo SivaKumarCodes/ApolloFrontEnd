@@ -4,7 +4,7 @@ export interface Auth {
   user: User | null;
   token: string;
   sucess: boolean;
-  addresses: address[] | null;
+  addresses: Address[] | null;
 }
 
 export interface User {
@@ -13,7 +13,7 @@ export interface User {
   email: string;
 }
 
-export interface address {
+export interface Address {
   name: string;
   mobileNumber: string;
   pin: number;

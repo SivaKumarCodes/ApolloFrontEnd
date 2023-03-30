@@ -1,9 +1,9 @@
 <div class="change__address" [ngClass]="visible ? 'visible' : ''">
   <div class="actual__dropdown">
-    <div class="first__form" *ngIf="showAddressForm">
+    <div class="first__form" *ngIf="!showAddressForm">
       <div class="title__section">
         <p class="title">CHANGE ADDRESS</p>
-        <div class="close">
+        <div class="close" (click)="exit()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -20,16 +20,43 @@
         </div>
       </div>
       <div class="main">
-        <div class="addreess"></div>
-        <div class="add__address">
-          <p>ADD NEW ADDRESS</p>
+        <div id="scrollbared" *ngIf="data && data.length > 0" class="addreess">
+          <div
+            class="address__block"
+            [attr.data-index]="in"
+            *ngFor="let i of data; let in = index"
+          >
+            <!-- <input
+              type="checkbox"
+              [checked]="selectedAddress == in ? 'checked' : ''"
+              (change)="checkValue(in)"
+              class="address__block__selection"
+            /> -->
+
+            <div class="address__block__main">
+              <p class="address__block__name">
+                {{ i.name }} <span *ngIf="i.isDefault">(default)</span>
+              </p>
+              <p class="address__block__text">
+                {{ i.totalAddress }}
+              </p>
+              <p class="address__block__text">{{ "(" + i.district + ")" }}</p>
+              <p class="address__block__text">{{ i.town + " - " + i.pin }}</p>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="or">
+        <p>OR</p>
+      </div>
+      <div class="add__address" (click)="setShowAddress(true)">
+        <p>ADD NEW ADDRESS</p>
+      </div>
     </div>
-    <div class="second__form">
+    <div class="second__form" *ngIf="showAddressForm">
       <div class="title__section">
         <p class="title">ADD NEW ADDRESS</p>
-        <div class="close">
+        <div class="close" (click)="exit()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -47,41 +74,101 @@
       </div>
       <div class="addaddress__form">
         <p class="form__section__title">CONTACT DETAILS</p>
-        <form [formGroup]="addAddressForm">
+        <form (ngSubmit)="addAddress()" [formGroup]="addAddressForm">
           <input
             type="text"
             formControlName="name"
             class="addresss__input"
             placeholder="Name*"
+            [ngClass]="
+              name && name.dirty && name.touched && name.invalid
+                ? 'input__error'
+                : ''
+            "
           />
           <input
-            type="number"
+            type="text"
             class="addresss__input"
             placeholder="Mobile No*"
+            formControlName="mobile"
+            [ngClass]="
+              mobile &&
+              mobile.dirty &&
+              mobile.touched &&
+              mobile.hasError('pattern')
+                ? 'input__error'
+                : ''
+            "
           />
           <p class="form__section__title">ADDRESS</p>
           <input
             class="addresss__input"
-            type="number"
+            formControlName="pin"
+            type="text"
             placeholder="Pin Code*"
+            [ngClass]="
+              pin && pin.dirty && pin.touched && pin.hasError('pattern')
+                ? 'input__error'
+                : ''
+            "
+          />
+
+          <input
+            type="text"
+            class="addresss__input"
+            placeholder="District*"
+            formControlName="district"
+            [ngClass]="
+              district &&
+              district.dirty &&
+              district.touched &&
+              district.hasError('minlength')
+                ? 'input__error'
+                : ''
+            "
           />
           <input
             class="addresss__input"
+            formControlName="address"
             type="text"
             placeholder="Address(House No,Building,Street,Area)*"
+            [ngClass]="
+              address &&
+              address.dirty &&
+              address.touched &&
+              address.hasError('minlength')
+                ? 'input__error'
+                : ''
+            "
           />
           <input
             type="text"
             class="addresss__input"
+            formControlName="town"
             placeholder="Locality/Town*"
             id="town__input"
+            [ngClass]="
+              town && town.dirty && town.touched && town.hasError('minlength')
+                ? 'input__error'
+                : ''
+            "
           />
-          <input
+          <select
             type="text"
+            title="states"
+            name="states"
+            formControlName="state"
             id="state__input"
             class="addresss__input"
-            placeholder="State*"
-          />
+          >
+            <option
+              *ngFor="let i of values"
+              value="{{ i }}"
+              [selected]="i == 'Assam' ? 'selected' : ''"
+            >
+              {{ i }}
+            </option>
+          </select>
           <p class="form__section__title" id="save__address_as">
             SAVE ADDRESS AS
           </p>
@@ -102,12 +189,17 @@
             </div>
           </div>
           <div class="isDefault">
-            <input type="checkbox" name="default" id="isdefault" />
+            <input
+              type="checkbox"
+              formControlName="isDefault"
+              name="default"
+              id="isdefault"
+            />
             <label for="isdefault">Make this my default address</label>
           </div>
+          <button class="add__address" type="submit">ADD ADDRESS</button>
         </form>
       </div>
-      <input class="add__address" type="submit" value="ADD ADDRESS" />
     </div>
   </div>
 </div>

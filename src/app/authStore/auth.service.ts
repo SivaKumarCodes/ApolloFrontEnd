@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { address, Auth, UserRegistration } from './auth.store';
+import { Address, Auth, UserRegistration } from './auth.store';
 
 @Injectable({
   providedIn: 'root',
@@ -56,8 +56,27 @@ export class AuthService {
       }),
     };
 
-    return this.http.get<address[]>(
+    return this.http.get<Address[]>(
       'http://localhost:8080/api/v1/getaddresses',
+      options
+    );
+  }
+
+  addAddress(token: string, address: Address) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<void>(
+      'http://localhost:8080/api/v1/addaddress',
+      address,
       options
     );
   }

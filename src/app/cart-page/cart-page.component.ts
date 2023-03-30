@@ -5,10 +5,14 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { getUserAddresses } from '../authStore/auth.actions';
+import { getAddresses } from '../authStore/auth.selectors';
+import { Address } from '../authStore/auth.store';
 import {
   addToCart,
   addToCartEffect,
@@ -39,16 +43,27 @@ export class CartPageComponent {
   downIcon = faCaretDown;
   checkMarkIcon = faCheck;
   minusIcon = faMinus;
+  plustIcon = faPlus;
 
   isSelected!: boolean[];
 
   totalSelected!: number;
+
+  OrderStep: number = 0;
+
+  setOrderStep(i: number) {
+    this.OrderStep = i;
+  }
 
   allItemInCart!: number;
 
   cartData!: cartItem[];
 
   cartItems: cartEntity[] = [];
+
+  selectedAddress: number = 0;
+
+  addresses!: Address[];
 
   showQuantityPicker: boolean = false;
 
@@ -58,10 +73,12 @@ export class CartPageComponent {
 
   totalAmount: number = 0;
 
-  addressVisible: boolean = true;
+  addressVisible: boolean = false;
 
-  setAddressVisible() {
-    this.addressVisible = !this.addressVisible;
+  addressSubscription!: Subscription;
+
+  setAddressVisible(val: boolean) {
+    this.addressVisible = val;
   }
 
   getIcon() {
@@ -120,6 +137,10 @@ export class CartPageComponent {
     return INR.format(i).replace('₹', '');
   }
 
+  selectAddress(i: number) {
+    this.selectedAddress = i;
+  }
+
   select(i: number) {
     this.isSelected[i] ? this.totalSelected-- : this.totalSelected++;
     this.isSelected[i] = !this.isSelected[i];
@@ -175,11 +196,19 @@ export class CartPageComponent {
       this.allItemInCart = selectedRes.length;
       this.totalPrice();
     });
+    this.addressSubscription = this.state
+      .select(getAddresses)
+      .subscribe((data) => {
+        this.addresses = data!;
+        const ind = data?.findIndex((a) => a.isDefault);
+        if (ind && ind >= 0) this.selectedAddress = ind!;
+      });
   }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.cartSubscription.unsubscribe();
+    this.addressSubscription.unsubscribe();
   }
 }

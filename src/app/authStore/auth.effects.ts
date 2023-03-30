@@ -15,6 +15,8 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import {
+  addAddress,
+  addAddressSucessful,
   authenticateUser,
   authenticationFailure,
   authenticationSucessful,
@@ -110,6 +112,20 @@ export class AuthEffects {
         return this.authService.getAddresses(token);
       }),
       map((data) => getUserAddressesSucessful({ addresses: data }))
+    )
+  );
+
+  addAddress$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addAddress),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.addAddress(token, action.address);
+      }),
+      map((data) => {
+        getUserAddresses();
+        return getUserAddresses();
+      })
     )
   );
 
