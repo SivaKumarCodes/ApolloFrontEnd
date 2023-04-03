@@ -184,8 +184,9 @@
   justify-content: flex-start;
   flex-direction: row;
   gap: 1.5rem;
+  background-color: white;
   padding: 1rem;
-  border: var(--border-thin);
+  box-shadow: var(--shadow);
   border-radius: 5px;
   margin-bottom: 1rem;
 }
@@ -250,4 +251,14 @@
 #scrollbared::-webkit-scrollbar-thumb {
   background-color: var(--main-color);
   border-radius: 8px;
+}
+
+.radioButton-base {
+  fill: var(--main-color);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.selected__svg__block {
+  width: 1.5rem;
 }

@@ -20,9 +20,11 @@ import {
   authenticateUser,
   authenticationFailure,
   authenticationSucessful,
+  editAddress,
   getUserAddresses,
   getUserAddressesSucessful,
   registerUser,
+  removeAddress,
   repopulateFailure,
   repopulateFromLocalStroage,
   repopulateSuccessful,
@@ -122,10 +124,29 @@ export class AuthEffects {
       switchMap(([action, token]) => {
         return this.authService.addAddress(token, action.address);
       }),
-      map((data) => {
-        getUserAddresses();
-        return getUserAddresses();
-      })
+      map((data) => getUserAddresses())
+    )
+  );
+
+  removeAddress$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(removeAddress),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.removeAddress(token, action.id);
+      }),
+      map((data) => getUserAddresses())
+    )
+  );
+
+  editAddress$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editAddress),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.editAddress(token, action.address);
+      }),
+      map((data) => getUserAddresses())
     )
   );
 

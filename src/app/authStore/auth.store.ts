@@ -14,6 +14,7 @@ export interface User {
 }
 
 export interface Address {
+  id: number;
   name: string;
   mobileNumber: string;
   pin: number;
@@ -22,7 +23,19 @@ export interface Address {
   district: string;
   state: States;
   addressType: AddressType;
-  isDefault: boolean;
+  defaultAddress: boolean;
+}
+
+export interface AddressSent {
+  name: string;
+  mobileNumber: string;
+  pin: number;
+  totalAddress: string;
+  town: string;
+  district: string;
+  state: States;
+  addressType: AddressType;
+  defaultAddress: boolean;
 }
 
 export enum AddressType {

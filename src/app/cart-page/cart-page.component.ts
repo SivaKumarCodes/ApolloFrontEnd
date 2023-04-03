@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
 
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getUserAddresses } from '../authStore/auth.actions';
+import { getUserAddresses, removeAddress } from '../authStore/auth.actions';
 import { getAddresses } from '../authStore/auth.selectors';
 import { Address } from '../authStore/auth.store';
 import {
@@ -22,6 +22,9 @@ import { getCart, ProductVariant } from '../cartStore/cart.selectors';
 import { cartItem } from '../cartStore/cart.store';
 import { getProduct, getProductById } from '../store/app.selectors';
 import { Product, Variant } from '../store/app.store';
+import { AddressType } from '../authStore/auth.store';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { AddressChangerComponent } from '../address-changer/address-changer.component';
 
 interface cartEntity {
   image: string;
@@ -39,11 +42,34 @@ interface cartEntity {
   styleUrls: ['./cart-page.component.css'],
 })
 export class CartPageComponent {
+  @ViewChild(AddressChangerComponent)
+  addressComponent!: AddressChangerComponent;
+
   rupeeIcon = faRupeeSign;
   downIcon = faCaretDown;
   checkMarkIcon = faCheck;
   minusIcon = faMinus;
   plustIcon = faPlus;
+  dotIcon = faCircle;
+
+  enumAddresstype = AddressType;
+
+  deliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+  monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 
   isSelected!: boolean[];
 
@@ -51,11 +77,15 @@ export class CartPageComponent {
 
   OrderStep: number = 0;
 
+  otherAddress: number[] = [];
+
   setOrderStep(i: number) {
     this.OrderStep = i;
   }
 
   allItemInCart!: number;
+
+  defaultAdress!: number;
 
   cartData!: cartItem[];
 
@@ -155,10 +185,30 @@ export class CartPageComponent {
     this.totalAmount = totalPrice;
   }
 
+  removeAddress(id: number) {
+    this.state.dispatch(removeAddress({ id }));
+    if (this.defaultAdress > -1) this.selectedAddress = this.defaultAdress;
+    else if (this.addresses.length >= 0) {
+      this.selectedAddress = 0;
+    }
+  }
+
+  addAddress() {
+    this.addressComponent.setMode(0, null);
+    this.addressVisible = true;
+  }
+
+  editAddress(address: Address) {
+    this.addressComponent.setMode(1, address);
+    this.addressVisible = true;
+  }
+
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.state.dispatch(getUserAddresses());
+
+    console.log(this.deliveryDate);
 
     this.cartSubscription = this.state.select(getCart).subscribe((data) => {
       let result: cartEntity[] = [];
@@ -200,8 +250,20 @@ export class CartPageComponent {
       .select(getAddresses)
       .subscribe((data) => {
         this.addresses = data!;
-        const ind = data?.findIndex((a) => a.isDefault);
-        if (ind && ind >= 0) this.selectedAddress = ind!;
+        const ind = data?.findIndex((a) => a.defaultAddress);
+        this.defaultAdress = ind!;
+        if (ind && ind >= 0) {
+          this.selectedAddress = ind;
+        }
+
+        if (data?.length! >= 0) {
+          // this.otherAddress = data?.filter((i) => !i.isDefault)!;
+          let otherAddress: number[] = [];
+          data?.forEach((address, i) => {
+            if (!address.defaultAddress) otherAddress.push(i);
+            this.otherAddress = otherAddress;
+          });
+        }
       });
   }
 

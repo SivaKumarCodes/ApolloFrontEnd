@@ -140,18 +140,237 @@
   <div class="select__address__left">
     <div class="select__address__title">
       <h1>Select Delivery Address</h1>
-      <div class="select__large__button">
+      <div class="select__large__button" (click)="addAddress()">
         <p>ADD NEW ADDRESS</p>
       </div>
     </div>
     <div class="select__address__title__second">
-      <p class="select__default__address">DEFAULT ADDRESS</p>
+      <p
+        *ngIf="defaultAdress > -1"
+        class="select___address__heading__secondary"
+      >
+        DEFAULT ADDRESS
+      </p>
     </div>
     <div class="select__address__main">
-      <div class="select__address__main__button">
+      <div class="select__address__default__address" *ngIf="defaultAdress > -1">
+        <div
+          (click)="selectAddress(defaultAdress)"
+          class="select__adress__other__address"
+        >
+          <div class="select__address__other__address select__address__address">
+            <div class="select__address__svg">
+              <svg
+                *ngIf="selectedAddress == defaultAdress"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                class="radioButton-base"
+              >
+                <g fill-rule="evenodd">
+                  <path
+                    d="M8 14.933A6.941 6.941 0 0 1 1.067 8 6.941 6.941 0 0 1 8 1.067 6.941 6.941 0 0 1 14.933 8 6.941 6.941 0 0 1 8 14.933M8 0C3.589 0 0 3.589 0 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8"
+                  />
+                  <path
+                    d="M8 3.429a4.571 4.571 0 1 0 0 9.143 4.571 4.571 0 0 0 0-9.143"
+                  />
+                </g>
+              </svg>
+            </div>
+            <div class="select__address__address__selection">
+              <p class="select__address__address__name">
+                {{ addresses[defaultAdress].name }}
+                <span
+                  class="select__addresss__type"
+                  [ngClass]="
+                    enumAddresstype[addresses[defaultAdress].addressType] == '1'
+                      ? 'select__addresss__type__work'
+                      : 'garbage'
+                  "
+                  >{{ addresses[defaultAdress].addressType }}</span
+                >
+              </p>
+              <p class="select__address__text">
+                {{ addresses[defaultAdress].totalAddress }}
+              </p>
+              <p class="select__address__text">
+                {{
+                  addresses[defaultAdress].town +
+                    " , " +
+                    addresses[defaultAdress].state +
+                    " - " +
+                    addresses[defaultAdress].pin
+                }}
+              </p>
+              <p class="select__address__text select__address__mobile__number">
+                Mobile :
+                <span class="select__address__bold__text"
+                  >{{ addresses[defaultAdress].mobileNumber }}
+                </span>
+              </p>
+              <div
+                class="select__address__selected__change"
+                *ngIf="selectedAddress == defaultAdress"
+              >
+                <p class="select__delivery__available">
+                  <fa-icon class="dotIcon" [icon]="dotIcon"></fa-icon> Pay on
+                  Delivery available
+                </p>
+
+                <div class="select__delivery__address__modification">
+                  <div
+                    (click)="removeAddress(addresses[defaultAdress].id)"
+                    class="select__address__remove"
+                  >
+                    REMOVE
+                  </div>
+                  <div
+                    (click)="editAddress(addresses[defaultAdress])"
+                    class="select__address__edit"
+                  >
+                    EDIT
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="select___address__heading__secondary">OTHER ADRESSES</p>
+      <div
+        *ngFor="let i of otherAddress"
+        (click)="selectAddress(i)"
+        class="select__adress__other__address"
+      >
+        <div class="select__address__other__address select__address__address">
+          <div class="select__address__svg">
+            <svg
+              *ngIf="selectedAddress == i"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="radioButton-base"
+            >
+              <g fill-rule="evenodd">
+                <path
+                  d="M8 14.933A6.941 6.941 0 0 1 1.067 8 6.941 6.941 0 0 1 8 1.067 6.941 6.941 0 0 1 14.933 8 6.941 6.941 0 0 1 8 14.933M8 0C3.589 0 0 3.589 0 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8"
+                />
+                <path
+                  d="M8 3.429a4.571 4.571 0 1 0 0 9.143 4.571 4.571 0 0 0 0-9.143"
+                />
+              </g>
+            </svg>
+          </div>
+          <div class="select__address__address__selection">
+            <p class="select__address__address__name">
+              {{ addresses[i].name }}
+              <span
+                class="select__addresss__type"
+                [ngClass]="
+                  enumAddresstype[addresses[i].addressType] == '1'
+                    ? 'select__addresss__type__work'
+                    : 'garbage'
+                "
+                >{{ addresses[i].addressType }}</span
+              >
+            </p>
+            <p class="select__address__text">
+              {{ addresses[i].totalAddress }}
+            </p>
+            <p class="select__address__text">
+              {{
+                addresses[i].town +
+                  " , " +
+                  addresses[i].state +
+                  " - " +
+                  addresses[i].pin
+              }}
+            </p>
+            <p class="select__address__text select__address__mobile__number">
+              Mobile :
+              <span class="select__address__bold__text"
+                >{{ addresses[i].mobileNumber }}
+              </span>
+            </p>
+            <div
+              class="select__address__selected__change"
+              *ngIf="selectedAddress == i"
+            >
+              <p class="select__delivery__available">
+                <fa-icon class="dotIcon" [icon]="dotIcon"></fa-icon> Pay on
+                Delivery available
+              </p>
+
+              <div class="select__delivery__address__modification">
+                <div
+                  (click)="removeAddress(addresses[i].id)"
+                  class="select__address__remove"
+                >
+                  REMOVE
+                </div>
+                <div
+                  (click)="editAddress(addresses[i])"
+                  class="select__address__edit"
+                >
+                  EDIT
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div (click)="addAddress()" class="select__address__main__button">
         <p><fa-icon [icon]="plustIcon"></fa-icon> ADD NEW ADDRESS</p>
       </div>
     </div>
   </div>
-  <div class="select__address__right"></div>
+  <div class="select__address__right">
+    <p id="delivery__estimate" class="select___address__heading__secondary">
+      DELIVERY ESTIMATES
+    </p>
+    <div
+      class="select__delivery__item"
+      *ngFor="let item of cartItems; let isLast = last"
+      [ngClass]="isLast ? 'no-border' : ''"
+    >
+      <div
+        class="select__delivery__item__image"
+        [style.background-image]="
+          'url(http://localhost:8080/api/v1/img/' + item.image + ')'
+        "
+      ></div>
+      <p>
+        Estimated Delivery by
+        <span class="select__address__bold__text">{{
+          deliveryDate.getDate() +
+            " " +
+            monthNames[deliveryDate.getMonth()] +
+            " " +
+            deliveryDate.getFullYear()
+        }}</span>
+      </p>
+    </div>
+    <div class="select__address__price__details">
+      Price Details {{ "(" + totalSelected + " Items)" }}
+    </div>
+    <div class="select__total__price">
+      <p class="select__total__price__text">Total Amount</p>
+      <p class="select__total__price__text">
+        <fa-icon [icon]="rupeeIcon"></fa-icon>
+        {{ currencyFormat(totalAmount) }}
+      </p>
+    </div>
+    <div class="select__address__place__order">
+      <p>PLACE ORDER</p>
+    </div>
+  </div>
+  <app-address-changer
+    [data]="addresses"
+    (close)="setAddressVisible(false)"
+    [visible]="addressVisible"
+    (selectAddress)="selectAddress($event)"
+  >
+  </app-address-changer>
 </div>

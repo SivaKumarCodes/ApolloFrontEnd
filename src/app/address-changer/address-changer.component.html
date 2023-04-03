@@ -32,10 +32,28 @@
               (change)="checkValue(in)"
               class="address__block__selection"
             /> -->
-
+            <div class="selected__svg__block">
+              <svg
+                *ngIf="selectedAddress == in"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                class="radioButton-base"
+              >
+                <g fill-rule="evenodd">
+                  <path
+                    d="M8 14.933A6.941 6.941 0 0 1 1.067 8 6.941 6.941 0 0 1 8 1.067 6.941 6.941 0 0 1 14.933 8 6.941 6.941 0 0 1 8 14.933M8 0C3.589 0 0 3.589 0 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8"
+                  />
+                  <path
+                    d="M8 3.429a4.571 4.571 0 1 0 0 9.143 4.571 4.571 0 0 0 0-9.143"
+                  />
+                </g>
+              </svg>
+            </div>
             <div class="address__block__main">
               <p class="address__block__name">
-                {{ i.name }} <span *ngIf="i.isDefault">(default)</span>
+                {{ i.name }} <span *ngIf="i.defaultAddress">(default)</span>
               </p>
               <p class="address__block__text">
                 {{ i.totalAddress }}
@@ -50,7 +68,7 @@
         <p>OR</p>
       </div>
       <div class="add__address" (click)="setShowAddress(true)">
-        <p>ADD NEW ADDRESS</p>
+        <p>{{ editAddress ? "EDIT ADDRESS" : "ADD NEW ADDRESS" }}</p>
       </div>
     </div>
     <div class="second__form" *ngIf="showAddressForm">
@@ -197,7 +215,9 @@
             />
             <label for="isdefault">Make this my default address</label>
           </div>
-          <button class="add__address" type="submit">ADD ADDRESS</button>
+          <button class="add__address" type="submit">
+            {{ editAddress ? "SAVE ADDRESS" : "ADD ADDRESS" }}
+          </button>
         </form>
       </div>
     </div>

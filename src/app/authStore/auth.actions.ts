@@ -1,5 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { Address, Auth, User, UserRegistration } from './auth.store';
+import {
+  Address,
+  AddressSent,
+  Auth,
+  User,
+  UserRegistration,
+} from './auth.store';
 
 const _AuthenticateUser = '[Auth] Authenticate user';
 const _AuthenticationSucessful = '[Auth] Authentication Sucessful';
@@ -19,6 +25,10 @@ const _LogOut = '[Auth] logout';
 
 const _addAddress = '[Address] add Address';
 const _addAddressSucessful = '[Address] add Address sucessful';
+
+const _removeAddress = '[Address] remove address';
+
+const _editAddress = '[Address] edit address';
 
 export const repopulateFromLocalStroage = createAction(_RepopulateLocalStorage);
 
@@ -56,7 +66,17 @@ export const getUserAddressesSucessful = createAction(
 
 export const addAddress = createAction(
   _addAddress,
-  props<{ address: Address }>()
+  props<{ address: AddressSent }>()
 );
 
 export const addAddressSucessful = createAction(_addAddressSucessful);
+
+export const removeAddress = createAction(
+  _removeAddress,
+  props<{ id: number }>()
+);
+
+export const editAddress = createAction(
+  _editAddress,
+  props<{ address: Address }>()
+);

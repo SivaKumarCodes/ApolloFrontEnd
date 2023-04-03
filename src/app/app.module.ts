@@ -25,6 +25,7 @@ import { CartPageComponent } from './cart-page/cart-page.component';
 import { QuantityPickerComponent } from './quantity-picker/quantity-picker.component';
 import { AddressChangerComponent } from './address-changer/address-changer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CartPageComponent,
     QuantityPickerComponent,
     AddressChangerComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { addAddress } from '../authStore/auth.actions';
-import { Address, AddressType } from '../authStore/auth.store';
+import { addAddress, editAddress } from '../authStore/auth.actions';
+import { Address, AddressSent, AddressType } from '../authStore/auth.store';
 import { States } from '../authStore/states';
 
 @Component({
@@ -21,8 +21,33 @@ export class AddressChangerComponent {
 
   showAddressForm!: boolean;
 
+  editAddress: boolean = false;
+
   addressType: String = 'HOME';
   selectedAddress: number = 0;
+
+  editedAddress!: Address | null;
+
+  setMode(i: number, toEdit: Address | null) {
+    this.showAddressForm = true;
+    if (i == 1) {
+      this.addressType =
+        AddressType[parseInt(AddressType[toEdit?.addressType!])];
+
+      this.editAddress = true;
+      this.editedAddress = toEdit;
+
+      //name
+      this.name?.setValue(toEdit?.name!);
+      this.mobile?.setValue(toEdit?.mobileNumber!);
+      this.pin?.setValue('' + toEdit?.pin!);
+      this.district?.setValue(toEdit?.district!);
+      this.address?.setValue(toEdit?.totalAddress!);
+      this.town?.setValue(toEdit?.town!);
+      this.state?.setValue(States[parseInt(States[toEdit?.state!])]);
+      this.isDefault?.setValue(toEdit?.defaultAddress!);
+    }
+  }
 
   changeAddressType(option: string) {
     this.addressType = option;
@@ -38,6 +63,8 @@ export class AddressChangerComponent {
   exit() {
     this.close.emit();
     this.setShowAddress(false);
+    this.editAddress = false;
+    this.editedAddress = null;
   }
 
   addAddressForm = new FormGroup({
@@ -102,20 +129,41 @@ export class AddressChangerComponent {
   }
 
   addAddress() {
-    let result: Address = {
-      name: this.name?.value!,
-      mobileNumber: this.mobile?.value!,
-      pin: parseInt(this.pin?.value!),
-      totalAddress: this.address?.value!,
-      town: this.town?.value!,
-      district: this.district?.value!,
-      state: States[this.state?.value! as keyof typeof States],
-      isDefault: this.isDefault?.value!,
-      addressType: AddressType[this.addressType as keyof typeof AddressType],
-    };
-    this.store.dispatch(addAddress({ address: result }));
-    this.close.emit();
-    this.setShowAddress(false);
+    if (!this.editAddress) {
+      let result: AddressSent = {
+        name: this.name?.value!,
+        mobileNumber: this.mobile?.value!,
+        pin: parseInt(this.pin?.value!),
+        totalAddress: this.address?.value!,
+        town: this.town?.value!,
+        district: this.district?.value!,
+        state: States[this.state?.value! as keyof typeof States],
+        defaultAddress: this.isDefault?.value!,
+        addressType: AddressType[this.addressType as keyof typeof AddressType],
+      };
+      this.store.dispatch(addAddress({ address: result }));
+    } else {
+      let result: Address = {
+        id: this.editedAddress?.id!,
+        name: this.name?.value!,
+        mobileNumber: this.mobile?.value!,
+        pin: parseInt(this.pin?.value!),
+        totalAddress: this.address?.value!,
+        town: this.town?.value!,
+        district: this.district?.value!,
+        state: States[this.state?.value! as keyof typeof States],
+        defaultAddress: this.isDefault?.value!,
+        addressType: AddressType[this.addressType as keyof typeof AddressType],
+      };
+
+      console.log('hai');
+
+      console.log(result.defaultAddress);
+
+      this.store.dispatch(editAddress({ address: result }));
+    }
+
+    this.exit();
   }
 
   ngOnInit(): void {

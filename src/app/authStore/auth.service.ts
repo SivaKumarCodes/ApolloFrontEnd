@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Address, Auth, UserRegistration } from './auth.store';
+import { Address, AddressSent, Auth, UserRegistration } from './auth.store';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +62,30 @@ export class AuthService {
     );
   }
 
-  addAddress(token: string, address: Address) {
+  removeAddress(token: string, id: number) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    const body = {
+      id: id,
+    };
+
+    return this.http.post<void>(
+      'http://localhost:8080/api/v1/removeaddress',
+      body,
+      options
+    );
+  }
+
+  addAddress(token: string, address: AddressSent) {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -76,6 +99,25 @@ export class AuthService {
 
     return this.http.post<void>(
       'http://localhost:8080/api/v1/addaddress',
+      address,
+      options
+    );
+  }
+
+  editAddress(token: string, address: Address) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<void>(
+      'http://localhost:8080/api/v1/editaddress',
       address,
       options
     );
