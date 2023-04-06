@@ -43,7 +43,6 @@ export class ProductPageComponent {
         productId: this.product?.productId!,
         variantId: this.selectedVariant?.variantId!,
         quantity: this.quantity,
-        addenOn: new Date(),
       })
     );
   }

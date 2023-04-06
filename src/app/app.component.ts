@@ -11,6 +11,8 @@ import {
 import { dropdownContent, dropdownOption } from './navbar/navbar.component';
 import { loadingProducts } from './store/app.actions';
 import { Product } from './store/app.store';
+import { getLoading } from './store/app.selectors';
+import { getAuthSucess } from './authStore/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +32,8 @@ export class AppComponent {
 
   activeIndex!: number;
 
+  loading: boolean = true;
+
   setactive(value: { ind: number; flag: boolean }) {
     this.activeState[value.ind] = value.flag;
   }
@@ -48,8 +52,13 @@ export class AppComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    this.state.select(getLoading).subscribe((data) => (this.loading = data));
+
     this.state.dispatch(loadingProducts());
     this.state.dispatch(repopulateFromLocalStroage());
-    this.state.dispatch(repopulateCart());
+
+    this.state.select(getAuthSucess).subscribe((data) => {
+      if (data) this.state.dispatch(repopulateCart());
+    });
   }
 }

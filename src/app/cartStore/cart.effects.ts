@@ -8,6 +8,8 @@ import {
   addToCart,
   addToCartEffect,
   addToCartSuccessful,
+  makeOrder,
+  orderSucess,
   removeFromCart,
   RemoveFromCartEffect,
   RemoveFromCartSuccessful,
@@ -43,7 +45,7 @@ export class CartEffects {
     )
   );
 
-  loadCart = createEffect(() =>
+  loadCart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(repopulateCart),
       withLatestFrom(this.state.select(getToken)),
@@ -51,6 +53,17 @@ export class CartEffects {
         return this.cartService.getItemsCart(token);
       }),
       map((data) => repopulteCartSucessful({ cart: data }))
+    )
+  );
+
+  makeOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(makeOrder),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.cartService.makeOrder(token, action.order);
+      }),
+      map((data) => orderSucess(data))
     )
   );
 

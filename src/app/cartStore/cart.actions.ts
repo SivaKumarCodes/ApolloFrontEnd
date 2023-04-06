@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { cartItem } from './cart.store';
+import { Order, cartItem } from './cart.store';
+import { orderNum } from './cart.service';
 
 const _addToCart = '[cart] addToCart';
 const _removeFromCart = '[cart] remove from Cart';
@@ -8,11 +9,16 @@ const _repopulateCartSucessful = '[cart] repopulate Cart sucessful';
 
 const _addToCartSucessful = '[cart] add to cart sucessful';
 
-export const _addToCartEffect = '[cart] addToCartEffect';
-export const _removeFromCartEffect = '[cart] remove from cart Effect';
-export const _removeFromCartSuccessful = '[cart] remove from cart successful';
+const _orderInitiated = '[Order] order Initiated';
+const _orderSucess = '[Order] order Sucess';
+const _makeOrder = '[Order] make order';
 
-export const _repopulateCartEffect = '[cart] repopulate cart Effect';
+const _addToCartEffect = '[cart] addToCartEffect';
+const _removeFromCartEffect = '[cart] remove from cart Effect';
+const _removeFromCartSuccessful = '[cart] remove from cart successful';
+
+const _repopulateCartEffect = '[cart] repopulate cart Effect';
+const _clearOrder = '[Order] order clear';
 
 //actions
 
@@ -36,6 +42,14 @@ export const RemoveFromCartEffect = createAction(
   props<cartItem>()
 );
 
+export const clearOrder = createAction(_clearOrder);
+
 export const RemoveFromCartSuccessful = createAction(_removeFromCartSuccessful);
 
 export const addToCartSuccessful = createAction(_addToCartSucessful);
+
+export const orderInitated = createAction(_orderInitiated);
+
+export const makeOrder = createAction(_makeOrder, props<{ order: Order }>());
+
+export const orderSucess = createAction(_orderSucess, props<orderNum>());

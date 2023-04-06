@@ -22,3 +22,18 @@ export const getCartCount = createSelector(
 export const existsOnCart = createSelector(getCartState, (state) =>
   state.cart.map((i) => ({ productId: i.productId, variantId: i.variantId }))
 );
+
+export const getIsOrderInitiated = createSelector(
+  getCartState,
+  (state) => state.orderIniated
+);
+
+export const getOrderSucess = createSelector(
+  getCartState,
+  (state) => state.orderSucess
+);
+
+export const getOrderNum = createSelector(
+  getCartState,
+  (state) => state.orderNumber
+);

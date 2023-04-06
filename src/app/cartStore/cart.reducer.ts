@@ -1,10 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   addToCart,
+  clearOrder,
+  orderInitated,
+  orderSucess,
   removeFromCart,
   repopulteCartSucessful,
 } from './cart.actions';
 import { cartItem, initialCartState } from './cart.store';
+import { state } from '@angular/animations';
 
 const _cartReducer = createReducer(
   initialCartState,
@@ -69,7 +73,23 @@ const _cartReducer = createReducer(
   }),
   on(repopulteCartSucessful, (state, action) => ({
     ...state,
-    cart: [...state.cart, ...action.cart],
+    cart: [...action.cart],
+  })),
+
+  on(orderInitated, (state) => ({
+    ...state,
+    orderIniated: true,
+  })),
+  on(orderSucess, (state, action) => ({
+    ...state,
+    orderNumber: action.orderNumber,
+    orderSucess: true,
+  })),
+  on(clearOrder, (state) => ({
+    ...state,
+    orderIniated: false,
+    orderSucess: false,
+    orderNumber: '',
   }))
 );
 

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { cartItem } from './cart.store';
+import { Order, cartItem } from './cart.store';
 
 @Injectable({
   providedIn: 'root',
@@ -74,5 +74,28 @@ export class CartService {
     );
   }
 
+  makeOrder(token: string, body: Order) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<orderNum>(
+      'http://localhost:8080/api/v1/order',
+      body,
+      options
+    );
+  }
+
   constructor(private http: HttpClient) {}
+}
+
+export interface orderNum {
+  orderNumber: string;
 }

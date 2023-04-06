@@ -18,7 +18,7 @@ const _productReducer = createReducer(
     failed: false,
     products: action.products,
   })),
-  on(loadingProductFailure, (state, action) => ({
+  on(loadingProductFailure, (state) => ({
     ...state,
     loading: false,
     failed: true,

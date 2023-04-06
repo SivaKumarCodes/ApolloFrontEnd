@@ -1,4 +1,5 @@
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import { paymentOption } from '../cart-page/cart-page.component';
 
 export interface Product {
   productId: number;
@@ -17,6 +18,11 @@ export interface Variant {
   images: string[];
   mesurement: string;
   available: number;
+}
+
+export interface Order {
+  addressId: number;
+  paymentOption: paymentOption;
 }
 
 export interface ProductState {

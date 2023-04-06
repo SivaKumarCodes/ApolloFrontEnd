@@ -11,20 +11,43 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { getUserAddresses, removeAddress } from '../authStore/auth.actions';
-import { getAddresses } from '../authStore/auth.selectors';
+import { getAddresses, getAuthSucess } from '../authStore/auth.selectors';
 import { Address } from '../authStore/auth.store';
 import {
   addToCart,
   addToCartEffect,
+  clearOrder,
+  makeOrder,
+  orderInitated,
   RemoveFromCartEffect,
+  repopulateCart,
 } from '../cartStore/cart.actions';
-import { getCart, ProductVariant } from '../cartStore/cart.selectors';
-import { cartItem } from '../cartStore/cart.store';
+import {
+  getCart,
+  getOrderNum,
+  getOrderSucess,
+  ProductVariant,
+} from '../cartStore/cart.selectors';
+import { Order, cartItem } from '../cartStore/cart.store';
 import { getProduct, getProductById } from '../store/app.selectors';
 import { Product, Variant } from '../store/app.store';
 import { AddressType } from '../authStore/auth.store';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { AddressChangerComponent } from '../address-changer/address-changer.component';
+
+export enum paymentOption {
+  UPI,
+  NETBANKING,
+  CARD,
+  COD,
+}
+
+export enum saleStatus {
+  PROCESSING,
+  SHIPPED,
+  IN_TRANSIT,
+  DELIVERED,
+}
 
 interface cartEntity {
   image: string;
@@ -52,9 +75,19 @@ export class CartPageComponent {
   plustIcon = faPlus;
   dotIcon = faCircle;
 
+  orderSucessSubcription!: Subscription;
+
   enumAddresstype = AddressType;
 
   deliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+  selectedPaymentOption: paymentOption = paymentOption.COD;
+
+  paymentOptions = paymentOption;
+
+  changePaymentOption(paymentOption: paymentOption) {
+    this.selectedPaymentOption = paymentOption;
+  }
 
   monthNames = [
     'Jan',
@@ -106,6 +139,8 @@ export class CartPageComponent {
   addressVisible: boolean = false;
 
   addressSubscription!: Subscription;
+
+  selectedItems: cartEntity[] = [];
 
   setAddressVisible(val: boolean) {
     this.addressVisible = val;
@@ -179,7 +214,15 @@ export class CartPageComponent {
 
   totalPrice() {
     let totalPrice = 0;
-    this.cartItems.forEach(
+
+    let result: cartEntity[] = [];
+    this.isSelected.forEach((val, index) => {
+      if (val) result.push(this.cartItems[index]);
+    });
+
+    this.selectedItems = result;
+
+    this.selectedItems.forEach(
       (item) => (totalPrice += item.purchaseQuantity * item.price)
     );
     this.totalAmount = totalPrice;
@@ -203,12 +246,40 @@ export class CartPageComponent {
     this.addressVisible = true;
   }
 
+  makeOrder() {
+    const items: cartItem[] = [];
+
+    this.selectedItems.forEach((val, ind) => {
+      if (val) {
+        const item: cartItem = {
+          productId: this.cartData[ind].productId,
+          variantId: this.cartData[ind].variantId,
+          quantity: this.cartData[ind].quantity,
+        };
+        items.push(item);
+      }
+    });
+
+    console.log(items);
+
+    const body: Order = {
+      addressId: this.addresses[this.selectedAddress].id,
+      paymentOption: this.selectedPaymentOption,
+      items: items,
+    };
+
+    this.state.dispatch(orderInitated());
+    this.state.dispatch(makeOrder({ order: body }));
+  }
+
+  orderNum$ = this.state.select(getOrderNum);
+
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.state.dispatch(getUserAddresses());
-
-    console.log(this.deliveryDate);
+    this.state.select(getAuthSucess).subscribe((data) => {
+      if (data) this.state.dispatch(getUserAddresses());
+    });
 
     this.cartSubscription = this.state.select(getCart).subscribe((data) => {
       let result: cartEntity[] = [];
@@ -265,6 +336,15 @@ export class CartPageComponent {
           });
         }
       });
+
+    this.orderSucessSubcription = this.state
+      .select(getOrderSucess)
+      .subscribe((val) => {
+        if (val) {
+          this.state.dispatch(repopulateCart());
+          this.setOrderStep(2);
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -272,5 +352,7 @@ export class CartPageComponent {
     //Add 'implements OnDestroy' to the class.
     this.cartSubscription.unsubscribe();
     this.addressSubscription.unsubscribe();
+    this.OrderStep = 0;
+    this.state.dispatch(clearOrder());
   }
 }

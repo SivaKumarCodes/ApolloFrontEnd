@@ -161,12 +161,15 @@
           <div class="select__address__other__address select__address__address">
             <div class="select__address__svg">
               <svg
-                *ngIf="selectedAddress == defaultAdress"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
-                class="radioButton-base"
+                [ngClass]="
+                  selectedAddress == defaultAdress
+                    ? 'radioButton-base'
+                    : 'radioButton_inactive'
+                "
               >
                 <g fill-rule="evenodd">
                   <path
@@ -246,12 +249,15 @@
         <div class="select__address__other__address select__address__address">
           <div class="select__address__svg">
             <svg
-              *ngIf="selectedAddress == i"
-              xmlns="http://www.w3.org/2000/svg"
+              s="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               viewBox="0 0 16 16"
-              class="radioButton-base"
+              [ngClass]="
+                selectedAddress == i
+                  ? 'radioButton-base'
+                  : 'radioButton_inactive'
+              "
             >
               <g fill-rule="evenodd">
                 <path
@@ -332,7 +338,7 @@
     </p>
     <div
       class="select__delivery__item"
-      *ngFor="let item of cartItems; let isLast = last"
+      *ngFor="let item of selectedItems; let isLast = last"
       [ngClass]="isLast ? 'no-border' : ''"
     >
       <div
@@ -362,8 +368,88 @@
         {{ currencyFormat(totalAmount) }}
       </p>
     </div>
-    <div class="select__address__place__order">
+    <div (click)="makeOrder()" class="select__address__place__order">
       <p>PLACE ORDER</p>
+    </div>
+    <p class="select___address__heading__secondary">Select Payment method</p>
+    <div class="select__chose__payment">
+      <div
+        class="select__payment__option"
+        (click)="changePaymentOption(paymentOptions.UPI)"
+      >
+        <div
+          class="payment__inactive"
+          [ngClass]="
+            selectedPaymentOption == paymentOptions.UPI
+              ? 'payment__selection'
+              : ''
+          "
+        >
+          <fa-icon
+            class="payment__selection__tickmark"
+            [icon]="checkMarkIcon"
+          ></fa-icon>
+        </div>
+        <p>UPI</p>
+        <!-- <p>{{ selectedPaymentOption == paymentOptions.COD }}</p> -->
+      </div>
+      <div
+        class="select__payment__option"
+        (click)="changePaymentOption(paymentOptions.CARD)"
+      >
+        <div
+          class="payment__inactive"
+          [ngClass]="
+            selectedPaymentOption == paymentOptions.CARD
+              ? 'payment__selection'
+              : ''
+          "
+        >
+          <fa-icon
+            class="payment__selection__tickmark"
+            [icon]="checkMarkIcon"
+          ></fa-icon>
+        </div>
+        <p>Credit Card / Debit Card</p>
+      </div>
+      <div
+        class="select__payment__option"
+        (click)="changePaymentOption(paymentOptions.NETBANKING)"
+      >
+        <div
+          class="payment__inactive"
+          [ngClass]="
+            selectedPaymentOption == paymentOptions.NETBANKING
+              ? 'payment__selection'
+              : ''
+          "
+        >
+          <fa-icon
+            class="payment__selection__tickmark"
+            [icon]="checkMarkIcon"
+          ></fa-icon>
+        </div>
+        <p>Net Banking</p>
+      </div>
+      <div
+        class="select__payment__option"
+        (click)="changePaymentOption(paymentOptions.COD)"
+      >
+        <div
+          class="payment__inactive"
+          [ngClass]="
+            selectedPaymentOption == paymentOptions.COD
+              ? 'payment__selection'
+              : ''
+          "
+        >
+          <fa-icon
+            class="payment__selection__tickmark"
+            [icon]="checkMarkIcon"
+          ></fa-icon>
+        </div>
+        <p>Cash on Delivery (Cash/UPI)</p>
+      </div>
     </div>
   </div>
   <app-address-changer
@@ -373,4 +459,35 @@
     (selectAddress)="selectAddress($event)"
   >
   </app-address-changer>
+</div>
+
+<div *ngIf="OrderStep == 2" class="orderSucess">
+  <div class="center__card">
+    <div class="order__sucess__left">
+      <p class="green__order_confirmation">Oder Confirmed</p>
+      <p class="order__sucess__order__number">
+        Order No. {{ orderNum$ | async }}
+      </p>
+      <div class="order__information">
+        <p class="order__confirmation__text">
+          Your order is currently being processed. You will receive an order
+          confirmation email shortly with the expected delivery date of your
+          items.
+        </p>
+        <p class="order__view__more">VIEW ORDER</p>
+      </div>
+    </div>
+    <div class="order__sucess_rigth">
+      <p id="order__right__heading" class="order__confirmation__text">
+        Order Details
+      </p>
+      <div class="order__confirmation__text">
+        <p>PAYMENT MODE</p>
+        <p id="online">Online</p>
+      </div>
+    </div>
+  </div>
+  <div class="order__continue__shopping" routerLink="/">
+    <p>CONTINUE SHOPPING</p>
+  </div>
 </div>
