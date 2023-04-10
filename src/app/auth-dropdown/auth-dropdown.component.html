@@ -3,7 +3,7 @@
     <h3 id="dropdown__welcome">welcome</h3>
     <p class="dropdown__text">To acess account and manage orders</p>
     <div id="login">
-      <button id="login__button">Login / signup</button>
+      <button routerLink="/login" id="login__button">Login / signup</button>
     </div>
   </div>
   <div class="loggedIn" *ngIf="authState$ | async">
@@ -11,8 +11,14 @@
       id="profile__img"
       src="/assets/img/profile-circle-svgrepo-com.svg"
       alt=""
+      routerLink="/user"
     />
-    <p id="name" class="dropdown__text">
+    <p
+      id="name"
+      class="dropdown__text"
+      (click)="$event.stopPropagation()"
+      routerLink="/user"
+    >
       {{ (user$ | async)?.firstName + " " + (user$ | async)?.lastName }}
       <fa-icon id="edit__icon" [icon]="penicon"> </fa-icon>
     </p>

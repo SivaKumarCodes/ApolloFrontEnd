@@ -3,12 +3,18 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Address, AddressSent, Auth, UserRegistration } from './auth.store';
 
+interface loginRequest {
+  email: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  authenticate(username: string, password: string) {
+  authenticate(email: string, password: string) {
+    const body: loginRequest = { email, password };
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -16,14 +22,11 @@ export class AuthService {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
         'Access-Control-Allow-Headers': 'Authorization',
-        Authorization: 'Basic ' + window.btoa(`${username}:${password}`),
       }),
     };
 
-    console.log(options);
-
     return this.http
-      .get<Auth>('http://localhost:8080/api/v1/token/', options)
+      .post<Auth>('http://localhost:8080/api/v1/token/', body, options)
       .pipe(catchError((err) => throwError(() => 'invalid username')));
   }
 

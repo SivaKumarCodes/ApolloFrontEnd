@@ -26,6 +26,8 @@ import { QuantityPickerComponent } from './quantity-picker/quantity-picker.compo
 import { AddressChangerComponent } from './address-changer/address-changer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { LoadingComponent } from './loading/loading.component';
     QuantityPickerComponent,
     AddressChangerComponent,
     LoadingComponent,
+    UserPageComponent,
   ],
   imports: [
     BrowserModule,
