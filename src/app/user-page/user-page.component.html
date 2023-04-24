@@ -1,14 +1,179 @@
-<!-- <p>user-page works!</p> -->
 <div class="user__page__container">
   <div class="user__page__header">
     <p class="user__page__heading">Account</p>
+    <p class="user__page__heading__name">
+      {{ fullName }}
+    </p>
   </div>
   <div class="user__page__sidebar">
     <div class="user__page__sidebar__section">
-      <p class="user__page__sidebar__title">ACCOUNT</p>
+      <p class="user__page__sidebar__title">Account</p>
+      <p class="user__page__sidebar__link active__link">Profile</p>
+      <p class="user__page__sidebar__link">Saved Adresses</p>
+    </div>
+    <div class="user__page__sidebar__section">
+      <p class="user__page__sidebar__title">Orders</p>
+      <p class="user__page__sidebar__link">Orders & Returns</p>
+      <p
+        (click)="showLogOut(true)"
+        id="logout"
+        class="user__page__sidebar__link"
+      >
+        Logout <fa-icon id="logout__symbol" [icon]="logoutSymbol"> </fa-icon>
+      </p>
     </div>
   </div>
   <div class="user__page__main">
-    <p>profile</p>
+    <div class="user__page__details" *ngIf="!editAddress">
+      <div class="user__page__details__main">
+        <div class="user__page_title">
+          <p class="user__page__heading">Profile Details</p>
+        </div>
+        <div class="user__page__user__details">
+          <div class="details__detail">
+            <p class="details__txt">Full Name</p>
+            <p class="details__txt">{{ fullName }}</p>
+          </div>
+          <div class="details__detail">
+            <p class="details__txt">Email</p>
+            <p class="details__txt">{{ user.email }}</p>
+          </div>
+          <div class="details__detail">
+            <p class="details__txt">Gender</p>
+            <p class="details__txt">
+              {{ GenderString }}
+            </p>
+          </div>
+          <div class="details__detail">
+            <p class="details__txt">Date Of Birth</p>
+            <p class="details__txt">
+              {{ dobString }}
+            </p>
+          </div>
+          <div class="details__detail">
+            <p class="details__txt">Mobile number</p>
+            <p class="details__txt">
+              {{ details.mobile ? details.mobile : "-not-added-" }}
+            </p>
+          </div>
+        </div>
+        <div class="edit__address" (click)="setEditAddress(true)">
+          <p>EDIT</p>
+        </div>
+      </div>
+    </div>
+    <div class="user__page__details" *ngIf="editAddress">
+      <div class="user__page__details__main">
+        <form
+          class="user__edit__form"
+          (ngSubmit)="saveDetails()"
+          [formGroup]="detailsForm"
+        >
+          <div class="input__section">
+            <label class="label" for="mobile"> Mobile number </label>
+            <input
+              class="input"
+              formControlName="mobile"
+              id="mobile"
+              type="text"
+              placeholder="Mobile number"
+            />
+          </div>
+
+          <div class="double__input__block">
+            <div class="input__section">
+              <label class="label" for="firstName"> First Name </label>
+              <input
+                class="input"
+                formControlName="fName"
+                id="firstName"
+                type="text"
+                placeholder="First name"
+              />
+            </div>
+            <div class="input__section">
+              <label class="label" for="lastName"> Last name </label>
+              <input
+                class="input"
+                formControlName="lName"
+                id="lastName"
+                type="text"
+                placeholder="Last name"
+              />
+            </div>
+          </div>
+
+          <div class="input__section">
+            <label class="label" for="email"> Email </label>
+            <input
+              class="input"
+              formControlName="email"
+              id="email"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+
+          <div class="input__gender__section">
+            <div class="input__gender" (click)="setSelectGender(genders.MALE)">
+              <p>
+                <fa-icon
+                  *ngIf="
+                    genders[selectedGender] == '0' ||
+                    genders[selectedGender] == 'MALE'
+                  "
+                  class="checkmark"
+                  [icon]="checkIcon"
+                ></fa-icon>
+                Male
+              </p>
+            </div>
+            <div
+              class="input__gender"
+              (click)="setSelectGender(genders.FEMALE)"
+            >
+              <fa-icon
+                *ngIf="
+                  genders[selectedGender] == '1' ||
+                  genders[selectedGender] == 'FEMALE'
+                "
+                class="checkmark"
+                [icon]="checkIcon"
+              ></fa-icon>
+              <p>Female</p>
+            </div>
+          </div>
+
+          <div class="input__section">
+            <label class="label" for="dateOfBirth"> Date Of Birth </label>
+            <input
+              class="input"
+              formControlName="dob"
+              id="dateOfBirth"
+              type="date"
+            />
+          </div>
+          <input type="submit" class="save__details" value="Save Details" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="logoutWarning" class="logout__popup">
+  <div class="actual__popup">
+    <div class="logout__info">
+      <p class="warning">Logout</p>
+      <p class="waring__text">
+        Are you sure u want to logout ? You will be redirected to home page.
+      </p>
+    </div>
+    <div class="logut__buttons">
+      <div class="cancel">
+        <p>Cancel</p>
+      </div>
+      <div (click)="logOut()" class="final__logout">
+        <p>Logout</p>
+      </div>
+    </div>
   </div>
 </div>

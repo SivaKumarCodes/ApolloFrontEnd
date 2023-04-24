@@ -9,6 +9,7 @@ import {
 } from './cart.actions';
 import { cartItem, initialCartState } from './cart.store';
 import { state } from '@angular/animations';
+import { clearUserData, logout } from '../authStore/auth.actions';
 
 const _cartReducer = createReducer(
   initialCartState,
@@ -87,6 +88,13 @@ const _cartReducer = createReducer(
   })),
   on(clearOrder, (state) => ({
     ...state,
+    orderIniated: false,
+    orderSucess: false,
+    orderNumber: '',
+  })),
+  on(clearUserData, (state) => ({
+    ...state,
+    cart: [],
     orderIniated: false,
     orderSucess: false,
     orderNumber: '',

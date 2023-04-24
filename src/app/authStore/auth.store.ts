@@ -5,12 +5,25 @@ export interface Auth {
   token: string;
   sucess: boolean;
   addresses: Address[] | null;
+  details: Details | null;
+  updateSucessful: boolean;
+}
+
+export interface Details {
+  mobile: string | null;
+  gender: Gender | null;
+  dateOfBirth: string | null;
 }
 
 export interface User {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface Creds {
+  firstName: string;
+  lastName: string;
 }
 
 export interface Address {
@@ -43,11 +56,23 @@ export enum AddressType {
   WORK,
 }
 
+export enum Gender {
+  MALE,
+  FEMALE,
+  OTHER,
+}
+
 export const initialState: Auth | null = {
   user: null,
   token: '',
   sucess: false,
   addresses: null,
+  updateSucessful: false,
+  details: {
+    dateOfBirth: null,
+    mobile: null,
+    gender: null,
+  },
 };
 
 export interface UserRegistration {

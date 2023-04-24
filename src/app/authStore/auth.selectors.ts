@@ -16,3 +16,18 @@ export const getAddresses = createSelector(
   getAuthState,
   (state) => state.addresses
 );
+
+export const selectDetails = createSelector(
+  getAuthState,
+  (state) => state.details
+);
+
+export const getUserFirstName = createSelector(
+  getAuthState,
+  (state) => state.user?.firstName
+);
+
+export const selectUpdateDetails = createSelector(
+  getAuthState,
+  (state) => state.updateSucessful
+);

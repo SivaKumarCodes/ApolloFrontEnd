@@ -155,11 +155,6 @@ export class AddressChangerComponent {
         defaultAddress: this.isDefault?.value!,
         addressType: AddressType[this.addressType as keyof typeof AddressType],
       };
-
-      console.log('hai');
-
-      console.log(result.defaultAddress);
-
       this.store.dispatch(editAddress({ address: result }));
     }
 

@@ -25,7 +25,7 @@ export class CartService {
     };
 
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/addtocart',
+      'https://apollopharmacy.sivacodes.com/api/v1/addtocart',
       body,
       options
     );
@@ -50,7 +50,7 @@ export class CartService {
     };
 
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/removefromcart',
+      'https://apollopharmacy.sivacodes.com/api/v1/removefromcart',
       body,
       options
     );
@@ -69,7 +69,7 @@ export class CartService {
     };
 
     return this.http.get<cartItem[]>(
-      'http://localhost:8080/api/v1/getcart',
+      'https://apollopharmacy.sivacodes.com/api/v1/getcart',
       options
     );
   }
@@ -87,7 +87,7 @@ export class CartService {
     };
 
     return this.http.post<orderNum>(
-      'http://localhost:8080/api/v1/order',
+      'https://apollopharmacy.sivacodes.com/api/v1/order',
       body,
       options
     );

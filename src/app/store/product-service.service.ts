@@ -8,6 +8,8 @@ import { Product } from './app.store';
 export class ProductServiceService {
   constructor(private http: HttpClient) {}
   getAll() {
-    return this.http.get<Product[]>('http://localhost:8080/api/v1/products');
+    return this.http.get<Product[]>(
+      'https://apollopharmacy.sivacodes.com/api/v1/products'
+    );
   }
 }

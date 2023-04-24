@@ -1,12 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   authenticationSucessful,
+  clearUserData,
   getUserAddressesSucessful,
   logout,
   repopulateFailure,
   repopulateSuccessful,
+  updateCredsSucessful,
+  updateDetails,
+  updateDetailsSucessful,
 } from './auth.actions';
 import { initialState } from './auth.store';
+import { UserPageComponent } from '../user-page/user-page.component';
 
 const _AuthenticateReducer = createReducer(
   initialState,
@@ -26,15 +31,33 @@ const _AuthenticateReducer = createReducer(
     ...state!,
     sucess: false,
   })),
-  on(logout, (state) => ({
+  on(clearUserData, (state) => ({
     ...state!,
     user: null,
     token: '',
     sucess: false,
+    addresses: null,
   })),
   on(getUserAddressesSucessful, (state, action) => ({
     ...state!,
     addresses: action.addresses,
+  })),
+  on(updateDetails, (state, action) => ({
+    ...state!,
+    details: action.details,
+    updateSucessful: false,
+  })),
+  on(updateDetailsSucessful, (state) => ({
+    ...state!,
+    updateSucessful: true,
+  })),
+  on(updateCredsSucessful, (state, action) => ({
+    ...state!,
+    user: {
+      ...state?.user!,
+      firstName: action.firstName,
+      lastName: action.lastName,
+    },
   }))
 );
 

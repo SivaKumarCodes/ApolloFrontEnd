@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getCartCount } from '../cartStore/cart.selectors';
+import { getAuthSucess, getUserFirstName } from '../authStore/auth.selectors';
 
 @Component({
   selector: 'app-navbar',
@@ -71,13 +72,23 @@ export class NavbarComponent implements OnInit {
     [],
   ];
 
+  firstName!: string;
+  authenticated!: boolean;
+
   constructor(private state: Store) {}
 
   showDropDown(value: dropdownContent) {
     this.dropdown.emit(value);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.state.select(getAuthSucess).subscribe((data) => {
+      this.authenticated = data;
+    });
+    this.state.select(getUserFirstName).subscribe((data) => {
+      this.firstName = data!;
+    });
+  }
 }
 
 export interface dropdownOption {

@@ -1,7 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Address, AddressSent, Auth, UserRegistration } from './auth.store';
+import {
+  Address,
+  AddressSent,
+  Auth,
+  Creds,
+  Details,
+  UserRegistration,
+} from './auth.store';
 
 interface loginRequest {
   email: string;
@@ -26,17 +33,24 @@ export class AuthService {
     };
 
     return this.http
-      .post<Auth>('http://localhost:8080/api/v1/token/', body, options)
+      .post<Auth>(
+        'https://apollopharmacy.sivacodes.com/api/v1/token/',
+        body,
+        options
+      )
       .pipe(catchError((err) => throwError(() => 'invalid username')));
   }
 
   register(user: UserRegistration) {
-    return this.http.post<void>('http://localhost:8080/api/v1/register/', user);
+    return this.http.post<void>(
+      'https://apollopharmacy.sivacodes.com/api/v1/register/',
+      user
+    );
   }
 
   checkEmail(email: string) {
     const result = this.http.get<{ value: boolean }>(
-      'http://localhost:8080/api/v1/checkmail/',
+      'https://apollopharmacy.sivacodes.com/api/v1/checkmail/',
 
       {
         params: {
@@ -60,7 +74,7 @@ export class AuthService {
     };
 
     return this.http.get<Address[]>(
-      'http://localhost:8080/api/v1/getaddresses',
+      'https://apollopharmacy.sivacodes.com/api/v1/getaddresses',
       options
     );
   }
@@ -82,7 +96,7 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/removeaddress',
+      'https://apollopharmacy.sivacodes.com/api/v1/removeaddress',
       body,
       options
     );
@@ -101,7 +115,7 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/addaddress',
+      'https://apollopharmacy.sivacodes.com/api/v1/addaddress',
       address,
       options
     );
@@ -120,8 +134,67 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'http://localhost:8080/api/v1/editaddress',
+      'https://apollopharmacy.sivacodes.com/api/v1/editaddress',
       address,
+      options
+    );
+  }
+
+  addDetails(token: string, details: Details) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<void>(
+      // 'https://apollopharmacy.sivacodes.com/api/v1/adddetails',
+      'http://localhost:8080/api/v1/adddetails',
+      details,
+      options
+    );
+  }
+
+  getDetails(token: string) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.get<Details>(
+      // 'https://apollopharmacy.sivacodes.com/api/v1/getdetails',
+      'http://localhost:8080/api/v1/getdetails',
+      options
+    );
+  }
+
+  updateCreds(token: string, creds: Creds) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<Creds>(
+      // 'https://apollopharmacy.sivacodes.com/api/v1/getdetails',
+      'http://localhost:8080/api/v1/updatecreds',
+      creds,
       options
     );
   }

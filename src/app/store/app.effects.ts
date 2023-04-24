@@ -6,11 +6,11 @@ import { ProductServiceService } from './product-service.service';
 
 @Injectable()
 export class ProductEffects {
-  loadMovies$ = createEffect(() =>
+  loadProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadingProducts),
       mergeMap(() => this.productService.getAll()),
-      // delay(1500),
+      delay(1500),
       map((data) => loadingProdctsSucess({ products: data }))
     )
   );

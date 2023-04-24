@@ -17,17 +17,25 @@ import {
 import {
   addAddress,
   addAddressSucessful,
+  addDetails,
   authenticateUser,
   authenticationFailure,
   authenticationSucessful,
+  clearUserData,
   editAddress,
+  getDetails,
   getUserAddresses,
   getUserAddressesSucessful,
+  logout,
   registerUser,
   removeAddress,
   repopulateFailure,
   repopulateFromLocalStroage,
   repopulateSuccessful,
+  updateCreds,
+  updateCredsSucessful,
+  updateDetails,
+  updateDetailsSucessful,
 } from './auth.actions';
 import { getToken } from './auth.selectors';
 import { AuthService } from './auth.service';
@@ -65,6 +73,16 @@ export class AuthEffects {
     )
   );
 
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(logout),
+      map(() => {
+        localStorage.clear();
+        return clearUserData();
+      })
+    );
+  });
+
   register$ = createEffect(() => {
     let email: string;
     let password: string;
@@ -88,6 +106,7 @@ export class AuthEffects {
         const result = new Observable<Auth>((observer) => {
           observer.next({
             token: localStorage.getItem('token')!,
+            updateSucessful: false,
             user: {
               firstName: localStorage.getItem('fname')!,
               lastName: localStorage.getItem('lname')!,
@@ -95,6 +114,11 @@ export class AuthEffects {
             },
             sucess: true,
             addresses: null,
+            details: {
+              gender: null,
+              dateOfBirth: null,
+              mobile: null,
+            },
           });
         });
         return result;
@@ -147,6 +171,43 @@ export class AuthEffects {
         return this.authService.editAddress(token, action.address);
       }),
       map((data) => getUserAddresses())
+    )
+  );
+
+  getDetails$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getDetails),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.getDetails(token);
+      }),
+      map((data) => updateDetails({ details: data }))
+    )
+  );
+
+  addDetails$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addDetails),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.addDetails(token, action.details);
+      }),
+      map(() => updateDetailsSucessful())
+    )
+  );
+
+  updateCreds$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateCreds),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.updateCreds(token, action);
+      }),
+      map((data) => {
+        localStorage.setItem('fname', data.firstName);
+        localStorage.setItem('lname', data.lastName);
+        return updateCredsSucessful(data);
+      })
     )
   );
 
