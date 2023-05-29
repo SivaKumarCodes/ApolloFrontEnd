@@ -28,6 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { RouterModule } from '@angular/router';
+import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { RouterModule } from '@angular/router';
     AddressChangerComponent,
     LoadingComponent,
     UserPageComponent,
+    PopUpLayerComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

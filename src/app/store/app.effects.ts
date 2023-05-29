@@ -10,7 +10,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(loadingProducts),
       mergeMap(() => this.productService.getAll()),
-      delay(1500),
+      // delay(1500),
       map((data) => loadingProdctsSucess({ products: data }))
     )
   );

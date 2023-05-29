@@ -8,12 +8,30 @@
   <div class="user__page__sidebar">
     <div class="user__page__sidebar__section">
       <p class="user__page__sidebar__title">Account</p>
-      <p class="user__page__sidebar__link active__link">Profile</p>
-      <p class="user__page__sidebar__link">Saved Adresses</p>
+      <p
+        class="user__page__sidebar__link"
+        [ngClass]="{ active__link: selectedOption == options.profile }"
+        (click)="setOption(options.profile)"
+      >
+        Profile
+      </p>
+      <p
+        class="user__page__sidebar__link"
+        [ngClass]="{ active__link: selectedOption == options.address }"
+        (click)="setOption(options.address)"
+      >
+        Saved Adresses
+      </p>
     </div>
     <div class="user__page__sidebar__section">
       <p class="user__page__sidebar__title">Orders</p>
-      <p class="user__page__sidebar__link">Orders & Returns</p>
+      <p
+        class="user__page__sidebar__link"
+        [ngClass]="{ active__link: selectedOption == options.orders }"
+        (click)="setOption(options.orders)"
+      >
+        Orders & Returns
+      </p>
       <p
         (click)="showLogOut(true)"
         id="logout"
@@ -24,141 +42,377 @@
     </div>
   </div>
   <div class="user__page__main">
-    <div class="user__page__details" *ngIf="!editAddress">
-      <div class="user__page__details__main">
-        <div class="user__page_title">
-          <p class="user__page__heading">Profile Details</p>
-        </div>
-        <div class="user__page__user__details">
-          <div class="details__detail">
-            <p class="details__txt">Full Name</p>
-            <p class="details__txt">{{ fullName }}</p>
+    <div *ngIf="selectedOption == options.profile">
+      <div class="user__page__details" *ngIf="!showAddressEdit">
+        <div class="user__page__details__main">
+          <div class="user__page_title">
+            <p class="user__page__heading">Profile Details</p>
           </div>
-          <div class="details__detail">
-            <p class="details__txt">Email</p>
-            <p class="details__txt">{{ user.email }}</p>
+          <div class="user__page__user__details">
+            <div class="details__detail">
+              <p class="details__txt">Full Name</p>
+              <p class="details__txt">{{ fullName }}</p>
+            </div>
+            <div class="details__detail">
+              <p class="details__txt">Email</p>
+              <p class="details__txt">{{ user.email }}</p>
+            </div>
+            <div class="details__detail">
+              <p class="details__txt">Gender</p>
+              <p class="details__txt">
+                {{ GenderString }}
+              </p>
+            </div>
+            <div class="details__detail">
+              <p class="details__txt">Date Of Birth</p>
+              <p class="details__txt">
+                {{ dobString }}
+              </p>
+            </div>
+            <div class="details__detail">
+              <p class="details__txt">Mobile number</p>
+              <p class="details__txt">
+                {{ details.mobile ? details.mobile : "-not-added-" }}
+              </p>
+            </div>
           </div>
-          <div class="details__detail">
-            <p class="details__txt">Gender</p>
-            <p class="details__txt">
-              {{ GenderString }}
-            </p>
+          <div class="edit__address" (click)="setEditAddress(true)">
+            <p>EDIT</p>
           </div>
-          <div class="details__detail">
-            <p class="details__txt">Date Of Birth</p>
-            <p class="details__txt">
-              {{ dobString }}
-            </p>
-          </div>
-          <div class="details__detail">
-            <p class="details__txt">Mobile number</p>
-            <p class="details__txt">
-              {{ details.mobile ? details.mobile : "-not-added-" }}
-            </p>
-          </div>
-        </div>
-        <div class="edit__address" (click)="setEditAddress(true)">
-          <p>EDIT</p>
         </div>
       </div>
-    </div>
-    <div class="user__page__details" *ngIf="editAddress">
-      <div class="user__page__details__main">
-        <form
-          class="user__edit__form"
-          (ngSubmit)="saveDetails()"
-          [formGroup]="detailsForm"
-        >
-          <div class="input__section">
-            <label class="label" for="mobile"> Mobile number </label>
-            <input
-              class="input"
-              formControlName="mobile"
-              id="mobile"
-              type="text"
-              placeholder="Mobile number"
-            />
-          </div>
-
-          <div class="double__input__block">
+      <div class="user__page__details" *ngIf="showAddressEdit">
+        <div class="user__page__details__main">
+          <form
+            class="user__edit__form"
+            (ngSubmit)="saveDetails()"
+            [formGroup]="detailsForm"
+          >
             <div class="input__section">
-              <label class="label" for="firstName"> First Name </label>
+              <label class="label" for="mobile"> Mobile number </label>
               <input
                 class="input"
-                formControlName="fName"
-                id="firstName"
+                formControlName="mobile"
+                id="mobile"
                 type="text"
-                placeholder="First name"
+                placeholder="Mobile number"
               />
             </div>
+
+            <div class="double__input__block">
+              <div class="input__section">
+                <label class="label" for="firstName"> First Name </label>
+                <input
+                  class="input"
+                  formControlName="fName"
+                  id="firstName"
+                  type="text"
+                  placeholder="First name"
+                />
+              </div>
+              <div class="input__section">
+                <label class="label" for="lastName"> Last name </label>
+                <input
+                  class="input"
+                  formControlName="lName"
+                  id="lastName"
+                  type="text"
+                  placeholder="Last name"
+                />
+              </div>
+            </div>
+
             <div class="input__section">
-              <label class="label" for="lastName"> Last name </label>
+              <label class="label" for="email"> Email </label>
               <input
                 class="input"
-                formControlName="lName"
-                id="lastName"
+                formControlName="email"
+                id="email"
                 type="text"
-                placeholder="Last name"
+                placeholder="Email"
               />
             </div>
-          </div>
 
-          <div class="input__section">
-            <label class="label" for="email"> Email </label>
-            <input
-              class="input"
-              formControlName="email"
-              id="email"
-              type="text"
-              placeholder="Email"
-            />
-          </div>
-
-          <div class="input__gender__section">
-            <div class="input__gender" (click)="setSelectGender(genders.MALE)">
-              <p>
+            <div class="input__gender__section">
+              <div
+                class="input__gender"
+                (click)="setSelectGender(genders.MALE)"
+              >
+                <p>
+                  <fa-icon
+                    *ngIf="
+                      genders[selectedGender] == '0' ||
+                      genders[selectedGender] == 'MALE'
+                    "
+                    class="checkmark"
+                    [icon]="checkIcon"
+                  ></fa-icon>
+                  Male
+                </p>
+              </div>
+              <div
+                class="input__gender"
+                (click)="setSelectGender(genders.FEMALE)"
+              >
                 <fa-icon
                   *ngIf="
-                    genders[selectedGender] == '0' ||
-                    genders[selectedGender] == 'MALE'
+                    genders[selectedGender] == '1' ||
+                    genders[selectedGender] == 'FEMALE'
                   "
                   class="checkmark"
                   [icon]="checkIcon"
                 ></fa-icon>
-                Male
-              </p>
+                <p>Female</p>
+              </div>
             </div>
-            <div
-              class="input__gender"
-              (click)="setSelectGender(genders.FEMALE)"
-            >
-              <fa-icon
-                *ngIf="
-                  genders[selectedGender] == '1' ||
-                  genders[selectedGender] == 'FEMALE'
-                "
-                class="checkmark"
-                [icon]="checkIcon"
-              ></fa-icon>
-              <p>Female</p>
-            </div>
-          </div>
 
-          <div class="input__section">
-            <label class="label" for="dateOfBirth"> Date Of Birth </label>
-            <input
-              class="input"
-              formControlName="dob"
-              id="dateOfBirth"
-              type="date"
-            />
-          </div>
-          <input type="submit" class="save__details" value="Save Details" />
-        </form>
+            <div class="input__section">
+              <label class="label" for="dateOfBirth"> Date Of Birth </label>
+              <input
+                class="input"
+                formControlName="dob"
+                id="dateOfBirth"
+                type="date"
+              />
+            </div>
+            <input type="submit" class="save__details" value="Save Details" />
+          </form>
+        </div>
       </div>
     </div>
+    <div
+      class="user__page__details"
+      id="addresses"
+      *ngIf="selectedOption == options.address"
+    >
+      <div>
+        <div class="select__address__title__second" id="saved__addresses">
+          <p
+            *ngIf="defaultAddress > -1"
+            class="select___address__heading__secondary"
+          >
+            SAVED ADDRESSES
+          </p>
+          <div class="user__add__new__address" (click)="addAddress()">
+            <p>
+              <fa-icon id="addIcon" [icon]="plusIcon"></fa-icon> ADD NEW ADDRESS
+            </p>
+          </div>
+        </div>
+        <div class="select__address__title__second">
+          <p
+            *ngIf="defaultAddress > -1"
+            class="select___address__heading__secondary"
+          >
+            DEFAULT ADDRESS
+          </p>
+        </div>
+        <div class="select__address__main">
+          <div
+            class="select__address__default__address"
+            *ngIf="defaultAddress > -1"
+          >
+            <div
+              (click)="selectAddress(defaultAddress)"
+              class="select__adress__other__address"
+            >
+              <div
+                class="select__address__other__address select__address__address"
+              >
+                <div class="select__address__svg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    [ngClass]="
+                      selectedAddress == defaultAddress
+                        ? 'radioButton-base'
+                        : 'radioButton_inactive'
+                    "
+                  >
+                    <g fill-rule="evenodd">
+                      <path
+                        d="M8 14.933A6.941 6.941 0 0 1 1.067 8 6.941 6.941 0 0 1 8 1.067 6.941 6.941 0 0 1 14.933 8 6.941 6.941 0 0 1 8 14.933M8 0C3.589 0 0 3.589 0 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8"
+                      />
+                      <path
+                        d="M8 3.429a4.571 4.571 0 1 0 0 9.143 4.571 4.571 0 0 0 0-9.143"
+                      />
+                    </g>
+                  </svg>
+                </div>
+                <div class="select__address__address__selection">
+                  <p class="select__address__address__name">
+                    {{ addresses[defaultAddress].name }}
+                    <span
+                      class="select__addresss__type"
+                      [ngClass]="
+                        enumAddresstype[
+                          addresses[defaultAddress].addressType
+                        ] == '1'
+                          ? 'select__addresss__type__work'
+                          : 'garbage'
+                      "
+                      >{{ addresses[defaultAddress].addressType }}</span
+                    >
+                  </p>
+                  <p class="select__address__text">
+                    {{ addresses[defaultAddress].totalAddress }}
+                  </p>
+                  <p class="select__address__text">
+                    {{
+                      addresses[defaultAddress].town +
+                        " , " +
+                        addresses[defaultAddress].state +
+                        " - " +
+                        addresses[defaultAddress].pin
+                    }}
+                  </p>
+                  <p
+                    class="select__address__text select__address__mobile__number"
+                  >
+                    Mobile :
+                    <span class="select__address__bold__text"
+                      >{{ addresses[defaultAddress].mobileNumber }}
+                    </span>
+                  </p>
+                  <div
+                    class="select__address__selected__change"
+                    *ngIf="selectedAddress == defaultAddress"
+                  >
+                    <p class="select__delivery__available">
+                      <fa-icon class="dotIcon" [icon]="dotIcon"></fa-icon> Pay
+                      on Delivery available
+                    </p>
+
+                    <div class="select__delivery__address__modification">
+                      <div
+                        (click)="removeAddress(addresses[defaultAddress].id)"
+                        class="select__address__remove"
+                      >
+                        REMOVE
+                      </div>
+                      <div
+                        (click)="editAddress(addresses[defaultAddress])"
+                        class="select__address__edit"
+                      >
+                        EDIT
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="otherAddress.length > 0">
+            <p
+              class="select___address__heading__secondary"
+              *ngIf="otherAddress.length > 0"
+            >
+              OTHER ADRESSES
+            </p>
+            <div
+              *ngFor="let i of otherAddress"
+              (click)="selectAddress(i)"
+              class="select__adress__other__address"
+            >
+              <div
+                class="select__address__other__address select__address__address"
+              >
+                <div class="select__address__svg">
+                  <svg
+                    s="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    [ngClass]="
+                      selectedAddress == i
+                        ? 'radioButton-base'
+                        : 'radioButton_inactive'
+                    "
+                  >
+                    <g fill-rule="evenodd">
+                      <path
+                        d="M8 14.933A6.941 6.941 0 0 1 1.067 8 6.941 6.941 0 0 1 8 1.067 6.941 6.941 0 0 1 14.933 8 6.941 6.941 0 0 1 8 14.933M8 0C3.589 0 0 3.589 0 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8"
+                      />
+                      <path
+                        d="M8 3.429a4.571 4.571 0 1 0 0 9.143 4.571 4.571 0 0 0 0-9.143"
+                      />
+                    </g>
+                  </svg>
+                </div>
+                <div class="select__address__address__selection">
+                  <p class="select__address__address__name">
+                    {{ addresses[i].name }}
+                    <span
+                      class="select__addresss__type"
+                      [ngClass]="
+                        enumAddresstype[addresses[i].addressType] == '1'
+                          ? 'select__addresss__type__work'
+                          : 'garbage'
+                      "
+                      >{{ addresses[i].addressType }}</span
+                    >
+                  </p>
+                  <p class="select__address__text">
+                    {{ addresses[i].totalAddress }}
+                  </p>
+                  <p class="select__address__text">
+                    {{
+                      addresses[i].town +
+                        " , " +
+                        addresses[i].state +
+                        " - " +
+                        addresses[i].pin
+                    }}
+                  </p>
+                  <p
+                    class="select__address__text select__address__mobile__number"
+                  >
+                    Mobile :
+                    <span class="select__address__bold__text"
+                      >{{ addresses[i].mobileNumber }}
+                    </span>
+                  </p>
+                  <div
+                    class="select__address__selected__change"
+                    *ngIf="selectedAddress == i"
+                  >
+                    <p class="select__delivery__available">
+                      <fa-icon class="dotIcon" [icon]="dotIcon"></fa-icon> Pay
+                      on Delivery available
+                    </p>
+
+                    <div class="select__delivery__address__modification">
+                      <div
+                        (click)="removeAddress(addresses[i].id)"
+                        class="select__address__remove"
+                      >
+                        REMOVE
+                      </div>
+                      <div
+                        (click)="editAddress(addresses[i])"
+                        class="select__address__edit"
+                      >
+                        EDIT
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="selectedOption == options.orders"
+      id="addresses"
+      class="user__page__details"
+    ></div>
   </div>
 </div>
+
 <div *ngIf="logoutWarning" class="logout__popup">
   <div class="actual__popup">
     <div class="logout__info">
@@ -168,7 +422,7 @@
       </p>
     </div>
     <div class="logut__buttons">
-      <div class="cancel">
+      <div (click)="showLogOut(false)" class="cancel">
         <p>Cancel</p>
       </div>
       <div (click)="logOut()" class="final__logout">
@@ -177,3 +431,11 @@
     </div>
   </div>
 </div>
+
+<app-address-changer
+  [data]="addresses"
+  (close)="setAddressVisible(false)"
+  [visible]="addressVisible"
+  (selectAddress)="selectAddress($event)"
+>
+</app-address-changer>

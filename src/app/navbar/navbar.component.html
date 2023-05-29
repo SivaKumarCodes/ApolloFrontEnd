@@ -1,7 +1,17 @@
 <nav class="grid-container">
-  <a routerLink="/" class="logo-container">
+  <!-- <a routerLink="/" class="logo-container">
     <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
-  </a>
+  </a> -->
+  <div class="menu__bar">
+    <img
+      class="menu__bar__icon"
+      src="assets/menu-hamburger-thin.svg"
+      alt="menu"
+    />
+    <a routerLink="/" class="logo-container">
+      <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
+    </a>
+  </div>
   <header class="header">
     <div class="searchBar">
       <img class="search-icon" src="/assets/img/search.svg" alt="" />
@@ -37,7 +47,7 @@
           class="profile__dropdown"
         ></app-auth-dropdown>
       </a>
-      <a class="cart" routerLink="/cart">
+      <a class="cart" id="cartIcon" routerLink="/cart">
         <img src="assets/bag.png" alt="" class="cart-img" />
         <p class="icon-text profile-text">cart</p>
         <div *ngIf="cartCount$ | async" class="cart__count">
@@ -46,6 +56,7 @@
       </a>
     </div>
   </header>
+  <!-- <div></div> -->
   <nav class="header-nav">
     <div
       *ngFor="let option of navbarOptions; let i = index"

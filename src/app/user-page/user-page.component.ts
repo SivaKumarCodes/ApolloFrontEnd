@@ -1,22 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import {
   addDetails,
   getDetails,
   logout,
+  removeAddress,
   updateCreds,
 } from '../authStore/auth.actions';
 import { Router } from '@angular/router';
 
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { Details, Gender, User } from '../authStore/auth.store';
+import {
+  Address,
+  AddressType,
+  Details,
+  Gender,
+  User,
+} from '../authStore/auth.store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  getAddresses,
   getUser,
   selectDetails,
   selectUpdateDetails,
 } from '../authStore/auth.selectors';
+import { Subscription } from 'rxjs';
+import { AddressChangerComponent } from '../address-changer/address-changer.component';
+import { getUserAddresses } from '../authStore/auth.actions';
+
+enum selectedOption {
+  profile,
+  address,
+  orders,
+}
 
 @Component({
   selector: 'app-user-page',
@@ -24,21 +44,65 @@ import {
   styleUrls: ['./user-page.component.css'],
 })
 export class UserPageComponent {
-  editAddress: boolean = false;
+  @ViewChild(AddressChangerComponent)
+  addressComponent!: AddressChangerComponent;
+
+  showAddressEdit: boolean = false;
   checkIcon = faCheck;
   logoutSymbol = faArrowRight;
   logoutWarning: boolean = false;
+  plusIcon = faPlus;
+
+  addressSubscription$!: Subscription;
+
+  addresses!: Address[];
+
+  dotIcon = faCircle;
 
   details!: Details;
 
   GenderString!: string;
 
+  addressVisible: boolean = false;
+
+  selectedOption!: any;
+
   selectedGender: Gender = Gender.MALE;
   genders = Gender;
+
+  options = selectedOption;
 
   fullName!: string;
 
   dobString!: string;
+
+  enumAddresstype = AddressType;
+
+  selectAddress(i: number) {
+    this.selectedAddress = i;
+  }
+
+  removeAddress(id: number) {
+    this.state.dispatch(removeAddress({ id }));
+    if (this.defaultAddress > -1) this.selectedAddress = this.defaultAddress;
+    else if (this.addresses.length >= 0) {
+      this.selectedAddress = 0;
+    }
+  }
+
+  addAddress() {
+    this.addressComponent.setMode(0, null);
+    this.addressVisible = true;
+  }
+
+  setAddressVisible(val: boolean) {
+    this.addressVisible = val;
+  }
+
+  editAddress(address: Address) {
+    this.addressComponent.setMode(1, address);
+    this.addressVisible = true;
+  }
 
   detailsForm = new FormGroup({
     mobile: new FormControl(''),
@@ -48,16 +112,26 @@ export class UserPageComponent {
     dob: new FormControl(''),
   });
 
+  defaultAddress: number = 1;
+
+  otherAddress!: number[];
+
+  selectedAddress!: number;
+
   constructor(private state: Store, private router: Router) {}
 
   user!: User;
+
+  setOption(val: selectedOption) {
+    this.selectedOption = val;
+  }
 
   showLogOut(val: boolean) {
     this.logoutWarning = val;
   }
 
   setEditAddress(val: boolean) {
-    this.editAddress = val;
+    this.showAddressEdit = val;
   }
 
   setSelectGender(gender: Gender) {
@@ -140,5 +214,35 @@ export class UserPageComponent {
     this.state.select(selectUpdateDetails).subscribe((data) => {
       if (data) this.state.dispatch(getDetails());
     });
+    this.selectedOption = selectedOption.profile;
+
+    this.state.dispatch(getUserAddresses());
+
+    this.addressSubscription$ = this.state
+      .select(getAddresses)
+      .subscribe((data) => {
+        this.addresses = data!;
+        const ind = data?.findIndex((a) => a.defaultAddress);
+        this.defaultAddress = ind!;
+
+        if (ind != undefined && ind > -1) {
+          this.selectedAddress = ind;
+        }
+
+        if (data?.length! >= 0) {
+          // this.otherAddress = data?.filter((i) => !i.isDefault)!;
+          let otherAddress: number[] = [];
+          data?.forEach((address, i) => {
+            if (!address.defaultAddress) otherAddress.push(i);
+            this.otherAddress = otherAddress;
+          });
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.addressSubscription$.unsubscribe();
   }
 }
