@@ -13,6 +13,7 @@ import { loadingProducts } from './store/app.actions';
 import { Product } from './store/app.store';
 import { getLoading } from './store/app.selectors';
 import { getAuthSucess } from './authStore/auth.selectors';
+import { getIsAnyPopUpActive } from './popUpStore/popUp.selectors';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,8 @@ export class AppComponent {
   title = 'Pharmacy';
   isDropDownVisible: boolean = false;
   options!: dropdownOption[];
+
+  popUpActive!: boolean;
 
   numberVisible!: number;
 
@@ -53,6 +56,12 @@ export class AppComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.state.select(getLoading).subscribe((data) => (this.loading = data));
+    this.state.select(getIsAnyPopUpActive).subscribe((data) => {
+      if (data) document.documentElement.classList.add('noscroll');
+      else document.documentElement.classList.remove('noscroll');
+
+      this.popUpActive = data;
+    });
 
     this.state.dispatch(loadingProducts());
     this.state.dispatch(repopulateFromLocalStroage());

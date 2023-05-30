@@ -30,6 +30,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { RouterModule } from '@angular/router';
 import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { popUpReducer } from './popUpStore/popUp.reducer';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
       router: routerReducer,
       auth: AuthenticationReducer,
       cart: cartReducer,
+      popup: popUpReducer,
     }),
     EffectsModule.forRoot([ProductEffects, AuthEffects, CartEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

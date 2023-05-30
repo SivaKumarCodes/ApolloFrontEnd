@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getCartCount } from '../cartStore/cart.selectors';
 import { getAuthSucess, getUserFirstName } from '../authStore/auth.selectors';
+import { showSideBar } from '../popUpStore/popUp.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -34,6 +35,10 @@ export class NavbarComponent implements OnInit {
 
   toggleProfile(flag: boolean) {
     this.authDropDown = flag;
+  }
+
+  openSideBar() {
+    this.state.dispatch(showSideBar());
   }
 
   options: dropdownOption[][] = [

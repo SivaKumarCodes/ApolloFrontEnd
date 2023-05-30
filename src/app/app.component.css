@@ -25,5 +25,9 @@ app-product-grid {
   left: 0px;
   z-index: 99;
   -webkit-backface-visibility: hidden;
-  /* display: none; */
+  display: none;
+}
+
+.popup_show {
+  display: block;
 }

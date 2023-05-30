@@ -1,5 +1,6 @@
 <app-loading *ngIf="loading"></app-loading>
-<app-pop-up-layer class="popup__layer"> </app-pop-up-layer>
+<app-pop-up-layer class="popup__layer" [ngClass]="{ popup_show: popUpActive }">
+</app-pop-up-layer>
 <div class="main" *ngIf="!loading">
   <app-navbar [isactive]="activeState" (dropdown)="setDropDownVisible($event)">
   </app-navbar>

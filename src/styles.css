@@ -36,7 +36,8 @@
 html {
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -51,6 +52,7 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   font-smooth: antialiased;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -101,4 +103,8 @@ body::-webkit-scrollbar-thumb {
   body {
     font-size: 14px;
   }
+}
+
+.noscroll {
+  overflow: hidden;
 }
