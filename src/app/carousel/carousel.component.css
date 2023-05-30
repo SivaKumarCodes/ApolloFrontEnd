@@ -21,7 +21,6 @@
 .slide-container {
   width: 20%;
   height: 100%;
-  /* padding: 0.5rem; */
   transition: 2s;
 }
 
@@ -76,4 +75,25 @@
 
 .checked {
   background-color: var(--main-color);
+}
+
+@media screen and (max-width: 450px) {
+  .slide-container {
+    padding: 1rem;
+  }
+  .carousel__container {
+    height: 25vh;
+  }
+
+  .navigation-manual,
+  .navigation-auto {
+    bottom: 15%;
+  }
+
+  .btn-auto,
+  .btn-manual {
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 2px solid var(--main-color);
+  }
 }
