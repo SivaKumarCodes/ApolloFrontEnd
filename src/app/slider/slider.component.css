@@ -71,6 +71,7 @@
   height: 100%;
   background-color: #fff;
   overflow: hidden;
+  padding: 4px 0 4px 0;
 }
 
 .slides__container {

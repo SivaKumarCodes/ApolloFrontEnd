@@ -36,7 +36,6 @@
 html {
   height: 100%;
   width: 100%;
-  /* overflow-x: hidden; */
   scroll-behavior: smooth;
 }
 
@@ -53,6 +52,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-smooth: antialiased;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {

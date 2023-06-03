@@ -27,10 +27,10 @@ import { AddressChangerComponent } from './address-changer/address-changer.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { UserPageComponent } from './user-page/user-page.component';
-import { RouterModule } from '@angular/router';
 import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { popUpReducer } from './popUpStore/popUp.reducer';
+import { BrandSliderComponent } from './brand-slider/brand-slider.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +46,7 @@ import { popUpReducer } from './popUpStore/popUp.reducer';
     UserPageComponent,
     PopUpLayerComponent,
     SidebarComponent,
+    BrandSliderComponent,
   ],
   imports: [
     BrowserModule,

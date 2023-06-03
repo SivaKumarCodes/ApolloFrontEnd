@@ -5,16 +5,6 @@
   display: block;
 }
 
-.title__container {
-  width: 100%;
-  height: 4rem;
-  background-color: #fff;
-  border: var(--border-thin);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .title {
   color: var(--grey);
   display: block;
@@ -24,4 +14,26 @@
 .slider {
   display: block;
   margin-top: 2.5rem;
+}
+
+.landing__carousel {
+  height: 18rem;
+}
+
+.carousel__container {
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 1085px) {
+  .landing__carousel {
+    /* margin-top: 1rem; */
+    padding: 1rem;
+    background-color: white;
+    box-shadow: var(--shadow);
+  }
+
+  .title__section {
+    display: none;
+  }
 }

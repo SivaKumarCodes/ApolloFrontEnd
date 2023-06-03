@@ -1,6 +1,6 @@
 .productbatch__container {
   cursor: pointer;
-  height: 25rem;
+  height: 20rem;
   width: 100%;
   font-size: 1rem;
   padding: 0.5rem;
@@ -9,7 +9,7 @@
 
 .productbatch__image {
   width: 100%;
-  height: calc(70% - 35px);
+  height: calc(60% - 35px);
   padding: 2px;
   margin-bottom: 4px;
   background-size: contain;
@@ -79,9 +79,9 @@
 }
 
 .productbatch___price {
-  margin-top: 2%;
+  margin-top: 10px;
   width: 100%;
-  height: 4%;
+  height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -10,11 +10,14 @@
         src="/assets/img/profile-circle-svgrepo-com.svg"
         alt="profile"
       />
-      <div class="flex items-center">
+      <div *ngIf="!isAuthenticated" class="flex items-center">
         <p class="text-3xl">Hi, there!</p>
       </div>
-      <div class="flex items-start">
+      <div *ngIf="!isAuthenticated" class="flex items-start">
         <p>Login/Sign Up</p>
+      </div>
+      <div *ngIf="isAuthenticated" class="flex row-span-2 items-center">
+        <p class="text-2xl">{{ name }}</p>
       </div>
     </div>
     <div class="follow cursor-pointer">
@@ -56,6 +59,7 @@
     </div>
   </div>
   <div
+    *ngIf="isAuthenticated"
     class="info w-full h-auto p-[1rem] flex-col border-solid border-b-2 border-b-thinborder"
   >
     <div

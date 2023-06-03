@@ -6,6 +6,8 @@ import { closeAll, closeSideBar } from '../popUpStore/popUp.actions';
 import { Router } from '@angular/router';
 import { isSideBarActive } from '../popUpStore/popUp.selectors';
 import { Subscription } from 'rxjs';
+import { getAuthSucess } from '../authStore/auth.selectors';
+import { getUser } from '../authStore/auth.selectors';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,7 +21,14 @@ export class SidebarComponent {
 
   sideBarSubscription$!: Subscription;
 
+  loginSubscription$!: Subscription;
+
+  userSubscription$!: Subscription;
+
+  isAuthenticated: boolean = false;
+
   isActive: boolean = false;
+  name!: string;
 
   activeSubOptions: number = -1;
 
@@ -51,6 +60,11 @@ export class SidebarComponent {
     event.stopPropagation();
   }
 
+  navigateToUserPage() {
+    this.clearState();
+    this.router.navigate(['user']);
+  }
+
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -60,12 +74,23 @@ export class SidebarComponent {
         if (!data) this.clearState();
         this.isActive = data;
       });
+
+    this.loginSubscription$ = this.state
+      .select(getAuthSucess)
+      .subscribe((data) => {
+        this.isAuthenticated = data;
+      });
+    this.userSubscription$ = this.state.select(getUser).subscribe((data) => {
+      this.name = data?.firstName + data?.lastName!;
+    });
   }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.sideBarSubscription$.unsubscribe();
+    this.loginSubscription$.unsubscribe();
+    this.userSubscription$.unsubscribe();
   }
 
   navbarOptions: string[] = [
