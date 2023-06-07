@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { delay, map, mergeMap } from 'rxjs';
-import { loadingProdctsSucess, loadingProducts } from './app.actions';
-import { ProductServiceService } from './product-service.service';
+import { catchError, delay, map, mergeMap, of } from 'rxjs';
+import {
+  loadSomeBrands,
+  loadSomeBrandsFailure,
+  loadSomeBrandsSucessful,
+  loadingProdctsSucess,
+  loadingProducts,
+} from './app.actions';
+import { ProductService } from './product-service.service';
 
 @Injectable()
 export class ProductEffects {
@@ -10,14 +16,24 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(loadingProducts),
       mergeMap(() => this.productService.getAll()),
-      // delay(1500),
+      delay(1500),
       map((data) => loadingProdctsSucess({ products: data }))
+    )
+  );
+
+  loadSomeBrands$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadSomeBrands),
+      mergeMap(() => this.productService.getSomeBrands()),
+      // delay(1500),
+      map((data) => loadSomeBrandsSucessful({ brands: data })),
+      catchError((err) => of(loadSomeBrandsFailure()))
     )
   );
 
   // makeOrder$ = createEffect(() => )
   constructor(
     private actions$: Actions,
-    private productService: ProductServiceService
+    private productService: ProductService
   ) {}
 }

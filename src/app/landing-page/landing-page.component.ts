@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { sliderType } from '../slider/slider.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPageComponent implements OnInit {
   constructor() {}
+
+  sliderOfType = sliderType;
 
   ngOnInit(): void {}
 }

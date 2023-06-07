@@ -1,5 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
+  loadSomeBrands,
+  loadSomeBrandsFailure,
+  loadSomeBrandsSucessful,
   loadingProdctsSucess,
   loadingProductFailure,
   loadingProducts,
@@ -22,6 +25,32 @@ const _productReducer = createReducer(
     ...state,
     loading: false,
     failed: true,
+  })),
+  on(loadSomeBrands, (state) => ({
+    ...state,
+    brands: {
+      ...state.brands,
+      brandsLoading: true,
+      brandsLoaded: false,
+    },
+  })),
+  on(loadSomeBrandsSucessful, (state, action) => ({
+    ...state,
+    brands: {
+      ...state.brands,
+      brandsLoaded: true,
+      brandsLoading: false,
+      someBrands: action.brands,
+    },
+  })),
+  on(loadSomeBrandsFailure, (state) => ({
+    ...state,
+    brands: {
+      ...state.brands,
+      someBrandsFailure: true,
+      brandsLoaded: false,
+      brandsLoading: false,
+    },
   }))
 );
 

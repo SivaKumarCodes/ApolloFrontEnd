@@ -7,14 +7,45 @@
   </div>
   <div class="slider__main">
     <div class="slider__actual">
-      <div class="slides__container">
+      <div class="slides__container" *ngIf="type == sliderTypes.product">
         <div
           class="slide"
-          *ngFor="let product of products$ | async; let i = index"
+          *ngFor="let product of products; let i = index"
           [attr.data-index]="i"
           [ngStyle]="{ 'margin-left': i == 0 ? '-' + margin + '%' : '0' }"
         >
           <app-product-batch [product]="product"> </app-product-batch>
+        </div>
+      </div>
+
+      <div
+        *ngIf="!brandsLoaded && type == sliderTypes.brand"
+        class="w-full flex"
+      >
+        <div
+          *ngFor="let i of [0, 1, 2, 3, 4, 5]"
+          class="h-[15rem] px-[2.6rem] p-[2rem] flex flex-col gap-5 justify-center items-center"
+        >
+          <div
+            class="skeleton h-[10rem] w-[10rem] radius rounded-sm bg-thinborder"
+          ></div>
+          <div
+            class="skeleton h-[2rem] w-[10rem] rounded-sm bg-thinborder"
+          ></div>
+        </div>
+      </div>
+      <div
+        class="slides__container"
+        *ngIf="type == sliderTypes.brand && brandsLoaded"
+      >
+        <div
+          class="slide"
+          *ngFor="let brand of brands; let i = index"
+          [attr.data-index]="i"
+          [ngStyle]="{ 'margin-left': i == 0 ? '-' + margin + '%' : '0' }"
+        >
+          <app-batch [id]="brand.id" [name]="brand.brand" [url]="brand.url">
+          </app-batch>
         </div>
       </div>
       <span *ngIf="leftVisible" (click)="slideLeft()" class="arrow left-arrow">

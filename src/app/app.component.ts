@@ -9,7 +9,7 @@ import {
   repopulteCartSucessful,
 } from './cartStore/cart.actions';
 import { dropdownContent, dropdownOption } from './navbar/navbar.component';
-import { loadingProducts } from './store/app.actions';
+import { loadSomeBrands, loadingProducts } from './store/app.actions';
 import { Product } from './store/app.store';
 import { getLoading } from './store/app.selectors';
 import { getAuthSucess } from './authStore/auth.selectors';
@@ -62,6 +62,7 @@ export class AppComponent {
 
       this.popUpActive = data;
     });
+    this.state.dispatch(loadSomeBrands());
 
     this.state.dispatch(loadingProducts());
     this.state.dispatch(repopulateFromLocalStroage());

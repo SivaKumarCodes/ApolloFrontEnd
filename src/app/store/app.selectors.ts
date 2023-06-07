@@ -23,6 +23,21 @@ export const getFailed = createSelector(
   (state) => state.failed
 );
 
+export const getBrands = createSelector(
+  getProductState,
+  (state) => state.brands.someBrands
+);
+
+export const getBrandLoading = createSelector(
+  getProductState,
+  (state) => state.brands.brandsLoading
+);
+
+export const areBrandsLoaded = createSelector(
+  getProductState,
+  (state) => state.brands.brandsLoaded
+);
+
 export const getProductById = createSelector(
   getProducts,
   getCurrentRoute,

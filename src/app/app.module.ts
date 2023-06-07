@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { BatchComponent } from './slider/batch/batch.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -30,13 +29,11 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { popUpReducer } from './popUpStore/popUp.reducer';
-import { BrandSliderComponent } from './brand-slider/brand-slider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    BatchComponent,
     DropdownComponent,
     AuthDropdownComponent,
     CartPageComponent,
@@ -46,7 +43,6 @@ import { BrandSliderComponent } from './brand-slider/brand-slider.component';
     UserPageComponent,
     PopUpLayerComponent,
     SidebarComponent,
-    BrandSliderComponent,
   ],
   imports: [
     BrowserModule,

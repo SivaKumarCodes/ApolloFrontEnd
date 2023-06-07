@@ -4,20 +4,25 @@ import { LandingPageRoutingModule } from './landing-page-routing.module';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { LandingPageComponent } from './landing-page.component';
 import { SliderComponent } from '../slider/slider.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductBatchModule } from '../product-batch/product-batch.module';
 import { StoreModule } from '@ngrx/store';
 import { ProductReducer } from '../store/app.reducer';
+import { AppModule } from '../app.module';
+import { BatchComponent } from '../batch/batch.component';
 
 @NgModule({
-  declarations: [LandingPageComponent, CarouselComponent, SliderComponent],
+  declarations: [
+    LandingPageComponent,
+    CarouselComponent,
+    SliderComponent,
+    BatchComponent,
+  ],
   imports: [
     CommonModule,
     LandingPageRoutingModule,
-    FontAwesomeModule,
     ProductBatchModule,
     StoreModule.forFeature('products', ProductReducer),
   ],
-  exports: [CarouselComponent],
+  exports: [CarouselComponent, BatchComponent],
 })
 export class LandingPageModule {}
