@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Observer } from 'rxjs';
-import { getProducts, getProductsByType } from '../store/app.selectors';
 import { Product } from '../store/app.store';
 
 @Component({
@@ -19,7 +18,5 @@ export class ProductGridComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-
-    this.products$ = this.store.select(getProductsByType);
   }
 }

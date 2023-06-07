@@ -9,11 +9,11 @@ import {
   repopulteCartSucessful,
 } from './cartStore/cart.actions';
 import { dropdownContent, dropdownOption } from './navbar/navbar.component';
-import { loadSomeBrands, loadingProducts } from './store/app.actions';
+import { loadProductTypes, loadSomeBrands } from './store/app.actions';
 import { Product } from './store/app.store';
-import { getLoading } from './store/app.selectors';
 import { getAuthSucess } from './authStore/auth.selectors';
 import { getIsAnyPopUpActive } from './popUpStore/popUp.selectors';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +27,8 @@ export class AppComponent {
   isDropDownVisible: boolean = false;
   options!: dropdownOption[];
 
+  Subscriptions: Subscription[] = [];
+
   popUpActive!: boolean;
 
   numberVisible!: number;
@@ -34,8 +36,6 @@ export class AppComponent {
   activeState: boolean[] = [false, false, false, false, false];
 
   activeIndex!: number;
-
-  loading: boolean = true;
 
   setactive(value: { ind: number; flag: boolean }) {
     this.activeState[value.ind] = value.flag;
@@ -55,20 +55,33 @@ export class AppComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.state.select(getLoading).subscribe((data) => (this.loading = data));
-    this.state.select(getIsAnyPopUpActive).subscribe((data) => {
-      if (data) document.documentElement.classList.add('noscroll');
-      else document.documentElement.classList.remove('noscroll');
+    let popUpSubscription = this.state
+      .select(getIsAnyPopUpActive)
+      .subscribe((data) => {
+        if (data) document.documentElement.classList.add('noscroll');
+        else document.documentElement.classList.remove('noscroll');
 
-      this.popUpActive = data;
-    });
+        this.popUpActive = data;
+      });
+
+    this.Subscriptions.push(popUpSubscription);
+
     this.state.dispatch(loadSomeBrands());
 
-    this.state.dispatch(loadingProducts());
     this.state.dispatch(repopulateFromLocalStroage());
+    this.state.dispatch(loadProductTypes());
 
-    this.state.select(getAuthSucess).subscribe((data) => {
-      if (data) this.state.dispatch(repopulateCart());
-    });
+    let authSubscription = this.state
+      .select(getAuthSucess)
+      .subscribe((data) => {
+        if (data) this.state.dispatch(repopulateCart());
+      });
+    this.Subscriptions.push(authSubscription);
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.Subscriptions.forEach((i) => i.unsubscribe());
   }
 }

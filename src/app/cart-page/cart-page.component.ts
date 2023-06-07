@@ -29,7 +29,6 @@ import {
   ProductVariant,
 } from '../cartStore/cart.selectors';
 import { Order, cartItem } from '../cartStore/cart.store';
-import { getProduct, getProductById } from '../store/app.selectors';
 import { Product, Variant } from '../store/app.store';
 import { AddressType } from '../authStore/auth.store';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
@@ -294,19 +293,19 @@ export class CartPageComponent {
           price: 0,
         };
 
-        this.state.select(getProduct(item.productId)).subscribe((product) => {
-          cartItem.brand = product?.brand!;
-          let variant = product?.variants.find(
-            (i) => i.variantId == item.variantId
-          );
-          cartItem.image = variant?.images[0]!;
-          cartItem.purchaseQuantity = item.quantity;
-          cartItem.title = product?.productName!;
-          cartItem.mesurement = variant?.mesurement!;
-          cartItem.quantity = variant?.quantity!;
-          cartItem.price = variant?.price!;
-          result.push(cartItem);
-        });
+        // this.state.select(getProduct(item.productId)).subscribe((product) => {
+        //   cartItem.brand = product?.brand!;
+        //   let variant = product?.variants.find(
+        //     (i) => i.variantId == item.variantId
+        //   );
+        //   cartItem.image = variant?.images[0]!;
+        //   cartItem.purchaseQuantity = item.quantity;
+        //   cartItem.title = product?.productName!;
+        //   cartItem.mesurement = variant?.mesurement!;
+        //   cartItem.quantity = variant?.quantity!;
+        //   cartItem.price = variant?.price!;
+        //   result.push(cartItem);
+        // });
       });
       this.cartItems = result;
       this.cartData = JSON.parse(JSON.stringify(data));

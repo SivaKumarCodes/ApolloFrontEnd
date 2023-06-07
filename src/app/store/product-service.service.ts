@@ -16,4 +16,10 @@ export class ProductService {
   getSomeBrands() {
     return this.http.get<Brand[]>('http://localhost:8080/api/v1/getbrands');
   }
+
+  getProductTypes() {
+    return this.http.get<string[]>(
+      'http://localhost:8080/api/v1/getproducttypes'
+    );
+  }
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addToCartEffect } from '../cartStore/cart.actions';
-import { getProductById } from '../store/app.selectors';
 import { Product, Variant } from '../store/app.store';
 
 @Component({
@@ -51,10 +50,10 @@ export class ProductPageComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.state.select(getProductById).subscribe((data) => {
-      this.product = data;
-      this.selectedVariant = this.product?.variants[0];
-      this.loaded = true;
-    });
+    // this.state.select(getProductById).subscribe((data) => {
+    //   this.product = data;
+    //   this.selectedVariant = this.product?.variants[0];
+    //   this.loaded = true;
+    // });
   }
 }

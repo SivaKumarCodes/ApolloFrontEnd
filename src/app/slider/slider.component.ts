@@ -4,11 +4,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import {
-  getBrandLoading,
-  getBrands,
-  getProducts,
-} from '../store/app.selectors';
+import { getBrandLoading, getBrands } from '../store/app.selectors';
 import { Brand, Product } from '../store/app.store';
 import { areBrandsLoaded } from '../store/app.selectors';
 
@@ -67,13 +63,13 @@ export class SliderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.type == sliderType.product) {
-      let productSubscription = this.store
-        .select(getProducts)
-        .subscribe((data) => {
-          this.length = data.length;
-          this.products = data;
-        });
-      this.subscriptions.push(productSubscription);
+      // let productSubscription = this.store
+      //   .select(getProducts)
+      //   .subscribe((data) => {
+      //     this.length = data.length;
+      //     this.products = data;
+      //   });
+      // this.subscriptions.push(productSubscription);
     } else {
       let brandLodedSubscription = this.store
         .select(areBrandsLoaded)

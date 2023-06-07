@@ -29,26 +29,39 @@ export interface Order {
   paymentOption: paymentOption;
 }
 
+export interface DataItem {
+  loaded: boolean;
+  loading: boolean;
+  failed: boolean;
+}
+
+export interface ProductTypeItem extends DataItem {
+  items: Product[];
+}
+
+export interface BrandItem extends DataItem {
+  items: Brand[];
+}
+
+export class BrandData implements BrandItem {
+  loaded!: boolean;
+  loading!: boolean;
+  failed!: boolean;
+  items!: Brand[];
+}
+
 export interface ProductState {
-  brands: {
-    brandsLoaded: boolean;
-    brandsLoading: boolean;
-    someBrandsFailure: boolean;
-    someBrands: Brand[];
-  };
-  products: Product[];
+  brands: BrandItem;
+  productTypes: string[];
+  data: Map<string, ProductTypeItem>;
   loading: boolean;
   failed: boolean;
 }
 
 export const initialState: ProductState = {
-  brands: {
-    brandsLoaded: false,
-    brandsLoading: false,
-    someBrandsFailure: false,
-    someBrands: [],
-  },
-  products: [],
+  brands: new BrandData(),
+  productTypes: [],
+  data: new Map<string, ProductTypeItem>(),
   loading: false,
   failed: false,
 };

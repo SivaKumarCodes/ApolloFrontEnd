@@ -1,56 +1,48 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
+  loadProductTypesSucess,
   loadSomeBrands,
   loadSomeBrandsFailure,
   loadSomeBrandsSucessful,
-  loadingProdctsSucess,
-  loadingProductFailure,
-  loadingProducts,
 } from './app.actions';
 import { initialState, ProductState } from './app.store';
 
 const _productReducer = createReducer(
   initialState,
-  on(loadingProducts, (state) => ({
-    ...state,
-    loading: true,
-  })),
-  on(loadingProdctsSucess, (state, action) => ({
-    ...state,
-    loading: false,
-    failed: false,
-    products: action.products,
-  })),
-  on(loadingProductFailure, (state) => ({
-    ...state,
-    loading: false,
-    failed: true,
-  })),
   on(loadSomeBrands, (state) => ({
     ...state,
     brands: {
       ...state.brands,
-      brandsLoading: true,
-      brandsLoaded: false,
+      // brandsLoading: true,
+      // brandsLoaded: false,
+      loading: true,
+      loaded: false,
     },
   })),
   on(loadSomeBrandsSucessful, (state, action) => ({
     ...state,
     brands: {
       ...state.brands,
-      brandsLoaded: true,
-      brandsLoading: false,
-      someBrands: action.brands,
+      loaded: true,
+      loading: false,
+      items: action.brands,
     },
   })),
   on(loadSomeBrandsFailure, (state) => ({
     ...state,
     brands: {
       ...state.brands,
-      someBrandsFailure: true,
-      brandsLoaded: false,
-      brandsLoading: false,
+      // someBrandsFailure: true,
+      // brandsLoaded: false,
+      // brandsLoading: false,
+      loaded: false,
+      loading: false,
+      failed: true,
     },
+  })),
+  on(loadProductTypesSucess, (state, action) => ({
+    ...state,
+    productTypes: action.types,
   }))
 );
 
