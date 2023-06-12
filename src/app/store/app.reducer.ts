@@ -1,11 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
   loadProductTypesSucess,
+  loadProductsOfProductTypes,
+  loadProductsOfProductTypesSucess,
   loadSomeBrands,
   loadSomeBrandsFailure,
   loadSomeBrandsSucessful,
 } from './app.actions';
-import { initialState, ProductState } from './app.store';
+import {
+  initialState,
+  ProductData,
+  ProductState,
+  ProductTypeItem,
+} from './app.store';
 
 const _productReducer = createReducer(
   initialState,
@@ -32,17 +39,27 @@ const _productReducer = createReducer(
     ...state,
     brands: {
       ...state.brands,
-      // someBrandsFailure: true,
-      // brandsLoaded: false,
-      // brandsLoading: false,
       loaded: false,
       loading: false,
       failed: true,
     },
   })),
+  on(loadProductsOfProductTypesSucess, (state, action) => {
+    let newData: ProductTypeItem[] = JSON.parse(JSON.stringify(state.data));
+    newData[action.in].failed = false;
+    newData[action.in].loaded = true;
+    newData[action.in].loading = false;
+    newData[action.in].items = action.data;
+    console.log(action.in);
+    return {
+      ...state,
+      data: newData,
+    };
+  }),
   on(loadProductTypesSucess, (state, action) => ({
     ...state,
     productTypes: action.types,
+    data: action.types.map((i) => new ProductData()),
   }))
 );
 

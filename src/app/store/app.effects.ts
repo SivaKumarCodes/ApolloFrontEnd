@@ -4,6 +4,8 @@ import { catchError, delay, map, mergeMap, of } from 'rxjs';
 import {
   loadProductTypes,
   loadProductTypesSucess,
+  loadProductsOfProductTypes,
+  loadProductsOfProductTypesSucess,
   loadSomeBrands,
   loadSomeBrandsFailure,
   loadSomeBrandsSucessful,
@@ -12,15 +14,6 @@ import { ProductService } from './product-service.service';
 
 @Injectable()
 export class ProductEffects {
-  // loadProducts$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(loadingProducts),
-  //     mergeMap(() => this.productService.getAll()),
-  //     // delay(1500),
-  //     map((data) => loadingProdctsSucess({ products: data }))
-  //   )
-  // );
-
   loadSomeBrands$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadSomeBrands),
@@ -38,7 +31,24 @@ export class ProductEffects {
     )
   );
 
-  // makeOrder$ = createEffect(() => )
+  loadProductsOfType$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadProductsOfProductTypes),
+      mergeMap((action) =>
+        this.productService
+          .getProductsFromProductTypes(action.productType.type)
+          .pipe(
+            map((data) =>
+              loadProductsOfProductTypesSucess({
+                data: data,
+                in: action.productType.ind,
+              })
+            )
+          )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private productService: ProductService

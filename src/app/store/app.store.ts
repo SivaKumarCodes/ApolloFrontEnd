@@ -44,16 +44,23 @@ export interface BrandItem extends DataItem {
 }
 
 export class BrandData implements BrandItem {
-  loaded!: boolean;
-  loading!: boolean;
-  failed!: boolean;
-  items!: Brand[];
+  loaded: boolean = false;
+  loading: boolean = false;
+  failed: boolean = false;
+  items: Brand[] = [];
+}
+
+export class ProductData implements ProductTypeItem {
+  loaded: boolean = false;
+  loading: boolean = false;
+  failed: boolean = false;
+  items!: Product[];
 }
 
 export interface ProductState {
   brands: BrandItem;
   productTypes: string[];
-  data: Map<string, ProductTypeItem>;
+  data: ProductTypeItem[];
   loading: boolean;
   failed: boolean;
 }
@@ -61,7 +68,7 @@ export interface ProductState {
 export const initialState: ProductState = {
   brands: new BrandData(),
   productTypes: [],
-  data: new Map<string, ProductTypeItem>(),
+  data: [],
   loading: false,
   failed: false,
 };

@@ -4,8 +4,8 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { getBrandLoading, getBrands } from '../store/app.selectors';
-import { Brand, Product } from '../store/app.store';
+import { getBrands, getProductsOfProductType } from '../store/app.selectors';
+import { Brand, Product, ProductTypeItem } from '../store/app.store';
 import { areBrandsLoaded } from '../store/app.selectors';
 
 export enum sliderType {
@@ -20,6 +20,11 @@ export enum sliderType {
 })
 export class SliderComponent implements OnInit {
   @Input() type!: sliderType;
+  @Input() productType!: string;
+  @Input() name!: string;
+  @Input() index!: number;
+
+  products!: Product[];
 
   brandsLoaded!: boolean;
   brands!: Brand[];
@@ -30,8 +35,14 @@ export class SliderComponent implements OnInit {
   rightVisible: boolean = true;
   margin: number = 0;
   currInd: number = 1;
-  products!: Product[];
+
+  productTypes!: string[];
+
   length: number = 0;
+
+  setLength(i: number) {
+    this.length = i;
+  }
 
   subscriptions: Subscription[] = [];
 
@@ -63,13 +74,17 @@ export class SliderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.type == sliderType.product) {
-      // let productSubscription = this.store
-      //   .select(getProducts)
-      //   .subscribe((data) => {
-      //     this.length = data.length;
-      //     this.products = data;
-      //   });
-      // this.subscriptions.push(productSubscription);
+      this.store
+        .select(getProductsOfProductType, { i: this.index })
+        .subscribe((data) => {
+          if (data) this.length = data.length;
+
+          this.products = data;
+          if (this.length >= 7) {
+            this.leftVisible = false;
+            this.rightVisible = true;
+          }
+        });
     } else {
       let brandLodedSubscription = this.store
         .select(areBrandsLoaded)

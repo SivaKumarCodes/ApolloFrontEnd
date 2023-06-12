@@ -22,4 +22,16 @@ export class ProductService {
       'http://localhost:8080/api/v1/getproducttypes'
     );
   }
+
+  getProductsFromProductTypes(type: string) {
+    console.log(type);
+    return this.http.get<Product[]>(
+      'http://localhost:8080/api/v1/productsbytype',
+      {
+        params: {
+          type,
+        },
+      }
+    );
+  }
 }

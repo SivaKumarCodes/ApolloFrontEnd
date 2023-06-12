@@ -11,4 +11,12 @@
   </p>
 </div>
 <app-slider [type]="sliderOfType.brand" class="slider"></app-slider>
-<app-slider [type]="sliderOfType.product" class="slider"></app-slider>
+<app-slider
+  *ngFor="let prodType of productTypes; let i = index"
+  [attr.data-index]="i"
+  [type]="sliderOfType.product"
+  [name]="prodType"
+  [productType]="prodType"
+  [index]="i"
+  class="slider"
+></app-slider>

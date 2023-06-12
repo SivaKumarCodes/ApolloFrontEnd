@@ -14,6 +14,7 @@ import { Product } from './store/app.store';
 import { getAuthSucess } from './authStore/auth.selectors';
 import { getIsAnyPopUpActive } from './popUpStore/popUp.selectors';
 import { Subscription } from 'rxjs';
+import { getProductTypes } from './store/app.selectors';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,8 @@ export class AppComponent {
   title = 'Pharmacy';
   isDropDownVisible: boolean = false;
   options!: dropdownOption[];
+
+  productTypes!: string[];
 
   Subscriptions: Subscription[] = [];
 
