@@ -4,7 +4,11 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { getBrands, getProductsOfProductType } from '../store/app.selectors';
+import {
+  getBrands,
+  getProductsOfProductType,
+  getProductsOfProductTypeLoading,
+} from '../store/app.selectors';
 import { Brand, Product, ProductTypeItem } from '../store/app.store';
 import { areBrandsLoaded } from '../store/app.selectors';
 
@@ -27,6 +31,7 @@ export class SliderComponent implements OnInit {
   products!: Product[];
 
   brandsLoaded!: boolean;
+  productsLoaded!: boolean;
   brands!: Brand[];
   sliderTypes = sliderType;
   leftArrow = faChevronLeft;
@@ -74,7 +79,14 @@ export class SliderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.type == sliderType.product) {
-      this.store
+      let loadingSubscription = this.store
+        .select(getProductsOfProductTypeLoading, { i: this.index })
+        .subscribe((data) => {
+          this.productsLoaded = data;
+        });
+      this.subscriptions.push(loadingSubscription);
+
+      let productSubscription = this.store
         .select(getProductsOfProductType, { i: this.index })
         .subscribe((data) => {
           if (data) this.length = data.length;
@@ -85,6 +97,8 @@ export class SliderComponent implements OnInit {
             this.rightVisible = true;
           }
         });
+
+      this.subscriptions.push(productSubscription);
     } else {
       let brandLodedSubscription = this.store
         .select(areBrandsLoaded)

@@ -35,6 +35,11 @@ export const getProductsOfProductType = createSelector(
   (state: ProductState, props: { i: number }) => state.data[props.i].items
 );
 
+export const getProductsOfProductTypeLoading = createSelector(
+  getProductState,
+  (state: ProductState, props: { i: number }) => state.data[props.i].loading
+);
+
 // export const getProductsByType = createSelector(
 //   getProducts,
 //   getCurrentRoute,

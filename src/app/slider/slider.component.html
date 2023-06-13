@@ -7,7 +7,26 @@
   </div>
   <div class="slider__main">
     <div class="slider__actual">
-      <div class="slides__container" *ngIf="type == sliderTypes.product">
+      <div
+        *ngIf="productsLoaded && type == sliderTypes.product"
+        class="w-full flex"
+      >
+        <div
+          *ngFor="let i of [0, 1, 2, 3, 4, 5]"
+          class="h-[15rem] px-[2.6rem] p-[2rem] flex flex-col gap-5 justify-center items-center"
+        >
+          <div
+            class="skeleton h-[10rem] w-[10rem] radius rounded-sm bg-thinborder"
+          ></div>
+          <div
+            class="skeleton h-[2rem] w-[10rem] rounded-sm bg-thinborder"
+          ></div>
+        </div>
+      </div>
+      <div
+        class="slides__container"
+        *ngIf="type == sliderTypes.product && !productsLoaded"
+      >
         <div
           class="slide"
           *ngFor="let product of products; let i = index"

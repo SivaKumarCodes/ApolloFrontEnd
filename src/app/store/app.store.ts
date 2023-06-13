@@ -63,6 +63,7 @@ export interface ProductState {
   data: ProductTypeItem[];
   loading: boolean;
   failed: boolean;
+  productGrid: Product[];
 }
 
 export const initialState: ProductState = {
@@ -71,4 +72,5 @@ export const initialState: ProductState = {
   data: [],
   loading: false,
   failed: false,
+  productGrid: [],
 };

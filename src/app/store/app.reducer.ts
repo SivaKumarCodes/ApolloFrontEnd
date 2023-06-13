@@ -44,13 +44,23 @@ const _productReducer = createReducer(
       failed: true,
     },
   })),
+  on(loadProductsOfProductTypes, (state, action) => {
+    let newData: ProductTypeItem[] = JSON.parse(JSON.stringify(state.data));
+    newData[action.productType.ind].failed = false;
+    newData[action.productType.ind].loaded = false;
+    newData[action.productType.ind].loading = true;
+    return {
+      ...state,
+      data: newData,
+    };
+  }),
+
   on(loadProductsOfProductTypesSucess, (state, action) => {
     let newData: ProductTypeItem[] = JSON.parse(JSON.stringify(state.data));
     newData[action.in].failed = false;
     newData[action.in].loaded = true;
     newData[action.in].loading = false;
     newData[action.in].items = action.data;
-    console.log(action.in);
     return {
       ...state,
       data: newData,
