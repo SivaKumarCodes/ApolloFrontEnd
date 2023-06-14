@@ -13,6 +13,15 @@ export class ProductService {
     );
   }
 
+  getProductByName(name: string) {
+    console.log('hello');
+    return this.http.get<Product>('http://localhost:8080/api/v1/product', {
+      params: {
+        name,
+      },
+    });
+  }
+
   getSomeBrands() {
     return this.http.get<Brand[]>(
       'https://apollopharmacy.sivacodes.com/api/v1/getbrands'
@@ -25,8 +34,11 @@ export class ProductService {
     );
   }
 
+  getProductsOFBrands(brand: string) {
+    // return this.http.get<Product>
+  }
+
   getProductsFromProductTypes(type: string) {
-    console.log(type);
     return this.http.get<Product[]>(
       'https://apollopharmacy.sivacodes.com/api/v1/productsbytype',
       {

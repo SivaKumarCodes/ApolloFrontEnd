@@ -43,6 +43,14 @@ export interface BrandItem extends DataItem {
   items: Brand[];
 }
 
+export interface ProdData extends DataItem {
+  product: Product | null;
+}
+
+export interface ProductGridData extends DataItem {
+  productGrid: Product[];
+}
+
 export class BrandData implements BrandItem {
   loaded: boolean = false;
   loading: boolean = false;
@@ -57,13 +65,27 @@ export class ProductData implements ProductTypeItem {
   items!: Product[];
 }
 
+export class ActiveProduct implements ProdData {
+  loaded: boolean = false;
+  loading: boolean = false;
+  failed: boolean = false;
+  product: Product | null = null;
+}
+
+export class ActiveProductGrid implements ProductGridData {
+  loaded: boolean = false;
+  loading: boolean = false;
+  failed: boolean = false;
+  productGrid: Product[] = [];
+}
 export interface ProductState {
   brands: BrandItem;
   productTypes: string[];
   data: ProductTypeItem[];
   loading: boolean;
   failed: boolean;
-  productGrid: Product[];
+  activeProductGrid: ProductGridData;
+  activeProduct: ProdData;
 }
 
 export const initialState: ProductState = {
@@ -72,5 +94,6 @@ export const initialState: ProductState = {
   data: [],
   loading: false,
   failed: false,
-  productGrid: [],
+  activeProductGrid: new ActiveProductGrid(),
+  activeProduct: new ActiveProduct(),
 };

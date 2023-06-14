@@ -24,7 +24,6 @@ import { CartPageComponent } from './cart-page/cart-page.component';
 import { QuantityPickerComponent } from './quantity-picker/quantity-picker.component';
 import { AddressChangerComponent } from './address-changer/address-changer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingComponent } from './loading/loading.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -39,7 +38,6 @@ import { popUpReducer } from './popUpStore/popUp.reducer';
     CartPageComponent,
     QuantityPickerComponent,
     AddressChangerComponent,
-    LoadingComponent,
     UserPageComponent,
     PopUpLayerComponent,
     SidebarComponent,

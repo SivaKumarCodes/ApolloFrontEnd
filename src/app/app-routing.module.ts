@@ -5,15 +5,14 @@ import { UserPageComponent } from './user-page/user-page.component';
 
 const routes: Routes = [
   {
-    path: 'products/:type',
-    pathMatch: 'full',
+    path: 'products',
     loadChildren: () =>
       import('./product-grid/product-grid.module').then(
         (m) => m.ProductGridModule
       ),
   },
   {
-    path: 'product/:id',
+    path: 'product/:name',
     loadChildren: () =>
       import('./product-page/product-page.module').then(
         (m) => m.ProductPageModule

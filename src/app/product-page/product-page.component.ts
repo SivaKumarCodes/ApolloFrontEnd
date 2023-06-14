@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addToCartEffect } from '../cartStore/cart.actions';
 import { Product, Variant } from '../store/app.store';
+import { LoadProductData } from '../store/app.actions';
+import { activeProduct, activeProductLoading } from '../store/app.selectors';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-page',
@@ -12,12 +15,13 @@ import { Product, Variant } from '../store/app.store';
   },
 })
 export class ProductPageComponent {
-  product!: Product | undefined;
+  product!: Product | null;
   selectedVariant!: Variant | undefined;
   selectedVariantInd: number = 0;
-  loaded: boolean = false;
+  loading!: boolean;
   quantity: number = 1;
   quantityDisabled: boolean = true;
+  subscriptions: Subscription[] = [];
 
   increaseQuantity() {
     if (this.quantity < 30) this.quantity++;
@@ -50,10 +54,25 @@ export class ProductPageComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    // this.state.select(getProductById).subscribe((data) => {
-    //   this.product = data;
-    //   this.selectedVariant = this.product?.variants[0];
-    //   this.loaded = true;
-    // });
+    this.state.dispatch(LoadProductData());
+    let ProductSubscription = this.state
+      .select(activeProduct)
+      .subscribe((data) => {
+        this.product = data;
+        this.selectedVariant = this.product?.variants[0];
+      });
+    this.subscriptions.push(ProductSubscription);
+
+    let loadingSubscription = this.state
+      .select(activeProductLoading)
+      .subscribe((data) => {
+        this.loading = data;
+      });
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscriptions.forEach((i) => i.unsubscribe());
   }
 }

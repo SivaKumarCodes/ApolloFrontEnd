@@ -1,5 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
+  LoadProductData,
+  LoadProductDataSucess,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
   loadProductsOfProductTypesSucess,
@@ -8,7 +10,9 @@ import {
   loadSomeBrandsSucessful,
 } from './app.actions';
 import {
+  ActiveProduct,
   initialState,
+  ProdData,
   ProductData,
   ProductState,
   ProductTypeItem,
@@ -70,7 +74,25 @@ const _productReducer = createReducer(
     ...state,
     productTypes: action.types,
     data: action.types.map((i) => new ProductData()),
-  }))
+  })),
+  on(LoadProductData, (state) => {
+    let newActiveProduct: ProdData = new ActiveProduct();
+    newActiveProduct.loading = true;
+    return {
+      ...state,
+      activeProduct: newActiveProduct,
+    };
+  }),
+  on(LoadProductDataSucess, (state, action) => {
+    let newActiveProduct: ProdData = new ActiveProduct();
+    newActiveProduct.loading = false;
+    newActiveProduct.loaded = true;
+    newActiveProduct.product = action.product;
+    return {
+      ...state,
+      activeProduct: newActiveProduct,
+    };
+  })
 );
 
 export function ProductReducer(state: any, action: any) {

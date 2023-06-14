@@ -1,9 +1,7 @@
-<div class="product__container">
+<app-loading *ngIf="loading"></app-loading>
+<div class="product__container" *ngIf="!loading">
   <div class="image__container">
-    <app-product-viewer
-      *ngIf="loaded"
-      [images]="selectedVariant!.images"
-    ></app-product-viewer>
+    <app-product-viewer [images]="selectedVariant!.images"></app-product-viewer>
   </div>
   <div class="titile__section">
     <h1 class="product__name">{{ product?.productName }}</h1>

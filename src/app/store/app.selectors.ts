@@ -40,6 +40,31 @@ export const getProductsOfProductTypeLoading = createSelector(
   (state: ProductState, props: { i: number }) => state.data[props.i].loading
 );
 
+export const getProductsType = createSelector(
+  getCurrentRoute,
+  (route) => route.state.params['type']
+);
+
+export const getProductName = createSelector(getCurrentRoute, (route) => {
+  if (route) return route.state.params['name'];
+  else return '';
+});
+
+export const getBrand = createSelector(
+  getCurrentRoute,
+  (route) => route.state.params['brand']
+);
+
+export const activeProduct = createSelector(
+  getProductState,
+  (state) => state.activeProduct.product
+);
+
+export const activeProductLoading = createSelector(
+  getProductState,
+  (state) => state.activeProduct.loading
+);
+
 // export const getProductsByType = createSelector(
 //   getProducts,
 //   getCurrentRoute,

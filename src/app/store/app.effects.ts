@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, delay, map, mergeMap, of } from 'rxjs';
 import {
+  catchError,
+  concatMap,
+  delay,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs';
+import {
+  LoadProductData,
+  LoadProductDataSucess,
   loadProductTypes,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
@@ -11,9 +22,17 @@ import {
   loadSomeBrandsSucessful,
 } from './app.actions';
 import { ProductService } from './product-service.service';
+import { Store } from '@ngrx/store';
+import { getProductName } from './app.selectors';
 
 @Injectable()
 export class ProductEffects {
+  constructor(
+    private actions$: Actions,
+    private productService: ProductService,
+    private state: Store
+  ) {}
+
   loadSomeBrands$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadSomeBrands),
@@ -49,8 +68,12 @@ export class ProductEffects {
     );
   });
 
-  constructor(
-    private actions$: Actions,
-    private productService: ProductService
-  ) {}
+  loadProduct = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LoadProductData),
+      withLatestFrom(this.state.select(getProductName)),
+      concatMap(([_, name]) => this.productService.getProductByName(name)),
+      map((data) => LoadProductDataSucess({ product: data }))
+    );
+  });
 }

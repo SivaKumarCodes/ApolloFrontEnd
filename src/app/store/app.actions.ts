@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, createSelector, props } from '@ngrx/store';
 import { Brand, Product } from './app.store';
 
 const _loadingBrands: string = '[some Brands] loading brands';
@@ -12,6 +12,10 @@ const _loadProductsOfProductType = '[product of Product Type] load ';
 const _loadProductsOfProductTypeSucess =
   '[product of Product Type] load sucess ';
 const _loadProductsOfProductTypeFail = '[product of Product Type] load Failure';
+
+const _loadProduct = '[product] load product';
+const _loadProductSucess = '[product] load product sucess';
+const _loadProductFailure = '[product] load product failure';
 
 export const loadSomeBrands = createAction(_loadingBrands);
 export const loadSomeBrandsSucessful = createAction(
@@ -35,6 +39,16 @@ export interface productType {
   ind: number;
   type: string;
 }
+
+export const LoadProductData = createAction(
+  _loadProduct,
+  props<{ name: string }>
+);
+
+export const LoadProductDataSucess = createAction(
+  _loadProductSucess,
+  props<{ product: Product }>()
+);
 
 export const loadProductsOfProductTypesFail = createAction(
   _loadProductsOfProductTypeFail,
