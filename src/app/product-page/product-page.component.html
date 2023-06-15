@@ -1,265 +1,274 @@
 <app-loading *ngIf="loading"></app-loading>
-<div class="product__container" *ngIf="!loading">
-  <div class="image__container">
-    <app-product-viewer [images]="selectedVariant!.images"></app-product-viewer>
-  </div>
-  <div class="titile__section">
-    <h1 class="product__name">{{ product?.productName }}</h1>
+<div *ngIf="!loading" class="w-auto h-auto">
+  <div class="product__container">
+    <div class="image__container">
+      <app-product-viewer
+        [images]="selectedVariant!.images"
+      ></app-product-viewer>
+    </div>
+    <div class="titile__section">
+      <h1 class="product__name">{{ product?.productName }}</h1>
 
-    <div class="productbatch__rating">
-      <div class="productbatch__rating__text">
-        <p class="rating__text">4.5</p>
-        <span class="rating__star_con">
+      <div class="productbatch__rating">
+        <div class="productbatch__rating__text">
+          <p class="rating__text">4.5</p>
+          <span class="rating__star_con">
+            <svg
+              class="rating__star"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="15"
+              viewBox="0 0 51 48"
+            >
+              <path
+                fill="#ffffff"
+                stroke="none"
+                d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+              />
+            </svg>
+          </span>
+        </div>
+        <p class="reveiw__count">1756 ratings</p>
+      </div>
+      <div class="pack__container" *ngIf="(product?.variants)!.length > 1">
+        <p class="packsize">
+          {{ "Pack Size(" + product?.variants?.length + ")" }}
+        </p>
+        <div class="variants__container">
+          <div
+            *ngFor="let variant of product?.variants; let i = index"
+            class="variant"
+            [attr.data-index]="i"
+            [ngClass]="{ variant__active: i == selectedVariantInd }"
+            (click)="changeVariant(i)"
+          >
+            <p class="variants__text">
+              {{ variant.quantity + " " + variant.mesurement }}
+            </p>
+            <p class="variant__price">&#8377;{{ variant.price }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="highligths__section">
+        <p class="product__highligths">Product highlights</p>
+        <ul class="highlights__list">
+          <li class="highlight">Supports bone, skin and eye health</li>
+          <li class="highlight">Prevents hormonal imbalance</li>
+          <li class="highlight">Aids in maintaining a healthy lifestyle</li>
+          <li class="highlight">Helps improve immunity</li>
+          <li class="highlight">
+            Improves digestion and restores gut bacteria
+          </li>
+          <li class="highlight">
+            Improves energy levels and supports brain health
+          </li>
+          <li class="highlight">
+            A concoction of multi-vitamins, essential minerals, a women-centric
+            health blend, and pre and pro-biotics complex
+          </li>
+          <li class="highlight">
+            Helps the body to handle life’s daily emotional and physical stress
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="buy__section">
+      <div class="buying__container">
+        <div class="poeple__bought__container">
           <svg
-            class="rating__star"
+            class="poeple__icon"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
-            height="15"
-            viewBox="0 0 51 48"
+            height="9"
           >
             <path
-              fill="#ffffff"
-              stroke="none"
-              d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+              fill="#1AAB2A"
+              stroke="#1AAB2A"
+              stroke-width=".3"
+              d="M10.1 1.61c.01.3.32.57.64.56h2.08L8.9 5.5 6.37 3.57c-.33-.3-.64-.28-.9-.1L1.2 6.98a.6.6 0 0 0-.06.83c.21.23.62.26.86.06l3.87-3.2 2.47 1.9c.18.32.7.39.97.13l4.47-3.8V5.1c0 .3.29.6.61.6s.62-.3.61-.6v-3.5c0-.31-.29-.59-.6-.59h-3.66c-.35 0-.65.28-.64.61z"
             />
           </svg>
-        </span>
-      </div>
-      <p class="reveiw__count">1756 ratings</p>
-    </div>
-    <div class="pack__container" *ngIf="(product?.variants)!.length > 1">
-      <p class="packsize">
-        {{ "Pack Size(" + product?.variants?.length + ")" }}
-      </p>
-      <div class="variants__container">
-        <div
-          *ngFor="let variant of product?.variants; let i = index"
-          class="variant"
-          [attr.data-index]="i"
-          [ngClass]="{ variant__active: i == selectedVariantInd }"
-          (click)="changeVariant(i)"
-        >
-          <p class="variants__text">
-            {{ variant.quantity + " " + variant.mesurement }}
+          <p class="recent__text">267 poeple brought this recently</p>
+        </div>
+        <div class="buy__section__main">
+          <p class="price">
+            &#8377;{{ selectedVariant?.price }} /-
+            <span class="price__slashed">&#8377;555</span>
+            <span class="price__off">52&percnt; off</span>
           </p>
-          <p class="variant__price">&#8377;{{ variant.price }}</p>
+          <p class="inclusive__of__all">Inclusive of all taxes.</p>
+          <p class="in__stock">In Stock</p>
+          <div class="quantity__container">
+            <div class="quantity">
+              <p class="quantity__text">{{ quantity }}</p>
+            </div>
+            <div class="quantity__controls">
+              <span class="plus" (click)="increaseQuantity()">&#43;</span>
+              <span class="minus" (click)="decreaseQuantity()">&#8722;</span>
+            </div>
+            <p class="times__quantity">
+              &times;
+              {{
+                selectedVariant?.quantity + " " + selectedVariant?.mesurement
+              }}
+            </p>
+          </div>
+          <div class="add__to__cart" (click)="addToCart()">Add to cart</div>
+        </div>
+      </div>
+      <div class="delivery">
+        <p class="delivery__text">
+          Earliest delivery by
+          <span class="delivery__time"> 10pm , Tommorrow </span>
+        </p>
+      </div>
+      <div class="advertisement"></div>
+      <div class="offers">
+        <h2 class="AdditionalOffers__offer-heading">Additional offers</h2>
+        <div class="offer__container">
+          <svg
+            class="offer__tag"
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="13"
+          >
+            <path
+              fill="#1AAB2A"
+              d="M12.72 7.36 5.9.54A2.13 2.13 0 0 0 4.6 0H1.07C.48 0 0 .48 0 1.08V4.6c.02.48.21.95.55 1.3l6.8 6.82A.9.9 0 0 0 8 13c.06 0 .13 0 .19-.02a.87.87 0 0 0 .6-.62l.8-2.59a.27.27 0 0 1 .18-.18l2.58-.79a.83.83 0 0 0 .36-1.44zm-9.47-3.3a.81.81 0 1 1 0-1.63.81.81 0 0 1 0 1.63z"
+            />
+          </svg>
+          <div class="offer__text__container">
+            <p class="offer__text">
+              <span class="offer__heading">Paytm Wallet:</span> Pay with Paytm
+              Wallet on Tata 1mg for ₹999 or more and get 5% cashback up to ₹75.
+              Offer ends 5th March 2023.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="highligths__section">
-      <p class="product__highligths">Product highlights</p>
-      <ul class="highlights__list">
-        <li class="highlight">Supports bone, skin and eye health</li>
-        <li class="highlight">Prevents hormonal imbalance</li>
-        <li class="highlight">Aids in maintaining a healthy lifestyle</li>
-        <li class="highlight">Helps improve immunity</li>
-        <li class="highlight">Improves digestion and restores gut bacteria</li>
-        <li class="highlight">
-          Improves energy levels and supports brain health
+  </div>
+
+  <div class="second__part">
+    <div class="left">
+      <p class="Information__heading">
+        Information about : {{ product?.productName }}
+      </p>
+      <p class="Information__text">
+        <span class="Information__text__heading"
+          >{{ product?.productName }}
+        </span>
+        is your complete daily health supplement, packed with 25 essential
+        vitamins and minerals that boost immunity, maintain cardiovascular
+        health, and improve fitness and strength, enhance memory and
+        concentration and support overall wellbeing.
+      </p>
+      <h2 class="Information__headings">Key Ingredients</h2>
+      <ul class="Ingedient__List">
+        <li class="Information__text">
+          <span class="Information__text__heading"
+            >Vitamins and Amino Acids:</span
+          >
+          Choline Bitartrate, Vitamin B3, Vitamin B1, Folic Acid, Biotin,
+          Vitamin K, Vitamin D3, and Vitamin B12
         </li>
-        <li class="highlight">
-          A concoction of multi-vitamins, essential minerals, a women-centric
-          health blend, and pre and pro-biotics complex
+        <li class="Information__text">
+          <span class="Information__text__heading"> Minerals: </span>
+          Calcium, Magnesium, Zinc, Potassium, Manganese, Copper, Iodide, Boron
+          Chromium Picolinate, Selenium, Sodium Molybdate Dihydrate
         </li>
-        <li class="highlight">
-          Helps the body to handle life’s daily emotional and physical stress
+        <li class="Information__text">
+          <span class="Information__text__heading"> Natural Extracts </span>
+          Omega-3 Marine Triglycerides (33:22), Ginseng, Refined Wheat Germ Oil,
+          Citrus Bioflavonoids, Green Tea Extract, Polyphenols, Grape Seed
+          Extract, Mixed Carotenoids, Ginkgo Biloba, Piperine, and Lutein
+        </li>
+
+        <li class="Information__text">
+          <span class="Information__text__heading"> Probiotics: </span>
+          Lacto Bacillus
         </li>
       </ul>
-    </div>
-  </div>
-
-  <div class="buy__section">
-    <div class="buying__container">
-      <div class="poeple__bought__container">
-        <svg
-          class="poeple__icon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="9"
-        >
-          <path
-            fill="#1AAB2A"
-            stroke="#1AAB2A"
-            stroke-width=".3"
-            d="M10.1 1.61c.01.3.32.57.64.56h2.08L8.9 5.5 6.37 3.57c-.33-.3-.64-.28-.9-.1L1.2 6.98a.6.6 0 0 0-.06.83c.21.23.62.26.86.06l3.87-3.2 2.47 1.9c.18.32.7.39.97.13l4.47-3.8V5.1c0 .3.29.6.61.6s.62-.3.61-.6v-3.5c0-.31-.29-.59-.6-.59h-3.66c-.35 0-.65.28-.64.61z"
-          />
-        </svg>
-        <p class="recent__text">267 poeple brought this recently</p>
-      </div>
-      <div class="buy__section__main">
-        <p class="price">
-          &#8377;{{ selectedVariant?.price }} /-
-          <span class="price__slashed">&#8377;555</span>
-          <span class="price__off">52&percnt; off</span>
-        </p>
-        <p class="inclusive__of__all">Inclusive of all taxes.</p>
-        <p class="in__stock">In Stock</p>
-        <div class="quantity__container">
-          <div class="quantity">
-            <p class="quantity__text">{{ quantity }}</p>
-          </div>
-          <div class="quantity__controls">
-            <span class="plus" (click)="increaseQuantity()">&#43;</span>
-            <span class="minus" (click)="decreaseQuantity()">&#8722;</span>
-          </div>
-          <p class="times__quantity">
-            &times;
-            {{ selectedVariant?.quantity + " " + selectedVariant?.mesurement }}
-          </p>
-        </div>
-        <div class="add__to__cart" (click)="addToCart()">Add to cart</div>
-      </div>
-    </div>
-    <div class="delivery">
-      <p class="delivery__text">
-        Earliest delivery by
-        <span class="delivery__time"> 10pm , Tommorrow </span>
+      <h2 class="Information__headings" id="keyBenefits">Key Benefits:</h2>
+      <ul class="Ingredient__List">
+        <li class="Information__text">
+          It is a nutritional health supplement that helps to build your
+          immunity
+        </li>
+        <li class="Information__text">
+          Its antioxidant properties help strengthen the immune system and
+          neutralise free radicals
+        </li>
+        <li class="Information__text">
+          It helps in increasing strength and stamina
+        </li>
+        <li class="Information__text">
+          It is beneficial in improving memory and concentration
+        </li>
+        <li class="Information__text">
+          It supports healthy functioning of the cardiovascular system
+        </li>
+        <li class="Information__text">
+          It helps in improving flexibility and mobility of joints and
+          regulating blood sugar levels
+        </li>
+      </ul>
+      <p class="Information__text">
+        <span class="Information__text__heading">Product Form: </span
+        >{{ selectedVariant?.mesurement }}
       </p>
-    </div>
-    <div class="advertisement"></div>
-    <div class="offers">
-      <h2 class="AdditionalOffers__offer-heading">Additional offers</h2>
-      <div class="offer__container">
-        <svg
-          class="offer__tag"
-          xmlns="http://www.w3.org/2000/svg"
-          width="13"
-          height="13"
-        >
-          <path
-            fill="#1AAB2A"
-            d="M12.72 7.36 5.9.54A2.13 2.13 0 0 0 4.6 0H1.07C.48 0 0 .48 0 1.08V4.6c.02.48.21.95.55 1.3l6.8 6.82A.9.9 0 0 0 8 13c.06 0 .13 0 .19-.02a.87.87 0 0 0 .6-.62l.8-2.59a.27.27 0 0 1 .18-.18l2.58-.79a.83.83 0 0 0 .36-1.44zm-9.47-3.3a.81.81 0 1 1 0-1.63.81.81 0 0 1 0 1.63z"
-          />
-        </svg>
-        <div class="offer__text__container">
-          <p class="offer__text">
-            <span class="offer__heading">Paytm Wallet:</span> Pay with Paytm
-            Wallet on Tata 1mg for ₹999 or more and get 5% cashback up to ₹75.
-            Offer ends 5th March 2023.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+      <h2 class="Information__headings">Safety Information:</h2>
+      <ul>
+        <li class="Information__text">Read the label carefully before use</li>
+        <li class="Information__text">Keep out of the reach of children</li>
+        <li class="Information__text">
+          Pregnant or lactating women and children with a medical condition
+          should consult a physician before use
+        </li>
+        <li class="Information__text">
+          Do not exceed the recommended daily dosage
+        </li>
+        <li class="Information__text">
+          Store in a cool, dry place and away from direct sunlight
+        </li>
+      </ul>
+      <div class="ratings__reviews">
+        <div class="ratings">
+          <h2 id="rating__heading">Ratings</h2>
+          <div id="star"></div>
 
-<div class="second__part">
-  <div class="left">
-    <p class="Information__heading">
-      Information about : {{ product?.productName }}
-    </p>
-    <p class="Information__text">
-      <span class="Information__text__heading"
-        >{{ product?.productName }}
-      </span>
-      is your complete daily health supplement, packed with 25 essential
-      vitamins and minerals that boost immunity, maintain cardiovascular health,
-      and improve fitness and strength, enhance memory and concentration and
-      support overall wellbeing.
-    </p>
-    <h2 class="Information__headings">Key Ingredients</h2>
-    <ul class="Ingedient__List">
-      <li class="Information__text">
-        <span class="Information__text__heading"
-          >Vitamins and Amino Acids:</span
-        >
-        Choline Bitartrate, Vitamin B3, Vitamin B1, Folic Acid, Biotin, Vitamin
-        K, Vitamin D3, and Vitamin B12
-      </li>
-      <li class="Information__text">
-        <span class="Information__text__heading"> Minerals: </span>
-        Calcium, Magnesium, Zinc, Potassium, Manganese, Copper, Iodide, Boron
-        Chromium Picolinate, Selenium, Sodium Molybdate Dihydrate
-      </li>
-      <li class="Information__text">
-        <span class="Information__text__heading"> Natural Extracts </span>
-        Omega-3 Marine Triglycerides (33:22), Ginseng, Refined Wheat Germ Oil,
-        Citrus Bioflavonoids, Green Tea Extract, Polyphenols, Grape Seed
-        Extract, Mixed Carotenoids, Ginkgo Biloba, Piperine, and Lutein
-      </li>
-
-      <li class="Information__text">
-        <span class="Information__text__heading"> Probiotics: </span>
-        Lacto Bacillus
-      </li>
-    </ul>
-    <h2 class="Information__headings" id="keyBenefits">Key Benefits:</h2>
-    <ul class="Ingredient__List">
-      <li class="Information__text">
-        It is a nutritional health supplement that helps to build your immunity
-      </li>
-      <li class="Information__text">
-        Its antioxidant properties help strengthen the immune system and
-        neutralise free radicals
-      </li>
-      <li class="Information__text">
-        It helps in increasing strength and stamina
-      </li>
-      <li class="Information__text">
-        It is beneficial in improving memory and concentration
-      </li>
-      <li class="Information__text">
-        It supports healthy functioning of the cardiovascular system
-      </li>
-      <li class="Information__text">
-        It helps in improving flexibility and mobility of joints and regulating
-        blood sugar levels
-      </li>
-    </ul>
-    <p class="Information__text">
-      <span class="Information__text__heading">Product Form: </span
-      >{{ selectedVariant?.mesurement }}
-    </p>
-    <h2 class="Information__headings">Safety Information:</h2>
-    <ul>
-      <li class="Information__text">Read the label carefully before use</li>
-      <li class="Information__text">Keep out of the reach of children</li>
-      <li class="Information__text">
-        Pregnant or lactating women and children with a medical condition should
-        consult a physician before use
-      </li>
-      <li class="Information__text">
-        Do not exceed the recommended daily dosage
-      </li>
-      <li class="Information__text">
-        Store in a cool, dry place and away from direct sunlight
-      </li>
-    </ul>
-    <div class="ratings__reviews">
-      <div class="ratings">
-        <h2 id="rating__heading">Ratings</h2>
-        <div id="star"></div>
-
-        <div class="rating__box">
-          <p id="rating_number">4.3</p>
-          <svg
-            height="800px"
-            width="800px"
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 358.966 358.966"
-            xml:space="preserve"
-            class="rating__svg"
-          >
-            <g>
-              <path
-                id="star_svg"
-                style="fill: #010002"
-                d="M358.966,143.652c0-11.38-9.047-20.582-20.183-20.582c-0.301,0-0.602,0.024-0.894,0.041
+          <div class="rating__box">
+            <p id="rating_number">4.3</p>
+            <svg
+              height="800px"
+              width="800px"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 358.966 358.966"
+              xml:space="preserve"
+              class="rating__svg"
+            >
+              <g>
+                <path
+                  id="star_svg"
+                  style="fill: #010002"
+                  d="M358.966,143.652c0-11.38-9.047-20.582-20.183-20.582c-0.301,0-0.602,0.024-0.894,0.041
 		l-0.154-0.569H232.323l-30.076-92.544l-0.268-0.016c-0.293-12.404-10.234-22.419-22.5-22.419c-12.03,0-21.817,9.616-22.459,21.736
 		h-0.081l-30.311,93.243H25.247c-1.13-0.179-2.276-0.301-3.471-0.301C9.754,122.242,0,132.175,0,144.449
 		c0,9.673,6.088,17.875,14.55,20.923l79.424,57.697l-31.986,98.47l0.602,0.447c-0.805,2.26-1.26,4.698-1.26,7.259
 		c0,11.811,9.397,21.386,20.996,21.386c5.064,0,9.714-1.845,13.347-4.91l0.236,0.195l83.562-60.72l84.854,61.655l0.406-0.276
 		c3.56,3.008,8.137,4.828,13.111,4.828c11.372,0,20.582-9.397,20.582-20.972c0-2.122-0.309-4.154-0.886-6.08l0.293-0.179
 		l-32.839-101.103l83.919-60.981l-0.171-0.553C354.845,157.975,358.966,151.293,358.966,143.652z"
-              />
-            </g>
-          </svg>
+                />
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
+    <div class="rigth"></div>
   </div>
-  <div class="rigth"></div>
 </div>

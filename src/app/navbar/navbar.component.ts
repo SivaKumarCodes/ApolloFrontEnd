@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
       {
         url: '/assets/multivitamin.png',
         name: 'Multivitamins',
-        link: 'Multivitamin',
+        link: 'Multivitamins',
       },
       {
         url: '/assets/nutritionalDrinks.webp',
@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit {
       {
         url: '/assets/fishOil.webp',
         name: 'Omega3 & Fish oil supplements',
-        link: 'Omega3',
+        link: 'Omega3 Supplements',
       },
     ],
     [

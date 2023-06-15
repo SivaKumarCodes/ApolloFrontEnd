@@ -8,7 +8,12 @@ import { ProductBatchModule } from '../product-batch/product-batch.module';
 
 @NgModule({
   declarations: [ProductGridComponent],
-  imports: [CommonModule, ProductGridRoutingModule, ProductBatchModule],
+  imports: [
+    CommonModule,
+    ProductGridRoutingModule,
+    ProductBatchModule,
+    ProductPageModule,
+  ],
   exports: [ProductGridComponent],
 })
 export class ProductGridModule {}

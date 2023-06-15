@@ -2,6 +2,8 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   LoadProductData,
   LoadProductDataSucess,
+  loadProductGrid,
+  loadProductGridSucess,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
   loadProductsOfProductTypesSucess,
@@ -11,6 +13,7 @@ import {
 } from './app.actions';
 import {
   ActiveProduct,
+  ActiveProductGrid,
   initialState,
   ProdData,
   ProductData,
@@ -51,7 +54,7 @@ const _productReducer = createReducer(
   on(loadProductsOfProductTypes, (state, action) => {
     let newData: ProductTypeItem[] = JSON.parse(JSON.stringify(state.data));
     newData[action.productType.ind].failed = false;
-    newData[action.productType.ind].loaded = false;
+    // newData[action.productType.ind].loaded = false;
     newData[action.productType.ind].loading = true;
     return {
       ...state,
@@ -91,6 +94,27 @@ const _productReducer = createReducer(
     return {
       ...state,
       activeProduct: newActiveProduct,
+    };
+  }),
+  on(loadProductGrid, (state) => {
+    let newActiveGrid = new ActiveProductGrid();
+    newActiveGrid.failed = false;
+    newActiveGrid.loaded = false;
+    newActiveGrid.loading = true;
+    return {
+      ...state,
+      activeProductGrid: newActiveGrid,
+    };
+  }),
+  on(loadProductGridSucess, (state, action) => {
+    let newActiveGrid = new ActiveProductGrid();
+    newActiveGrid.failed = false;
+    newActiveGrid.loaded = true;
+    newActiveGrid.loading = false;
+    newActiveGrid.productGrid = action.products;
+    return {
+      ...state,
+      activeProductGrid: newActiveGrid,
     };
   })
 );

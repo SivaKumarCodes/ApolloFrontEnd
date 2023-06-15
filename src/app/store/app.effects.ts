@@ -13,6 +13,9 @@ import {
 import {
   LoadProductData,
   LoadProductDataSucess,
+  ProductsOfProductTypesNull,
+  loadProductGrid,
+  loadProductGridSucess,
   loadProductTypes,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
@@ -24,6 +27,7 @@ import {
 import { ProductService } from './product-service.service';
 import { Store } from '@ngrx/store';
 import { getProductName } from './app.selectors';
+import { getParams } from './router.selectors';
 
 @Injectable()
 export class ProductEffects {
@@ -74,6 +78,27 @@ export class ProductEffects {
       withLatestFrom(this.state.select(getProductName)),
       concatMap(([_, name]) => this.productService.getProductByName(name)),
       map((data) => LoadProductDataSucess({ product: data }))
+    );
+  });
+
+  loadProductGrid$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadProductGrid),
+      withLatestFrom(this.state.select(getParams)),
+      mergeMap(([_, type]) => {
+        if (type.state.params['brand'] != undefined)
+          return this.productService.getProductsOFBrands(
+            type.state.params['brand']
+          );
+
+        if (type.state.params['type'] != undefined)
+          return this.productService.getProductsFromProductTypes(
+            type.state.params['type']
+          );
+
+        return this.productService.getAll();
+      }),
+      map((data) => loadProductGridSucess({ products: data }))
     );
   });
 }

@@ -5,6 +5,7 @@ import { Product, Variant } from '../store/app.store';
 import { LoadProductData } from '../store/app.actions';
 import { activeProduct, activeProductLoading } from '../store/app.selectors';
 import { Subscription } from 'rxjs';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',
@@ -50,10 +51,15 @@ export class ProductPageComponent {
     );
   }
 
-  constructor(private state: Store) {}
+  constructor(
+    private state: Store,
+    private veiwportScroller: ViewportScroller
+  ) {}
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    this.veiwportScroller.scrollToPosition([0, 0]);
+
     this.state.dispatch(LoadProductData());
     let ProductSubscription = this.state
       .select(activeProduct)

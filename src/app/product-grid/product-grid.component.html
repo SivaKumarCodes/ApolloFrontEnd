@@ -1,4 +1,6 @@
-<div class="productGrid">
+<app-loading *ngIf="loading"></app-loading>
+<div class="productGrid" *ngIf="!loading">
+  <div class="sidebar w-[15rem] h-[40rem] bg-white block"></div>
   <div class="grid__container">
     <app-product-batch
       class="product__tile"

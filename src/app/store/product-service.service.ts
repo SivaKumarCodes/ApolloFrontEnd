@@ -35,12 +35,19 @@ export class ProductService {
   }
 
   getProductsOFBrands(brand: string) {
-    // return this.http.get<Product>
+    return this.http.get<Product[]>(
+      'http://localhost:8080/api/v1/productsbybrand',
+      {
+        params: {
+          brand,
+        },
+      }
+    );
   }
 
   getProductsFromProductTypes(type: string) {
     return this.http.get<Product[]>(
-      'https://apollopharmacy.sivacodes.com/api/v1/productsbytype',
+      'http://localhost:8080/api/v1/productsbytype',
       {
         params: {
           type,

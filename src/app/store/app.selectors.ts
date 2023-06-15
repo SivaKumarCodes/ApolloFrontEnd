@@ -35,25 +35,31 @@ export const getProductsOfProductType = createSelector(
   (state: ProductState, props: { i: number }) => state.data[props.i].items
 );
 
+export const getProductsOfProductLoaded = createSelector(
+  getProductState,
+  (state: ProductState, props: { i: number }) => state.data[props.i].loaded
+);
 export const getProductsOfProductTypeLoading = createSelector(
   getProductState,
   (state: ProductState, props: { i: number }) => state.data[props.i].loading
 );
 
-export const getProductsType = createSelector(
+export const getProductsType = createSelector(getCurrentRoute, (route) => {
+  return route?.state?.params['type'];
+});
+
+export const getRouterParams = createSelector(
   getCurrentRoute,
-  (route) => route.state.params['type']
+  (route) => route?.state?.params
 );
 
 export const getProductName = createSelector(getCurrentRoute, (route) => {
-  if (route) return route.state.params['name'];
-  else return '';
+  return route?.state?.params['name'];
 });
 
-export const getBrand = createSelector(
-  getCurrentRoute,
-  (route) => route.state.params['brand']
-);
+export const getBrand = createSelector(getCurrentRoute, (route) => {
+  route?.state?.params['brand'];
+});
 
 export const activeProduct = createSelector(
   getProductState,
@@ -63,6 +69,16 @@ export const activeProduct = createSelector(
 export const activeProductLoading = createSelector(
   getProductState,
   (state) => state.activeProduct.loading
+);
+
+export const getProductGrid = createSelector(
+  getProductState,
+  (state) => state.activeProductGrid.productGrid
+);
+
+export const getProductGridLoading = createSelector(
+  getProductState,
+  (state) => state.activeProductGrid.loading
 );
 
 // export const getProductsByType = createSelector(

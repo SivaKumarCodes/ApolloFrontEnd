@@ -17,6 +17,9 @@ const _loadProduct = '[product] load product';
 const _loadProductSucess = '[product] load product sucess';
 const _loadProductFailure = '[product] load product failure';
 
+const _loadProductGrid = '[product grid] load productGrid';
+const _loadProductGridSucess = '[product grid] load productGrid sucess';
+
 export const loadSomeBrands = createAction(_loadingBrands);
 export const loadSomeBrandsSucessful = createAction(
   _loadingBrandsSucess,
@@ -55,7 +58,18 @@ export const loadProductsOfProductTypesFail = createAction(
   props<{ productType: productType }>()
 );
 
+export const ProductsOfProductTypesNull = createAction(
+  '[load product type] null'
+);
+
 export const loadProductTypesSucess = createAction(
   _loadProductsSucess,
   props<{ types: string[] }>()
+);
+
+export const loadProductGrid = createAction(_loadProductGrid);
+
+export const loadProductGridSucess = createAction(
+  _loadProductGridSucess,
+  props<{ products: Product[] }>()
 );

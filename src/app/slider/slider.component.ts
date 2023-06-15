@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import {
   getBrands,
+  getProductsOfProductLoaded,
   getProductsOfProductType,
   getProductsOfProductTypeLoading,
 } from '../store/app.selectors';

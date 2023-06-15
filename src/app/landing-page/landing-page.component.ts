@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import {
   getProductTypes,
+  getProductsOfProductLoaded,
   getProductsOfProductType,
 } from '../store/app.selectors';
 import { loadProductsOfProductTypes } from '../store/app.actions';
@@ -28,11 +29,18 @@ export class LandingPageComponent implements OnInit {
       .subscribe((data) => {
         this.productTypes = data;
 
-        this.productTypes.forEach((i, ind) =>
-          this.state.dispatch(
-            loadProductsOfProductTypes({ productType: { ind: ind, type: i } })
-          )
-        );
+        this.productTypes.forEach((i, ind) => {
+          this.state
+            .select(getProductsOfProductLoaded, { i: ind })
+            .subscribe((data) => {
+              if (!data)
+                this.state.dispatch(
+                  loadProductsOfProductTypes({
+                    productType: { ind: ind, type: i },
+                  })
+                );
+            });
+        });
       });
 
     // let productsSubscription = this.state

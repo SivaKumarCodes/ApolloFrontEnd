@@ -14,6 +14,6 @@ import { LoadingComponent } from '../loading/loading.component';
     LoadingComponent,
   ],
   imports: [CommonModule, ProductPageRoutingModule],
-  exports: [ProductViewerComponent],
+  exports: [ProductViewerComponent, LoadingComponent],
 })
 export class ProductPageModule {}
