@@ -86,14 +86,14 @@ export class ProductEffects {
       ofType(loadProductGrid),
       withLatestFrom(this.state.select(getParams)),
       mergeMap(([_, type]) => {
-        if (type.state.params['brand'] != undefined)
+        if (type.state.queryParams['brand'] != undefined)
           return this.productService.getProductsOFBrands(
-            type.state.params['brand']
+            type.state.queryParams['brand']
           );
 
-        if (type.state.params['type'] != undefined)
+        if (type.state.queryParams['type'] != undefined)
           return this.productService.getProductsFromProductTypes(
-            type.state.params['type']
+            type.state.queryParams['type']
           );
 
         return this.productService.getAll();

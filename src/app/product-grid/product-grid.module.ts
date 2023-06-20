@@ -5,6 +5,7 @@ import { ProductGridRoutingModule } from './product-grid-routing.module';
 import { ProductGridComponent } from './product-grid.component';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { ProductBatchModule } from '../product-batch/product-batch.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [ProductGridComponent],
@@ -13,6 +14,7 @@ import { ProductBatchModule } from '../product-batch/product-batch.module';
     ProductGridRoutingModule,
     ProductBatchModule,
     ProductPageModule,
+    FontAwesomeModule,
   ],
   exports: [ProductGridComponent],
 })

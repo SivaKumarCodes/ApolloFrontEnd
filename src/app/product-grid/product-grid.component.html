@@ -1,11 +1,79 @@
 <app-loading *ngIf="loading"></app-loading>
 <div class="productGrid" *ngIf="!loading">
-  <div class="sidebar w-[15rem] h-[40rem] bg-white block"></div>
-  <div class="grid__container">
-    <app-product-batch
-      class="product__tile"
-      *ngFor="let product of products$ | async"
-      [product]="product"
-    ></app-product-batch>
+  <div class="sidebar w-[15rem] p-[1rem] h-[26rem] bg-white block">
+    <div class="w-full min-h-[5rem] h-auto">
+      <p class="text-sm font-bold">CATEGORIES</p>
+      <p class="text-base my-1">Vitamins & Nutrition</p>
+      <div class="w-full gap-1 mb-3 flex flex-col h-auto">
+        <p class="text-sm mt-1 cursor-pointer">Multivitamins</p>
+        <p class="text-sm mt-1">Nutritional Drinks</p>
+      </div>
+    </div>
+    <p class="text-sm font-bold">FILTERS</p>
+    <div class="border-t border-solid mt-2 border-t-thinborder w-full h-auto">
+      <p class="text-sm my-2 font-bold">BRANDS</p>
+      <div
+        *ngFor="let i of [0, 1, 2]"
+        class="flex mt-2 justify-between cursor-pointer items-center w-full h-[1.2rem]"
+      >
+        <div class="checkbox flex flex-row justify-center gap-2 items-center">
+          <div
+            class="check w-[1rem] h-[1rem] rounded-sm border border-solid border-gray-500"
+          ></div>
+          <p class="text-base">Revital H</p>
+        </div>
+        <p class="text-base">56</p>
+      </div>
+    </div>
+
+    <div class="border-t border-solid mt-2 border-t-thinborder w-full h-auto">
+      <p class="text-sm my-2 font-bold">PRODUCT TAGS</p>
+      <div
+        *ngFor="let i of [0, 1, 2]"
+        class="flex mt-2 justify-between items-center w-full h-[1.2rem]"
+      >
+        <div class="checkbox flex flex-row justify-center gap-2 items-center">
+          <div
+            class="check w-[1rem] h-[1rem] rounded-sm border border-solid border-gray-500"
+          ></div>
+          <p class="text-base">Revital H</p>
+        </div>
+        <p class="text-base">56</p>
+      </div>
+    </div>
+  </div>
+  <div class="w-3/5 h-full">
+    <div class="w-full h-[2rem] flex mb-5 justify-between">
+      <p class="text-lg font-medium">All Products</p>
+      <div class="flex items-center justify-center gap-4 mr-[2rem]">
+        <p class="text-lg font-light">Sort By</p>
+        <div
+          (click)="openDropdown()"
+          class="sort_dropdown_header h-4/5 flex items-center relative justify-between p-2 w-[14rem] bg-white"
+        >
+          <p class="font-light">{{ sortOptionsALL[sortOptionSelected] }}</p>
+          <fa-icon [icon]="downIcon"></fa-icon>
+          <div
+            [ngClass]="sortDropdownState == true ? '' : 'hidden'"
+            class="sort_dropdown w-[14rem] p-2 absolute top-full left-0 h-[8rem] bg-white"
+          >
+            <p
+              (click)="changeSort(option, $event)"
+              *ngFor="let option of sortOptionsRemainnig"
+              class="font-light cursor-pointer"
+            >
+              {{ option }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid__container">
+      <app-product-batch
+        class="product__tile"
+        *ngFor="let product of products$ | async"
+        [product]="product"
+      ></app-product-batch>
+    </div>
   </div>
 </div>
