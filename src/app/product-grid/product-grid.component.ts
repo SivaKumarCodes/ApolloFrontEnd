@@ -4,7 +4,12 @@ import { Observable, Observer, Subscription } from 'rxjs';
 import { Product } from '../store/app.store';
 import { loadProductGrid } from '../store/app.actions';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { getProductGrid, getProductGridLoading } from '../store/app.selectors';
+import {
+  getBrandFilters,
+  getProductGrid,
+  getProductGridLoading,
+  getTagsFilters,
+} from '../store/app.selectors';
 import { getParams } from '../store/router.selectors';
 import { ViewportScroller } from '@angular/common';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
@@ -32,6 +37,9 @@ export class ProductGridComponent {
   sortOptionSelected: number = 0;
 
   sortDropdownState: boolean = false;
+
+  tags!: string[];
+  brands!: string[];
 
   constructor(
     private store: Store,
@@ -75,6 +83,18 @@ export class ProductGridComponent {
         this.loading = data;
       });
     this.subscriptions.push(loadingSubscription);
+
+    this.subscriptions.push(
+      this.store.select(getBrandFilters).subscribe((data) => {
+        this.brands = data;
+      })
+    );
+
+    this.subscriptions.push(
+      this.store.select(getTagsFilters).subscribe((data) => {
+        this.tags = data;
+      })
+    );
   }
 
   ngOnDestroy(): void {

@@ -86,6 +86,8 @@ export interface ProductState {
   failed: boolean;
   activeProductGrid: ProductGridData;
   activeProduct: ProdData;
+  filterBrands: string[];
+  filterTags: string[];
 }
 
 export const initialState: ProductState = {
@@ -96,4 +98,6 @@ export const initialState: ProductState = {
   failed: false,
   activeProductGrid: new ActiveProductGrid(),
   activeProduct: new ActiveProduct(),
+  filterBrands: [],
+  filterTags: [],
 };

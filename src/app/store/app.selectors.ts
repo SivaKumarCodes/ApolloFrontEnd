@@ -81,6 +81,16 @@ export const getProductGridLoading = createSelector(
   (state) => state.activeProductGrid.loading
 );
 
+export const getBrandFilters = createSelector(
+  getProductState,
+  (state) => state.filterBrands
+);
+
+export const getTagsFilters = createSelector(
+  getProductState,
+  (state) => state.filterTags
+);
+
 // export const getProductsByType = createSelector(
 //   getProducts,
 //   getCurrentRoute,

@@ -112,9 +112,20 @@ const _productReducer = createReducer(
     newActiveGrid.loaded = true;
     newActiveGrid.loading = false;
     newActiveGrid.productGrid = action.products;
+
+    let brands: string[] = [...new Set(action.products.map((i) => i.brand))];
+    // let types: string[] = [ ...new Set(action.products.map(i => i.tags))];
+    let tags: string[];
+    let tagsUniq: Set<string> = new Set();
+
+    action.products.forEach((i) => i.tags.forEach((t) => tagsUniq.add(t)));
+    tags = [...tagsUniq];
+
     return {
       ...state,
       activeProductGrid: newActiveGrid,
+      filterBrands: brands,
+      filterTags: tags,
     };
   })
 );

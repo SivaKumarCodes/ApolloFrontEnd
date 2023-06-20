@@ -1,6 +1,6 @@
 <app-loading *ngIf="loading"></app-loading>
 <div class="productGrid" *ngIf="!loading">
-  <div class="sidebar w-[15rem] p-[1rem] h-[26rem] bg-white block">
+  <div class="sidebar w-[15rem] p-[1rem] m-[2.7rem] h-fit bg-white block">
     <div class="w-full min-h-[5rem] h-auto">
       <p class="text-sm font-bold">CATEGORIES</p>
       <p class="text-base my-1">Vitamins & Nutrition</p>
@@ -13,14 +13,14 @@
     <div class="border-t border-solid mt-2 border-t-thinborder w-full h-auto">
       <p class="text-sm my-2 font-bold">BRANDS</p>
       <div
-        *ngFor="let i of [0, 1, 2]"
+        *ngFor="let brand of brands"
         class="flex mt-2 justify-between cursor-pointer items-center w-full h-[1.2rem]"
       >
         <div class="checkbox flex flex-row justify-center gap-2 items-center">
           <div
             class="check w-[1rem] h-[1rem] rounded-sm border border-solid border-gray-500"
           ></div>
-          <p class="text-base">Revital H</p>
+          <p class="text-base">{{ brand }}</p>
         </div>
         <p class="text-base">56</p>
       </div>
@@ -29,14 +29,14 @@
     <div class="border-t border-solid mt-2 border-t-thinborder w-full h-auto">
       <p class="text-sm my-2 font-bold">PRODUCT TAGS</p>
       <div
-        *ngFor="let i of [0, 1, 2]"
+        *ngFor="let tag of tags"
         class="flex mt-2 justify-between items-center w-full h-[1.2rem]"
       >
         <div class="checkbox flex flex-row justify-center gap-2 items-center">
           <div
             class="check w-[1rem] h-[1rem] rounded-sm border border-solid border-gray-500"
           ></div>
-          <p class="text-base">Revital H</p>
+          <p class="text-base">{{ tag }}</p>
         </div>
         <p class="text-base">56</p>
       </div>
