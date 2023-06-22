@@ -4,10 +4,14 @@ import { Observable, Observer, Subscription } from 'rxjs';
 import { Product } from '../store/app.store';
 import { loadProductGrid } from '../store/app.actions';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import {
+  getBrandFilterCount,
   getBrandFilters,
   getProductGrid,
   getProductGridLoading,
+  getRouterParams,
+  getTagFilterCount,
   getTagsFilters,
 } from '../store/app.selectors';
 import { getParams } from '../store/router.selectors';
@@ -25,6 +29,33 @@ export class ProductGridComponent {
   subscriptions: Subscription[] = [];
   loading!: boolean;
   downIcon = faCaretDown;
+  checkIcon = faCheck;
+
+  catogoriesVisible: boolean = false;
+  activeSubCatogory!: string;
+
+  catogories: any = {
+    'Vitamins & Nutrition': [
+      'Multivitamins',
+      'Nutritional Drinks',
+      'Protein Supplements',
+      'Omega3 Supplements',
+      // 'Blood Glucose Monitors',
+    ],
+    'Healthcare Devices': {},
+    'Personal Care': {},
+    'Ayurveda Products': {},
+    Homeopathy: {},
+  };
+
+  catogoriesKey: any = {
+    Multivitamins: 'Vitamins & Nutrition',
+    'Nutritional Drinks': 'Vitamins & Nutrition',
+    'Protein Supplements': 'Vitamins & Nutrition',
+    'Omega3 Supplements': 'Vitamins & Nutrition',
+    'Blood Glucose Monitors': 'Healthcare Devices',
+  };
+  activeCatogory!: string;
 
   readonly sortOptionsALL = [
     'Popularity',
@@ -41,6 +72,9 @@ export class ProductGridComponent {
   tags!: string[];
   brands!: string[];
 
+  brandsCount: any;
+  tagsCount: any;
+
   constructor(
     private store: Store,
     private router: Router,
@@ -48,7 +82,8 @@ export class ProductGridComponent {
   ) {}
 
   openDropdown() {
-    this.sortDropdownState = true;
+    if (this.sortDropdownState) this.sortDropdownState = false;
+    else this.sortDropdownState = true;
   }
 
   closeDropdown() {
@@ -69,10 +104,25 @@ export class ProductGridComponent {
     //Add 'implements OnInit' to the class.
     this.veiwportScroller.scrollToPosition([0, 0]);
     this.store.dispatch(loadProductGrid());
+
     let routerSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd)
+      if (event instanceof NavigationEnd) {
         this.store.dispatch(loadProductGrid());
+        // for (let catogory in this.catogories) {
+        // }
+      }
     });
+
+    this.subscriptions.push(
+      this.store.select(getParams).subscribe((data) => {
+        if (data.state.queryParams['type']) {
+          this.catogoriesVisible = true;
+          this.activeCatogory =
+            this.catogoriesKey[data.state.queryParams['type']];
+          this.activeSubCatogory = data.state.queryParams['type'];
+        }
+      })
+    );
 
     this.subscriptions.push(routerSubscription);
 
@@ -93,6 +143,18 @@ export class ProductGridComponent {
     this.subscriptions.push(
       this.store.select(getTagsFilters).subscribe((data) => {
         this.tags = data;
+      })
+    );
+
+    this.subscriptions.push(
+      this.store.select(getBrandFilterCount).subscribe((data) => {
+        this.brandsCount = data;
+      })
+    );
+
+    this.subscriptions.push(
+      this.store.select(getTagFilterCount).subscribe((data) => {
+        this.tagsCount = data;
       })
     );
   }

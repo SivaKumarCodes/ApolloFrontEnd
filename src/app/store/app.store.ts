@@ -88,6 +88,8 @@ export interface ProductState {
   activeProduct: ProdData;
   filterBrands: string[];
   filterTags: string[];
+  filterBrandCount: any;
+  filterTagCount: any;
 }
 
 export const initialState: ProductState = {
@@ -100,4 +102,6 @@ export const initialState: ProductState = {
   activeProduct: new ActiveProduct(),
   filterBrands: [],
   filterTags: [],
+  filterBrandCount: {},
+  filterTagCount: {},
 };

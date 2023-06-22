@@ -114,7 +114,24 @@ const _productReducer = createReducer(
     newActiveGrid.productGrid = action.products;
 
     let brands: string[] = [...new Set(action.products.map((i) => i.brand))];
-    // let types: string[] = [ ...new Set(action.products.map(i => i.tags))];
+
+    let brandCount: any = {};
+    let tagCount: any = {};
+
+    action.products
+      .map((i) => i.brand)
+      .forEach((i) => {
+        if (brandCount[i]) brandCount[i]++;
+        else brandCount[i] = 1;
+      });
+
+    action.products.forEach((i) =>
+      i.tags.forEach((t) => {
+        if (tagCount[t]) tagCount[t]++;
+        else tagCount[t] = 1;
+      })
+    );
+
     let tags: string[];
     let tagsUniq: Set<string> = new Set();
 
@@ -126,6 +143,8 @@ const _productReducer = createReducer(
       activeProductGrid: newActiveGrid,
       filterBrands: brands,
       filterTags: tags,
+      filterBrandCount: brandCount,
+      filterTagCount: tagCount,
     };
   })
 );

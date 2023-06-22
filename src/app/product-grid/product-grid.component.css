@@ -48,4 +48,6 @@
 
 .sort_dropdown {
   border-radius: 0 0 8px 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  user-select: none;
 }

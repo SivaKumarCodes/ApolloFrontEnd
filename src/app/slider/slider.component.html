@@ -1,7 +1,12 @@
 <div class="slider__container">
   <div class="slider__controls">
     <span class="slider__title">{{ name }}</span>
-    <a href="#" onclick="($event.preventdefault())" class="slider__veiw__more">
+    <a
+      [routerLink]="['/products']"
+      [queryParams]="{ type: name }"
+      onclick="($event.preventdefault())"
+      class="slider__veiw__more"
+    >
       <span> See All </span></a
     >
   </div>
