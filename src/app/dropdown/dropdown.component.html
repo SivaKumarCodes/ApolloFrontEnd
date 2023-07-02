@@ -11,7 +11,7 @@
     <div class="dropdown-list">
       <a
         *ngFor="let option of options"
-        class="dropdown-option"
+        class="cursor-pointer dropdown-option"
         (click)="follow(false, option.link)"
       >
         <img class="option__img" src="{{ option.url }}" alt="" />

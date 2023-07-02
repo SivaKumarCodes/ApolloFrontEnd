@@ -30,8 +30,10 @@
       </div>
       <div class="items__selection"></div>
       <div class="empty" *ngIf="allItemInCart == 0">
-        <p>There is nothing in ur cart</p>
-        <div class="continue__shopping" routerLink="/">Continue Shopping</div>
+        <p>There is nothing in your cart</p>
+        <div class="cursor-pointer continue__shopping" routerLink="/">
+          Continue Shopping
+        </div>
       </div>
       <div *ngIf="allItemInCart > 0" class="selection__controls">
         <div
