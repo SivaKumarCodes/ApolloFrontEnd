@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Order, cartItem } from './cart.store';
+import { Order, cartItem, cartProductItem } from './cart.store';
 import { orderNum } from './cart.service';
 
 const _addToCart = '[cart] addToCart';
@@ -29,7 +29,7 @@ export const repopulateCart = createAction(_repopulateCart);
 
 export const repopulteCartSucessful = createAction(
   _repopulateCartSucessful,
-  props<{ cart: cartItem[] }>()
+  props<{ cart: cartProductItem[] }>()
 );
 
 export const addToCartEffect = createAction(

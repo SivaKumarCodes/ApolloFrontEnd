@@ -1,9 +1,14 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import {
   LoadProductData,
   LoadProductDataSucess,
+  loadGridFiltersWithoutTagsSucess,
   loadProductGrid,
+  loadProductGridBrandsWithTags,
   loadProductGridSucess,
+  loadProductGridWithFilters,
+  loadProductGridWithFiltersSucesse,
+  loadProductGridWithoutTagsFilters,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
   loadProductsOfProductTypesSucess,
@@ -20,6 +25,7 @@ import {
   ProductState,
   ProductTypeItem,
 } from './app.store';
+import { act } from '@ngrx/effects';
 
 const _productReducer = createReducer(
   initialState,
@@ -145,6 +151,82 @@ const _productReducer = createReducer(
       filterTags: tags,
       filterBrandCount: brandCount,
       filterTagCount: tagCount,
+    };
+  }),
+  on(loadProductGridWithFilters, (state, action) => {
+    let newActiveGrid: ActiveProductGrid = JSON.parse(
+      JSON.stringify(state.activeProductGrid)
+    );
+    newActiveGrid.failed = false;
+    newActiveGrid.loaded = false;
+    newActiveGrid.loading = true;
+    return {
+      ...state,
+      activeProductGrid: newActiveGrid,
+    };
+  }),
+  on(loadProductGridWithFiltersSucesse, (state, action) => {
+    let newActiveProductGrid: ActiveProductGrid = JSON.parse(
+      JSON.stringify(state.activeProductGrid)
+    );
+    newActiveProductGrid.productGrid = action.products;
+
+    newActiveProductGrid.failed = false;
+    newActiveProductGrid.loaded = true;
+    newActiveProductGrid.loading = false;
+
+    let tags: string[];
+    let tagsUniq: Set<string> = new Set();
+
+    action.products.forEach((i) => i.tags.forEach((t) => tagsUniq.add(t)));
+    tags = [...tagsUniq];
+
+    http: return {
+      ...state,
+      activeProductGrid: newActiveProductGrid,
+      filterTags: tags,
+    };
+  }),
+  on(loadProductGridWithoutTagsFilters, (state, action) => {
+    let newActiveGrid: ActiveProductGrid = JSON.parse(
+      JSON.stringify(state.activeProductGrid)
+    );
+
+    newActiveGrid.failed = false;
+    newActiveGrid.loaded = false;
+    newActiveGrid.loading = true;
+
+    return {
+      ...state,
+      activeProductGrid: newActiveGrid,
+    };
+  }),
+  on(loadGridFiltersWithoutTagsSucess, (state, action) => {
+    let newActiveProductGrid: ActiveProductGrid = JSON.parse(
+      JSON.stringify(state.activeProductGrid)
+    );
+    newActiveProductGrid.productGrid = action.products;
+
+    newActiveProductGrid.failed = false;
+    newActiveProductGrid.loaded = true;
+    newActiveProductGrid.loading = false;
+
+    http: return {
+      ...state,
+      activeProductGrid: newActiveProductGrid,
+    };
+  }),
+  on(loadProductGridBrandsWithTags, (state, action) => {
+    let newActiveGrid: ActiveProductGrid = JSON.parse(
+      JSON.stringify(state.activeProductGrid)
+    );
+    newActiveGrid.failed = false;
+    newActiveGrid.loaded = false;
+    newActiveGrid.loading = true;
+
+    return {
+      ...state,
+      activeProductGrid: newActiveGrid,
     };
   })
 );

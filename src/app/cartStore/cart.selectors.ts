@@ -11,7 +11,10 @@ const getCartState = createFeatureSelector<cartState>('cart');
 export const getCart = createSelector(getCartState, (state) => state.cart);
 
 export const getCartItems = createSelector(getCartState, (state) =>
-  state.cart.map((a) => ({ productId: a.productId, variantId: a.variantId }))
+  state.cart.map((a) => ({
+    productId: a.product.productId,
+    variantId: a.variantId,
+  }))
 );
 
 export const getCartCount = createSelector(
@@ -20,7 +23,10 @@ export const getCartCount = createSelector(
 );
 
 export const existsOnCart = createSelector(getCartState, (state) =>
-  state.cart.map((i) => ({ productId: i.productId, variantId: i.variantId }))
+  state.cart.map((i) => ({
+    productId: i.product.productId,
+    variantId: i.variantId,
+  }))
 );
 
 export const getIsOrderInitiated = createSelector(
@@ -36,4 +42,9 @@ export const getOrderSucess = createSelector(
 export const getOrderNum = createSelector(
   getCartState,
   (state) => state.orderNumber
+);
+
+export const getCartLoading = createSelector(
+  getCartState,
+  (state) => state.cartLoading
 );

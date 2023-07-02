@@ -1,8 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Observer, Subscription } from 'rxjs';
-import { Product } from '../store/app.store';
-import { loadProductGrid } from '../store/app.actions';
+import { BrandFilters, Product, ProductTypeFilters } from '../store/app.store';
+import {
+  loadProductGrid,
+  loadProductGridBrandsWithTags,
+  loadProductGridWithFilters,
+  loadProductGridWithoutTagsFilters,
+} from '../store/app.actions';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -30,6 +35,8 @@ export class ProductGridComponent {
   loading!: boolean;
   downIcon = faCaretDown;
   checkIcon = faCheck;
+
+  activeBrand!: string;
 
   catogoriesVisible: boolean = false;
   activeSubCatogory!: string;
@@ -72,6 +79,9 @@ export class ProductGridComponent {
   tags!: string[];
   brands!: string[];
 
+  tagSelection!: boolean[];
+  brandsSelection!: boolean[];
+
   brandsCount: any;
   tagsCount: any;
 
@@ -81,9 +91,61 @@ export class ProductGridComponent {
     private veiwportScroller: ViewportScroller
   ) {}
 
+  changeFilters(withOutTags: boolean) {
+    let brandsFilters: string[] = [];
+    let tagsFilters: string[] = [];
+
+    this.brandsSelection.forEach((i, ind) =>
+      i ? brandsFilters.push(this.brands[ind]) : null
+    );
+    this.tagSelection.forEach((i, ind) =>
+      i ? tagsFilters.push(this.tags[ind]) : null
+    );
+
+    if (this.catogoriesVisible) {
+      if (withOutTags) {
+        this.store.dispatch(
+          loadProductGridWithoutTagsFilters({
+            filters: new ProductTypeFilters(
+              this.activeSubCatogory,
+              [...brandsFilters],
+              [...tagsFilters]
+            ),
+          })
+        );
+      } else {
+        this.store.dispatch(
+          loadProductGridWithFilters({
+            filters: new ProductTypeFilters(
+              this.activeSubCatogory,
+              [...brandsFilters],
+              [...tagsFilters]
+            ),
+          })
+        );
+      }
+    } else {
+      this.store.dispatch(
+        loadProductGridBrandsWithTags({
+          filters: new BrandFilters(this.activeBrand, [], [...tagsFilters]),
+        })
+      );
+    }
+  }
+
   openDropdown() {
     if (this.sortDropdownState) this.sortDropdownState = false;
     else this.sortDropdownState = true;
+  }
+
+  selectBrand(i: number) {
+    this.brandsSelection[i] = !this.brandsSelection[i];
+    this.changeFilters(false);
+  }
+
+  selectTag(i: number) {
+    this.tagSelection[i] = !this.tagSelection[i];
+    this.changeFilters(true);
   }
 
   closeDropdown() {
@@ -121,6 +183,11 @@ export class ProductGridComponent {
             this.catogoriesKey[data.state.queryParams['type']];
           this.activeSubCatogory = data.state.queryParams['type'];
         }
+
+        if (data.state.queryParams['brand']) {
+          this.catogoriesVisible = false;
+          this.activeBrand = data.state.queryParams['brand'];
+        }
       })
     );
 
@@ -137,12 +204,17 @@ export class ProductGridComponent {
     this.subscriptions.push(
       this.store.select(getBrandFilters).subscribe((data) => {
         this.brands = data;
+        if (data != undefined) {
+          this.brandsSelection = this.brands.map((i) => false);
+          if (this.brands.length == 1) this.brandsSelection[0] = true;
+        }
       })
     );
 
     this.subscriptions.push(
       this.store.select(getTagsFilters).subscribe((data) => {
         this.tags = data;
+        if (data) this.tagSelection = this.tags.map((i) => false);
       })
     );
 
@@ -157,6 +229,11 @@ export class ProductGridComponent {
         this.tagsCount = data;
       })
     );
+
+    this.subscriptions
+      .push
+      // this.store.select(getBran)
+      ();
   }
 
   ngOnDestroy(): void {

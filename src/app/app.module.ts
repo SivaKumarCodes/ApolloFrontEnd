@@ -28,6 +28,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { popUpReducer } from './popUpStore/popUp.reducer';
+import { ProductPageModule } from './product-page/product-page.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { popUpReducer } from './popUpStore/popUp.reducer';
     ReactiveFormsModule,
     AppRoutingModule,
     FontAwesomeModule,
+    ProductPageModule,
     StoreModule.forRoot({
       products: ProductReducer,
       router: routerReducer,

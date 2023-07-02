@@ -10,6 +10,54 @@ export interface Product {
   tags: string[];
 }
 
+export class ProductTypeFilters {
+  type: string;
+  brands: string[];
+  tags: string[];
+
+  constructor(type: string, brands: string[], tags: string[]) {
+    this.brands = brands;
+    this.type = type;
+    this.tags = tags;
+  }
+
+  get productType() {
+    return this.type;
+  }
+
+  get brandsFilter() {
+    return this.brands;
+  }
+
+  get tagsFilter() {
+    return this.tags;
+  }
+}
+
+export class BrandFilters {
+  brand: string;
+  productTypes: string[];
+  tags: string[];
+
+  constructor(brand: string, types: string[], tags: string[]) {
+    this.brand = brand;
+    this.productTypes = types;
+    this.tags = tags;
+  }
+
+  get types() {
+    return this.productTypes;
+  }
+
+  get getBrand() {
+    return this.brand;
+  }
+
+  get tagsFilter() {
+    return this.tags;
+  }
+}
+
 export interface Variant {
   variantId: number;
   price: number;
@@ -85,6 +133,7 @@ export interface ProductState {
   loading: boolean;
   failed: boolean;
   activeProductGrid: ProductGridData;
+  cartProducts: ProductGridData;
   activeProduct: ProdData;
   filterBrands: string[];
   filterTags: string[];
@@ -99,6 +148,7 @@ export const initialState: ProductState = {
   loading: false,
   failed: false,
   activeProductGrid: new ActiveProductGrid(),
+  cartProducts: new ActiveProductGrid(),
   activeProduct: new ActiveProduct(),
   filterBrands: [],
   filterTags: [],

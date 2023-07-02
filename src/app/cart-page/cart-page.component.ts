@@ -24,11 +24,12 @@ import {
 } from '../cartStore/cart.actions';
 import {
   getCart,
+  getCartLoading,
   getOrderNum,
   getOrderSucess,
   ProductVariant,
 } from '../cartStore/cart.selectors';
-import { Order, cartItem } from '../cartStore/cart.store';
+import { Order, cartItem, cartProductItem } from '../cartStore/cart.store';
 import { Product, Variant } from '../store/app.store';
 import { AddressType } from '../authStore/auth.store';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
@@ -67,14 +68,14 @@ export class CartPageComponent {
   @ViewChild(AddressChangerComponent)
   addressComponent!: AddressChangerComponent;
 
+  cartLoading!: boolean;
+
   rupeeIcon = faRupeeSign;
   downIcon = faCaretDown;
   checkMarkIcon = faCheck;
   minusIcon = faMinus;
   plustIcon = faPlus;
   dotIcon = faCircle;
-
-  orderSucessSubcription!: Subscription;
 
   enumAddresstype = AddressType;
 
@@ -107,6 +108,8 @@ export class CartPageComponent {
 
   totalSelected!: number;
 
+  subscriptions: Subscription[] = [];
+
   OrderStep: number = 0;
 
   otherAddress: number[] = [];
@@ -119,7 +122,7 @@ export class CartPageComponent {
 
   defaultAdress!: number;
 
-  cartData!: cartItem[];
+  cartData!: cartProductItem[];
 
   cartItems: cartEntity[] = [];
 
@@ -131,13 +134,9 @@ export class CartPageComponent {
 
   activeCartItem = -1;
 
-  cartSubscription!: Subscription;
-
   totalAmount: number = 0;
 
   addressVisible: boolean = false;
-
-  addressSubscription!: Subscription;
 
   selectedItems: cartEntity[] = [];
 
@@ -152,7 +151,13 @@ export class CartPageComponent {
 
   changeQuantity(i: number) {
     this.showQuantityPicker = false;
-    let activeItem = this.cartData[this.activeCartItem];
+    // let activeItem = this.cartData[this.activeCartItem];
+    let activeItem: cartItem = {
+      productId: this.cartData[i].product.productId,
+      variantId: this.cartData[i].variantId,
+      quantity: this.cartData[i].quantity,
+    };
+
     if (activeItem.quantity > i) {
       activeItem.quantity = activeItem.quantity - i;
       this.state.dispatch(RemoveFromCartEffect(activeItem));
@@ -186,9 +191,13 @@ export class CartPageComponent {
   constructor(private state: Store) {}
 
   removeFromCart(i: number) {
-    let item = this.cartData[i];
-    this.state.dispatch(RemoveFromCartEffect(item));
-    this.totalPrice();
+    let result: cartItem = {
+      productId: this.cartData[i].product.productId,
+      variantId: this.cartData[i].variantId,
+      quantity: this.cartData[i].quantity,
+    };
+
+    this.state.dispatch(RemoveFromCartEffect(result));
   }
 
   currencyFormat(i: number) {
@@ -251,15 +260,13 @@ export class CartPageComponent {
     this.selectedItems.forEach((val, ind) => {
       if (val) {
         const item: cartItem = {
-          productId: this.cartData[ind].productId,
+          productId: this.cartData[ind].product.productId,
           variantId: this.cartData[ind].variantId,
           quantity: this.cartData[ind].quantity,
         };
         items.push(item);
       }
     });
-
-    console.log(items);
 
     const body: Order = {
       addressId: this.addresses[this.selectedAddress].id,
@@ -280,45 +287,40 @@ export class CartPageComponent {
       if (data) this.state.dispatch(getUserAddresses());
     });
 
-    this.cartSubscription = this.state.select(getCart).subscribe((data) => {
-      let result: cartEntity[] = [];
-      data.forEach((item) => {
-        let cartItem: cartEntity = {
-          image: '',
-          title: '',
-          purchaseQuantity: 0,
-          quantity: 0,
-          brand: '',
-          mesurement: '',
-          price: 0,
-        };
+    this.subscriptions.push(
+      this.state.select(getCart).subscribe((data) => {
+        let result: cartEntity[] = [];
 
-        // this.state.select(getProduct(item.productId)).subscribe((product) => {
-        //   cartItem.brand = product?.brand!;
-        //   let variant = product?.variants.find(
-        //     (i) => i.variantId == item.variantId
-        //   );
-        //   cartItem.image = variant?.images[0]!;
-        //   cartItem.purchaseQuantity = item.quantity;
-        //   cartItem.title = product?.productName!;
-        //   cartItem.mesurement = variant?.mesurement!;
-        //   cartItem.quantity = variant?.quantity!;
-        //   cartItem.price = variant?.price!;
-        //   result.push(cartItem);
-        // });
-      });
-      this.cartItems = result;
-      this.cartData = JSON.parse(JSON.stringify(data));
-      let selectedRes: boolean[] = [];
-      this.cartItems.forEach(() => selectedRes.push(true));
-      this.isSelected = selectedRes;
-      this.totalSelected = selectedRes.length;
-      this.allItemInCart = selectedRes.length;
-      this.totalPrice();
-    });
-    this.addressSubscription = this.state
-      .select(getAddresses)
-      .subscribe((data) => {
+        data.forEach((item) => {
+          let variant = item.product.variants.find(
+            (i) => i.variantId == item.variantId
+          );
+
+          let cartItem: cartEntity = {
+            image: item.product.variants[0].images[0],
+            title: item.product.productName,
+            purchaseQuantity: item.quantity,
+            quantity: variant?.quantity!,
+            brand: item.product.brand,
+            mesurement: variant?.mesurement!,
+            price: variant?.price!,
+          };
+          result.push(cartItem);
+        });
+
+        this.cartItems = result;
+        this.cartData = JSON.parse(JSON.stringify(data));
+        let selectedRes: boolean[] = [];
+        this.cartItems.forEach(() => selectedRes.push(true));
+        this.isSelected = selectedRes;
+        this.totalSelected = selectedRes.length;
+        this.allItemInCart = selectedRes.length;
+        this.totalPrice();
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(getAddresses).subscribe((data) => {
         this.addresses = data!;
         const ind = data?.findIndex((a) => a.defaultAddress);
         this.defaultAdress = ind!;
@@ -334,23 +336,29 @@ export class CartPageComponent {
             this.otherAddress = otherAddress;
           });
         }
-      });
+      })
+    );
 
-    this.orderSucessSubcription = this.state
-      .select(getOrderSucess)
-      .subscribe((val) => {
+    this.subscriptions.push(
+      this.state.select(getOrderSucess).subscribe((val) => {
         if (val) {
           this.state.dispatch(repopulateCart());
           this.setOrderStep(2);
         }
-      });
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(getCartLoading).subscribe((data) => {
+        this.cartLoading = data;
+      })
+    );
   }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.cartSubscription.unsubscribe();
-    this.addressSubscription.unsubscribe();
+    this.subscriptions.forEach((i) => i.unsubscribe());
     this.OrderStep = 0;
     this.state.dispatch(clearOrder());
   }

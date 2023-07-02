@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  concatMap,
-  delay,
-  map,
-  mergeMap,
-  of,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs';
+import { catchError, concatMap, map, mergeMap, of, withLatestFrom } from 'rxjs';
 import {
   LoadProductData,
   LoadProductDataSucess,
   ProductsOfProductTypesNull,
+  loadGridFiltersWithoutTagsSucess,
   loadProductGrid,
+  loadProductGridBrandsWithTags,
+  loadProductGridBrandsWithTagsSucess,
   loadProductGridSucess,
+  loadProductGridWithFilters,
+  loadProductGridWithFiltersSucesse,
+  loadProductGridWithoutTagsFilters,
   loadProductTypes,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
@@ -28,6 +25,7 @@ import { ProductService } from './product-service.service';
 import { Store } from '@ngrx/store';
 import { getProductName } from './app.selectors';
 import { getParams } from './router.selectors';
+import { BrandFilters, ProductTypeFilters } from './app.store';
 
 @Injectable()
 export class ProductEffects {
@@ -59,7 +57,9 @@ export class ProductEffects {
       ofType(loadProductsOfProductTypes),
       mergeMap((action) =>
         this.productService
-          .getProductsFromProductTypes(action.productType.type)
+          .getProductsFromProductTypes(
+            new ProductTypeFilters(action.productType.type, [], [])
+          )
           .pipe(
             map((data) =>
               loadProductsOfProductTypesSucess({
@@ -88,12 +88,12 @@ export class ProductEffects {
       mergeMap(([_, type]) => {
         if (type.state.queryParams['brand'] != undefined)
           return this.productService.getProductsOFBrands(
-            type.state.queryParams['brand']
+            new BrandFilters(type.state.queryParams['brand'], [], [])
           );
 
         if (type.state.queryParams['type'] != undefined)
           return this.productService.getProductsFromProductTypes(
-            type.state.queryParams['type']
+            new ProductTypeFilters(type.state.queryParams['type'], [], [])
           );
 
         return this.productService.getAll();
@@ -101,4 +101,34 @@ export class ProductEffects {
       map((data) => loadProductGridSucess({ products: data }))
     );
   });
+
+  loadProductGridWithFilter$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProductGridWithFilters),
+      mergeMap((action) => {
+        return this.productService.getProductsFromProductTypes(action.filters);
+      }),
+      map((data) => loadProductGridWithFiltersSucesse({ products: data }))
+    )
+  );
+
+  loadProductGridFiltersWithoutTags$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProductGridWithoutTagsFilters),
+      mergeMap((action) => {
+        return this.productService.getProductsFromProductTypes(action.filters);
+      }),
+      map((data) => loadGridFiltersWithoutTagsSucess({ products: data }))
+    )
+  );
+
+  loadProductGridBrandsWithoutTags$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProductGridBrandsWithTags),
+      mergeMap((action) => {
+        return this.productService.getProductsOFBrands(action.filters);
+      }),
+      map((data) => loadGridFiltersWithoutTagsSucess({ products: data }))
+    )
+  );
 }

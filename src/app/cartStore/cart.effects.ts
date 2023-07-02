@@ -26,10 +26,10 @@ export class CartEffects {
       ofType(addToCartEffect),
       withLatestFrom(this.state.select(getToken)),
       switchMap(([actions, token]) => {
-        this.state.dispatch(addToCart(actions));
+        // this.state.dispatch(addToCart(actions));
         return this.cartService.addToCart(actions, token);
       }),
-      map(() => addToCartSuccessful())
+      map(() => repopulateCart())
     )
   );
 
@@ -41,7 +41,7 @@ export class CartEffects {
         this.state.dispatch(removeFromCart(actions));
         return this.cartService.removeFromCart(actions, token);
       }),
-      map(() => RemoveFromCartSuccessful())
+      map(() => repopulateCart())
     )
   );
 

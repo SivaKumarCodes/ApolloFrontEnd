@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Brand, Product } from './app.store';
+import { Brand, BrandFilters, Product, ProductTypeFilters } from './app.store';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,6 @@ export class ProductService {
   }
 
   getProductByName(name: string) {
-    console.log('hello');
     return this.http.get<Product>('http://localhost:8080/api/v1/product', {
       params: {
         name,
@@ -34,25 +33,17 @@ export class ProductService {
     );
   }
 
-  getProductsOFBrands(brand: string) {
-    return this.http.get<Product[]>(
+  getProductsOFBrands(filters: BrandFilters) {
+    return this.http.post<Product[]>(
       'http://localhost:8080/api/v1/productsbybrand',
-      {
-        params: {
-          brand,
-        },
-      }
+      filters
     );
   }
 
-  getProductsFromProductTypes(type: string) {
-    return this.http.get<Product[]>(
+  getProductsFromProductTypes(filters: ProductTypeFilters) {
+    return this.http.post<Product[]>(
       'http://localhost:8080/api/v1/productsbytype',
-      {
-        params: {
-          type,
-        },
-      }
+      filters
     );
   }
 }

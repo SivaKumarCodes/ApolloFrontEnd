@@ -27,14 +27,16 @@
     >
       <p class="text-sm my-2 font-bold">BRANDS</p>
       <div
-        *ngFor="let brand of brands"
+        *ngFor="let brand of brands; let i = index"
+        [attr.data-index]="i"
         class="flex mt-2 justify-between cursor-pointer items-center w-full h-[1.2rem]"
       >
         <div class="checkbox flex flex-row justify-center gap-2 items-center">
           <div
+            (click)="selectBrand(i)"
             class="check w-[1rem] flex justify-center items-center text-[0.7rem] h-[1rem] rounded-sm border border-solid border-gray-500"
           >
-            <fa-icon [icon]="checkIcon"></fa-icon>
+            <fa-icon *ngIf="brandsSelection[i]" [icon]="checkIcon"></fa-icon>
           </div>
           <p class="text-base">{{ brand }}</p>
         </div>
@@ -48,14 +50,16 @@
     >
       <p class="text-sm my-2 font-bold">PRODUCT TAGS</p>
       <div
-        *ngFor="let tag of tags"
+        *ngFor="let tag of tags; let i = index"
+        [attr.data-index]="i"
         class="flex mt-2 justify-between items-center w-full h-[1.2rem]"
       >
         <div class="checkbox flex flex-row justify-center gap-2 items-center">
           <div
+            (click)="selectTag(i)"
             class="check w-[1rem] text-[0.7rem] flex justify-center items-center h-[1rem] rounded-sm border border-solid border-gray-500"
           >
-            <fa-icon [icon]="checkIcon"></fa-icon>
+            <fa-icon *ngIf="tagSelection[i]" [icon]="checkIcon"></fa-icon>
           </div>
           <p class="text-base">{{ tag }}</p>
         </div>
