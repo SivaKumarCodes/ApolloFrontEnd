@@ -31,3 +31,8 @@ export const selectUpdateDetails = createSelector(
   getAuthState,
   (state) => state.updateSucessful
 );
+
+export const selectUserOrders = createSelector(
+  getAuthState,
+  (state) => state.orders
+);

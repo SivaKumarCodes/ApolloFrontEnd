@@ -1,3 +1,5 @@
+import { saleStatus } from '../cart-page/cart-page.component';
+import { Product } from '../store/app.store';
 import { States } from './states';
 
 export interface Auth {
@@ -7,6 +9,7 @@ export interface Auth {
   addresses: Address[] | null;
   details: Details | null;
   updateSucessful: boolean;
+  orders: UserOrders[];
 }
 
 export interface Details {
@@ -19,6 +22,22 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface OrderItem {
+  quantitySold: number;
+  pricePerUnit: number;
+  totalPrice: number;
+  product: Product;
+  variantId: number;
+}
+
+export interface UserOrders {
+  orderNumber: string;
+  timeCreated: string;
+  address: Address;
+  items: OrderItem[];
+  salestatus: saleStatus;
 }
 
 export interface Creds {
@@ -73,6 +92,7 @@ export const initialState: Auth | null = {
     mobile: null,
     gender: null,
   },
+  orders: [],
 };
 
 export interface UserRegistration {

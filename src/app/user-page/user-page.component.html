@@ -409,7 +409,114 @@
       *ngIf="selectedOption == options.orders"
       id="addresses"
       class="user__page__details"
-    ></div>
+    >
+      <p class="text-2xl font-medium text-main">All Orders</p>
+      <p class="text-base text-main">from anytime</p>
+
+      <div class="w-ful h-auto mt-[2rem]">
+        <div class="w-full h-auto flex flex-col gap-[2rem]">
+          <div *ngFor="let item of orderInfoItems">
+            <div class="w-full h-auto flex flex-col gap-2 bg-white">
+              <div class="w-full flex gap-2 px-5 h-fit bg-white">
+                <div
+                  class="order-symbol flex justify-center items-center rounded-full bg-black w-[32px] h-[32px]"
+                >
+                  <div class="w-fit relative h-fit">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="26"
+                      height="26"
+                      class="relative"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#FFFFFF"
+                        fill-rule="nonzero"
+                        d="M19.173 7.059l-7.232-4a.469.469 0 0 0-.454 0l-7.232 4A.503.503 0 0 0 4 7.5v9c0 .185.098.355.255.441l7.232 4a.469.469 0 0 0 .454 0l7.232-4a.503.503 0 0 0 .256-.441v-9a.503.503 0 0 0-.256-.441zm-7.459-2.992L17.922 7.5 15.33 8.933 9.123 5.5l2.591-1.433zm-.482 15.6L4.964 16.2V8.334l6.268 3.466v7.866zm.482-8.734L5.507 7.5l2.591-1.433L14.305 9.5l-2.59 1.433zm6.75 5.267l-6.268 3.466V11.8l6.268-3.466V16.2z"
+                      ></path>
+                    </svg>
+                    <div
+                      class="tick-background w-[21px] h-[14px] bottom-0 left-[10px] bg-green-950 absolute"
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="block font-medium text-[1.3rem] text-greentext">
+                    Ordered
+                  </p>
+                  <p class="text-[1rem] text-gray-600">
+                    On {{ item.orderedOn }}
+                  </p>
+                </div>
+              </div>
+              <div
+                class="order__item w-full cursor-pointer h-[8rem] p-5 flex gap-5 bg-gray-100"
+              >
+                <div class="w-[8rem] h-full">
+                  <div
+                    class="order__image w-full h-full"
+                    [ngStyle]="{
+                      'background-image':
+                        'url(https://apollopharmacy.sivacodes.com/api/v1/img/' +
+                        item.url +
+                        ')'
+                    }"
+                  ></div>
+                  <div class="w-[4rem] h-full"></div>
+                </div>
+                <div class="w-3/4 h-full">
+                  <p class="font-semibold text-lg">{{ item.brand }}</p>
+                  <p class="productbatch__title text-[1.1rem] mb-[0.6rem]">
+                    {{ item.name }}
+                  </p>
+                  <div
+                    class="text-[1rem] font-normal text-gray-600 w-2/3 h-auto flex gap-5"
+                  >
+                    <p>Size :</p>
+                    <p class="">
+                      {{ item.size }}
+                    </p>
+                  </div>
+                </div>
+                <div class="h-full w-[2.5rem] rigth-arrow"></div>
+              </div>
+              <div class="w-full h-auto bg-white flex flex-col gap-2">
+                <div class="w-full p-4 flex items-center bg-gray-100 h-14">
+                  <p class="text-gray-400">
+                    <fa-icon
+                      class=""
+                      [classes]="['text-[10px]', 'ml-6', 'mr-3']"
+                      [icon]="dotIcon"
+                    ></fa-icon>
+                  </p>
+                  <p class="self-baseline text-lg mt-[2px] text-gray-500">
+                    Write a review
+                  </p>
+                </div>
+                <div class="w-full flex gap-3 p-4 bg-gray-100 h-14">
+                  <p class="ml-6 mt-[1px] text-base text-gray-500">
+                    Rate Product
+                  </p>
+                  <div
+                    class="w-52 h-full flex gap-2 items-center justify-start"
+                  >
+                    <div
+                      *ngFor="let i of [0, 1, 2, 3, 4]"
+                      class="rating__star w-6 h-6"
+                    ></div>
+                  </div>
+                  <p
+                    class="font-semibold cursor-pointer ml-36 text-main text-lg"
+                  >
+                    Write a Review
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

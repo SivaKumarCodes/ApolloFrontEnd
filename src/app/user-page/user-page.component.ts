@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import {
   addDetails,
   getDetails,
+  getUserOrders,
   logout,
   removeAddress,
   updateCreds,
@@ -14,12 +15,16 @@ import { Router } from '@angular/router';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
+import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+
 import {
   Address,
   AddressType,
   Details,
   Gender,
   User,
+  UserOrders,
 } from '../authStore/auth.store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
@@ -27,15 +32,25 @@ import {
   getUser,
   selectDetails,
   selectUpdateDetails,
+  selectUserOrders,
 } from '../authStore/auth.selectors';
 import { Subscription } from 'rxjs';
 import { AddressChangerComponent } from '../address-changer/address-changer.component';
 import { getUserAddresses } from '../authStore/auth.actions';
+import { waitForAsync } from '@angular/core/testing';
 
 enum selectedOption {
   profile,
   address,
   orders,
+}
+
+interface orderInfo {
+  name: string;
+  brand: string;
+  size: string;
+  url: string;
+  orderedOn: string;
 }
 
 @Component({
@@ -47,13 +62,18 @@ export class UserPageComponent {
   @ViewChild(AddressChangerComponent)
   addressComponent!: AddressChangerComponent;
 
+  orders!: UserOrders[];
+
+  orderInfoItems: orderInfo[] = [];
+
+  righthIcon = faAngleDoubleRight;
+
   showAddressEdit: boolean = false;
   checkIcon = faCheck;
   logoutSymbol = faArrowRight;
   logoutWarning: boolean = false;
-  plusIcon = faPlus;
 
-  addressSubscription$!: Subscription;
+  plusIcon = faPlus;
 
   addresses!: Address[];
 
@@ -117,6 +137,8 @@ export class UserPageComponent {
   otherAddress!: number[];
 
   selectedAddress!: number;
+
+  subscriptions: Subscription[] = [];
 
   constructor(private state: Store, private router: Router) {}
 
@@ -187,40 +209,51 @@ export class UserPageComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
 
+    this.state.dispatch(getUserOrders());
+
     this.state.dispatch(getDetails());
-    this.state.select(getUser).subscribe((data) => {
-      this.fName?.setValue(data?.firstName!);
-      this.lName?.setValue(data?.lastName!);
-      this.email?.setValue(data?.email!);
 
-      this.fullName = data?.firstName! + ' ' + data?.lastName;
-      this.user = data!;
-    });
+    this.subscriptions.push(
+      this.state.select(getUser).subscribe((data) => {
+        this.fName?.setValue(data?.firstName!);
+        this.lName?.setValue(data?.lastName!);
+        this.email?.setValue(data?.email!);
 
-    this.state.select(selectDetails).subscribe((data) => {
-      this.details = data!;
-      this.selectedGender = data?.gender!;
-      this.mobile?.setValue(data?.mobile!);
-      this.Dob?.setValue(data?.dateOfBirth!);
+        this.fullName = data?.firstName! + ' ' + data?.lastName;
+        this.user = data!;
+      })
+    );
 
-      if (this.Dob?.value)
-        this.dobString = new Date(this.Dob?.value!).toLocaleDateString('en-US');
-      else this.dobString = '-not-added-';
+    this.subscriptions.push(
+      this.state.select(selectDetails).subscribe((data) => {
+        this.details = data!;
+        this.selectedGender = data?.gender!;
+        this.mobile?.setValue(data?.mobile!);
+        this.Dob?.setValue(data?.dateOfBirth!);
 
-      if (this.selectedGender) this.GenderString = '' + data?.gender!;
-      else this.GenderString = '-not-added-';
-    });
+        if (this.Dob?.value)
+          this.dobString = new Date(this.Dob?.value!).toLocaleDateString(
+            'en-US'
+          );
+        else this.dobString = '-not-added-';
 
-    this.state.select(selectUpdateDetails).subscribe((data) => {
-      if (data) this.state.dispatch(getDetails());
-    });
-    this.selectedOption = selectedOption.profile;
+        if (this.selectedGender) this.GenderString = '' + data?.gender!;
+        else this.GenderString = '-not-added-';
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(selectUpdateDetails).subscribe((data) => {
+        if (data) this.state.dispatch(getDetails());
+      })
+    );
+
+    this.selectedOption = selectedOption.orders;
 
     this.state.dispatch(getUserAddresses());
 
-    this.addressSubscription$ = this.state
-      .select(getAddresses)
-      .subscribe((data) => {
+    this.subscriptions.push(
+      this.state.select(getAddresses).subscribe((data) => {
         this.addresses = data!;
         const ind = data?.findIndex((a) => a.defaultAddress);
         this.defaultAddress = ind!;
@@ -237,12 +270,39 @@ export class UserPageComponent {
             this.otherAddress = otherAddress;
           });
         }
-      });
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(selectUserOrders).subscribe((data) => {
+        this.orders = data;
+        data.forEach((order: UserOrders) => {
+          if (order) {
+            order.items.forEach((item) => {
+              let variantIndex = item.product.variants.findIndex(
+                (i) => i.variantId == item.variantId
+              );
+              let variant = item.product.variants[variantIndex];
+              let size: string = variant.quantity + ' ' + variant.mesurement;
+
+              let info: orderInfo = {
+                name: item.product.productName,
+                brand: item.product.brand,
+                size: size,
+                url: variant.images[0],
+                orderedOn: order.timeCreated,
+              };
+              this.orderInfoItems.push(info);
+            });
+          }
+        });
+      })
+    );
   }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.addressSubscription$.unsubscribe();
+    this.subscriptions.forEach((i) => i.unsubscribe());
   }
 }

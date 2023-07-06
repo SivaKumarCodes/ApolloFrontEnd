@@ -6,6 +6,7 @@ import {
   Creds,
   Details,
   User,
+  UserOrders,
   UserRegistration,
 } from './auth.store';
 
@@ -45,6 +46,10 @@ const _updateDetailsSucessful = '[Details] update Details sucessful';
 const _updateCreds = '[creds] update';
 
 const _updateCredsSucessful = '[creds] update sucessful';
+
+const _getOrders = '[orders] get user orders';
+
+const _getOrdersSucessful = '[orders] get user orders sucess';
 
 export const repopulateFromLocalStroage = createAction(_RepopulateLocalStorage);
 
@@ -118,4 +123,11 @@ export const updateCreds = createAction(_updateCreds, props<Creds>());
 export const updateCredsSucessful = createAction(
   _updateCredsSucessful,
   props<Creds>()
+);
+
+export const getUserOrders = createAction(_getOrders);
+
+export const getUserOrdersSuccessful = createAction(
+  _getOrdersSucessful,
+  props<{ orders: UserOrders[] }>()
 );

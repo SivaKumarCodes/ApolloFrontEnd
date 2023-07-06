@@ -3,6 +3,7 @@ import {
   authenticationSucessful,
   clearUserData,
   getUserAddressesSucessful,
+  getUserOrdersSuccessful,
   logout,
   repopulateFailure,
   repopulateSuccessful,
@@ -12,6 +13,7 @@ import {
 } from './auth.actions';
 import { initialState } from './auth.store';
 import { UserPageComponent } from '../user-page/user-page.component';
+import { getOrderSucess } from '../cartStore/cart.selectors';
 
 const _AuthenticateReducer = createReducer(
   initialState,
@@ -58,6 +60,10 @@ const _AuthenticateReducer = createReducer(
       firstName: action.firstName,
       lastName: action.lastName,
     },
+  })),
+  on(getUserOrdersSuccessful, (state, action) => ({
+    ...state!,
+    orders: action.orders,
   }))
 );
 

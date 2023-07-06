@@ -26,6 +26,8 @@ import {
   getDetails,
   getUserAddresses,
   getUserAddressesSucessful,
+  getUserOrders,
+  getUserOrdersSuccessful,
   logout,
   registerUser,
   removeAddress,
@@ -119,6 +121,7 @@ export class AuthEffects {
               dateOfBirth: null,
               mobile: null,
             },
+            orders: [],
           });
         });
         return result;
@@ -208,6 +211,17 @@ export class AuthEffects {
         localStorage.setItem('lname', data.lastName);
         return updateCredsSucessful(data);
       })
+    )
+  );
+
+  getOrders = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserOrders),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) => {
+        return this.authService.getOrders(token);
+      }),
+      map((data) => getUserOrdersSuccessful({ orders: data }))
     )
   );
 
