@@ -5,6 +5,7 @@ import {
   Auth,
   Creds,
   Details,
+  Review,
   User,
   UserOrders,
   UserRegistration,
@@ -16,6 +17,8 @@ const _AuthenticationFailure = '[Auth] Authentication failure';
 const _RepopulateLocalStorage = '[Auth] Repopulate LocalStorage';
 const _RepopulateSucessFul = '[Auth] Repopulate LocalStorage sucessful';
 const _RepopulateFailure = '[Auth] Repopulate LocalStorage Failure';
+const _getAllReviewsByUser = '[Review] get all by user';
+const _getAllReviewsByUserSucess = '[Review] get all by user Sucess';
 
 const _RegisterUser = '[Register] Register User';
 const _RegisterUserSucessful = '[Register] Register User Sucessful';
@@ -130,4 +133,11 @@ export const getUserOrders = createAction(_getOrders);
 export const getUserOrdersSuccessful = createAction(
   _getOrdersSucessful,
   props<{ orders: UserOrders[] }>()
+);
+
+export const getAllReviewsOfUser = createAction(_getAllReviewsByUser);
+
+export const getAllReviewsOfUserSucess = createAction(
+  _getAllReviewsByUserSucess,
+  props<{ reviews: Review[] }>()
 );

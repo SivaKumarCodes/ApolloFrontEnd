@@ -4,6 +4,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import {
   addDetails,
+  getAllReviewsOfUser,
   getDetails,
   getUserOrders,
   logout,
@@ -23,6 +24,7 @@ import {
   AddressType,
   Details,
   Gender,
+  Review,
   User,
   UserOrders,
 } from '../authStore/auth.store';
@@ -51,6 +53,8 @@ interface orderInfo {
   size: string;
   url: string;
   orderedOn: string;
+  reviewExists: boolean;
+  review: Review | null;
 }
 
 @Component({
@@ -213,6 +217,8 @@ export class UserPageComponent {
 
     this.state.dispatch(getDetails());
 
+    this.state.dispatch(getAllReviewsOfUser());
+
     this.subscriptions.push(
       this.state.select(getUser).subscribe((data) => {
         this.fName?.setValue(data?.firstName!);
@@ -282,6 +288,7 @@ export class UserPageComponent {
               let variantIndex = item.product.variants.findIndex(
                 (i) => i.variantId == item.variantId
               );
+
               let variant = item.product.variants[variantIndex];
               let size: string = variant.quantity + ' ' + variant.mesurement;
 
@@ -291,6 +298,8 @@ export class UserPageComponent {
                 size: size,
                 url: variant.images[0],
                 orderedOn: order.timeCreated,
+                reviewExists: item.review != null,
+                review: item.review == null ? null : item.review,
               };
               this.orderInfoItems.push(info);
             });

@@ -577,11 +577,11 @@ label {
   background-size: contain;
 }
 
-.order__item {
-  /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+/* .order__item {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
-}
+/* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+} */
 
 .tick-background {
   background: url("/assets/tick.svg");
@@ -590,8 +590,31 @@ label {
 }
 
 .rating__star {
-  background-image: url("/assets/white-star.svg");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.rating__star__empty {
+  background-image: url("/assets/white-star.svg");
+}
+
+.rating__star__filled {
+  background-image: url("/assets/filled_star.svg");
+}
+
+.order__ratingbar {
+  display: grid;
+  grid-template-columns: 1fr 8rem;
+  grid-template-rows: 1fr;
+  grid-template-areas: "rating review";
+}
+
+.order__ratingbar__ratingblock {
+  grid-area: rating;
+}
+
+.order__ratingbar__reviewButton {
+  grid-area: review;
+  justify-self: center;
 }

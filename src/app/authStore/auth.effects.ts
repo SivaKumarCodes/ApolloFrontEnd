@@ -23,6 +23,8 @@ import {
   authenticationSucessful,
   clearUserData,
   editAddress,
+  getAllReviewsOfUser,
+  getAllReviewsOfUserSucess,
   getDetails,
   getUserAddresses,
   getUserAddressesSucessful,

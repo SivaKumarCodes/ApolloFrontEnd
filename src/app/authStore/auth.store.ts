@@ -30,6 +30,7 @@ export interface OrderItem {
   totalPrice: number;
   product: Product;
   variantId: number;
+  review: Review;
 }
 
 export interface UserOrders {
@@ -94,6 +95,11 @@ export const initialState: Auth | null = {
   },
   orders: [],
 };
+
+export interface Review {
+  reviewText: string;
+  rating: number;
+}
 
 export interface UserRegistration {
   firstName: string;

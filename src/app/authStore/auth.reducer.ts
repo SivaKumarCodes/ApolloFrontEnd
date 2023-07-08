@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   authenticationSucessful,
   clearUserData,
+  getAllReviewsOfUserSucess,
   getUserAddressesSucessful,
   getUserOrdersSuccessful,
   logout,
@@ -14,6 +15,7 @@ import {
 import { initialState } from './auth.store';
 import { UserPageComponent } from '../user-page/user-page.component';
 import { getOrderSucess } from '../cartStore/cart.selectors';
+import { act } from '@ngrx/effects';
 
 const _AuthenticateReducer = createReducer(
   initialState,

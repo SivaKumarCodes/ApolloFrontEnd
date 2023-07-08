@@ -10,7 +10,11 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getUserAddresses, removeAddress } from '../authStore/auth.actions';
+import {
+  getUserAddresses,
+  getUserOrders,
+  removeAddress,
+} from '../authStore/auth.actions';
 import { getAddresses, getAuthSucess } from '../authStore/auth.selectors';
 import { Address } from '../authStore/auth.store';
 import {
@@ -343,6 +347,7 @@ export class CartPageComponent {
       this.state.select(getOrderSucess).subscribe((val) => {
         if (val) {
           this.state.dispatch(repopulateCart());
+          this.state.dispatch(getUserOrders());
           this.setOrderStep(2);
         }
       })

@@ -7,6 +7,7 @@ import {
   Auth,
   Creds,
   Details,
+  Review,
   UserOrders,
   UserRegistration,
 } from './auth.store';
@@ -215,6 +216,24 @@ export class AuthService {
     return this.http.get<UserOrders[]>(
       'http://localhost:8080/api/v1/getorders',
       // 'https://apollopharmacy.sivacodes.com/api/v1/getorders',
+      options
+    );
+  }
+
+  getAllReviewsOfUser(token: string) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.get<Review[]>(
+      'http://localhost:8080/api/v1/getallreviewsofuser',
       options
     );
   }
