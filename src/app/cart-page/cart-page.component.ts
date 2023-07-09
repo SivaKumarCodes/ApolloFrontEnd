@@ -156,6 +156,7 @@ export class CartPageComponent {
   changeQuantity(i: number) {
     this.showQuantityPicker = false;
     // let activeItem = this.cartData[this.activeCartItem];
+    console.log(i);
     let activeItem: cartItem = {
       productId: this.cartData[i].product.productId,
       variantId: this.cartData[i].variantId,

@@ -40,6 +40,7 @@ import { Subscription } from 'rxjs';
 import { AddressChangerComponent } from '../address-changer/address-changer.component';
 import { getUserAddresses } from '../authStore/auth.actions';
 import { waitForAsync } from '@angular/core/testing';
+import { showReviewPopup } from '../popUpStore/popUp.actions';
 
 enum selectedOption {
   profile,
@@ -71,6 +72,8 @@ export class UserPageComponent {
   orderInfoItems: orderInfo[] = [];
 
   righthIcon = faAngleDoubleRight;
+
+  originalRatings: Review[] = [];
 
   showAddressEdit: boolean = false;
   checkIcon = faCheck;
@@ -112,6 +115,48 @@ export class UserPageComponent {
     else if (this.addresses.length >= 0) {
       this.selectedAddress = 0;
     }
+  }
+
+  openReviewPopup(
+    name: string,
+    url: string,
+    review: string,
+    rating: number,
+    isEdit: boolean
+  ) {
+    this.state.dispatch(
+      showReviewPopup({
+        popUpData: {
+          review: review,
+          productName: name,
+          productImgUrl: url,
+          rating: rating,
+          isEdit: isEdit,
+        },
+      })
+    );
+  }
+
+  hoverRating(ind: number, rating: number) {
+    // this.previousRating =
+    setTimeout(() => {
+      let review: Review | null = this.orderInfoItems[ind].review;
+
+      if (review) {
+        review.rating = rating;
+      } else {
+        this.orderInfoItems[ind].review = {
+          rating: rating,
+          reviewText: '',
+        };
+      }
+    }, 200);
+  }
+
+  unHoverRating(ind: number) {
+    setTimeout(() => {
+      this.orderInfoItems[ind].review = this.originalRatings[ind];
+    }, 200);
   }
 
   addAddress() {
@@ -299,9 +344,14 @@ export class UserPageComponent {
                 url: variant.images[0],
                 orderedOn: order.timeCreated,
                 reviewExists: item.review != null,
-                review: item.review == null ? null : item.review,
+                review:
+                  item.review == null
+                    ? null
+                    : JSON.parse(JSON.stringify(item.review)),
               };
+
               this.orderInfoItems.push(info);
+              this.originalRatings.push(item.review);
             });
           }
         });

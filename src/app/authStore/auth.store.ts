@@ -97,8 +97,8 @@ export const initialState: Auth | null = {
 };
 
 export interface Review {
-  reviewText: string;
-  rating: number;
+  reviewText: string | null;
+  rating: number | null;
 }
 
 export interface UserRegistration {

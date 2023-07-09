@@ -29,6 +29,7 @@ import { PopUpLayerComponent } from './pop-up-layer/pop-up-layer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { popUpReducer } from './popUpStore/popUp.reducer';
 import { ProductPageModule } from './product-page/product-page.module';
+import { ReviewPopupComponent } from './review-popup/review-popup.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ProductPageModule } from './product-page/product-page.module';
     UserPageComponent,
     PopUpLayerComponent,
     SidebarComponent,
+    ReviewPopupComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,11 +14,15 @@ export class ProductService {
   }
 
   getProductByName(name: string) {
-    return this.http.get<Product>('http://localhost:8080/api/v1/product', {
-      params: {
-        name,
-      },
-    });
+    return this.http.get<Product>(
+      // 'http://localhost:8080/api/v1/product'
+      'https://apollopharmacy.sivacodes.com/api/v1/product',
+      {
+        params: {
+          name,
+        },
+      }
+    );
   }
 
   getSomeBrands() {
@@ -35,14 +39,15 @@ export class ProductService {
 
   getProductsOFBrands(filters: BrandFilters) {
     return this.http.post<Product[]>(
-      'http://localhost:8080/api/v1/productsbybrand',
+      'https://apollopharmacy.sivacodes.com/api/v1/productsbybrand',
       filters
     );
   }
 
   getProductsFromProductTypes(filters: ProductTypeFilters) {
     return this.http.post<Product[]>(
-      'http://localhost:8080/api/v1/productsbytype',
+      'https://apollopharmacy.sivacodes.com/api/v1/productsbytype',
+      // 'http://localhost:8080/api/v1/productsbytype',
       filters
     );
   }

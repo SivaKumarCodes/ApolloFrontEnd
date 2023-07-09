@@ -12,3 +12,8 @@ export const isSideBarActive = createSelector(
   getPopUpState,
   (state) => state.sidebar
 );
+
+export const isReviewPopUpActive = createSelector(
+  getPopUpState,
+  (state) => state.reviewPopup.isOpen
+);

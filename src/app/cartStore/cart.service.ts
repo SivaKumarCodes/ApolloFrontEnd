@@ -69,8 +69,8 @@ export class CartService {
     };
 
     return this.http.get<cartProductItem[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/getcart',
-      'http://localhost:8080/api/v1/getcart',
+      'https://apollopharmacy.sivacodes.com/api/v1/getcart',
+      // 'http://localhost:8080/api/v1/getcart',
       options
     );
   }

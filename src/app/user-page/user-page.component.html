@@ -415,7 +415,10 @@
 
       <div class="w-ful h-auto mt-[2rem]">
         <div class="w-full h-auto flex flex-col gap-[2rem]">
-          <div *ngFor="let item of orderInfoItems">
+          <div
+            *ngFor="let item of orderInfoItems; let itemIndex = index"
+            [attr.data-index]="itemIndex"
+          >
             <div class="w-full h-auto flex flex-col gap-2 bg-white">
               <div class="w-full flex gap-2 px-5 h-fit bg-white">
                 <div
@@ -510,6 +513,8 @@
                       <div
                         *ngFor="let i of [0, 1, 2, 3, 4]"
                         class="rating__star w-6 h-6"
+                        (mouseenter)="hoverRating(itemIndex, i + 1)"
+                        (mouseleave)="unHoverRating(itemIndex)"
                         [ngClass]="
                           i + 1 <= item.review?.rating!
                             ? 'rating__star__filled'
@@ -518,7 +523,18 @@
                       ></div>
                     </div>
                   </div>
-                  <div class="order__ratingbar__reviewButton">
+                  <div
+                    (click)="
+                      openReviewPopup(
+                        item.name,
+                        item.url,
+                        item.review?.reviewText!,
+                        item.review?.rating!,
+                        item.reviewExists
+                      )
+                    "
+                    class="order__ratingbar__reviewButton"
+                  >
                     <p class="font-semibold cursor-pointer text-main text-lg">
                       {{
                         !item.reviewExists ? "Write a Review" : "Edit Review"
