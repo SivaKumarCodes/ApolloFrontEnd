@@ -214,8 +214,8 @@ export class AuthService {
     };
 
     return this.http.get<UserOrders[]>(
-      // 'http://localhost:8080/api/v1/getorders',
-      'https://apollopharmacy.sivacodes.com/api/v1/getorders',
+      'http://localhost:8080/api/v1/getorders',
+      // 'https://apollopharmacy.sivacodes.com/api/v1/getorders',
       options
     );
   }
@@ -233,8 +233,8 @@ export class AuthService {
     };
 
     return this.http.get<Review[]>(
-      // 'http://localhost:8080/api/v1/getallreviewsofuser',
-      'https://apollopharmacy.sivacodes.com/api/v1/getallreviewsofuser',
+      'http://localhost:8080/api/v1/getallreviewsofuser',
+      // 'https://apollopharmacy.sivacodes.com/api/v1/getallreviewsofuser',
       options
     );
   }

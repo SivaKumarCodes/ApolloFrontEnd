@@ -16,7 +16,9 @@
           />
         </svg>
       </div>
-      <p class="review__title__text text-gray-600">WRITE REVIEW</p>
+      <p class="review__title__text text-gray-600">
+        {{ isEdit ? "EDIT REVIEW" : "WRITE REVIEW" }}
+      </p>
     </div>
     <div class="review__product__info">
       <div
@@ -42,6 +44,7 @@
     <form class="review__form__main" [formGroup]="reviewForm">
       <div class="review__form__input">
         <textarea
+          formControlName="review"
           name="review"
           id="review"
           cols="78"

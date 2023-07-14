@@ -94,6 +94,10 @@ export class UserPageComponent {
 
   selectedOption!: any;
 
+  reviewHoverIndex: number = -1;
+
+  reviewHoverRating: number = 0;
+
   selectedGender: Gender = Gender.MALE;
   genders = Gender;
 
@@ -138,25 +142,13 @@ export class UserPageComponent {
   }
 
   hoverRating(ind: number, rating: number) {
-    // this.previousRating =
-    setTimeout(() => {
-      let review: Review | null = this.orderInfoItems[ind].review;
-
-      if (review) {
-        review.rating = rating;
-      } else {
-        this.orderInfoItems[ind].review = {
-          rating: rating,
-          reviewText: '',
-        };
-      }
-    }, 200);
+    this.reviewHoverIndex = ind;
+    this.reviewHoverRating = rating;
   }
 
   unHoverRating(ind: number) {
-    setTimeout(() => {
-      this.orderInfoItems[ind].review = this.originalRatings[ind];
-    }, 200);
+    this.reviewHoverIndex = -1;
+    this.reviewHoverRating = 0;
   }
 
   addAddress() {
@@ -344,7 +336,7 @@ export class UserPageComponent {
                 url: variant.images[0],
                 orderedOn: order.timeCreated,
                 reviewExists: item.review != null,
-                review: item.review == null ? null : item.review,
+                review: item.review,
               };
 
               this.orderInfoItems.push(info);

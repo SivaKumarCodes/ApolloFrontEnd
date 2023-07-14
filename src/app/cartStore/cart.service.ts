@@ -94,6 +94,19 @@ export class CartService {
     );
   }
 
+  updateReview(token: string) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+  }
+
   constructor(private http: HttpClient) {}
 }
 

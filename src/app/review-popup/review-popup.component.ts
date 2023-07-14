@@ -3,7 +3,7 @@ import { State, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { isReviewPopUpActive } from '../popUpStore/popUp.selectors';
 import { closeAll, showReviewPopup } from '../popUpStore/popUp.actions';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-review-popup',
@@ -23,6 +23,16 @@ export class ReviewPopupComponent {
   url!: string;
   rating!: number | null;
   review!: string | null;
+  isEdit!: boolean;
+
+  get reviewInForm() {
+    return this.reviewForm.controls.review.value;
+  }
+
+  setReviewInForm(review: string) {
+    // this.reviewForm.controls.review.value = review;
+    this.reviewForm.get('review')?.setValue(review);
+  }
 
   constructor(private state: Store) {}
 
@@ -45,6 +55,12 @@ export class ReviewPopupComponent {
         this.url = data.productImgUrl;
         this.rating = data.rating;
         this.review = data.review;
+        this.isEdit = data.isEdit;
+
+        if (this.isEdit) {
+          console.log('hai');
+          this.setReviewInForm(this.review!);
+        }
       })
     );
   }

@@ -223,7 +223,9 @@ export class AuthEffects {
       switchMap(([action, token]) => {
         return this.authService.getOrders(token);
       }),
-      map((data) => getUserOrdersSuccessful({ orders: data }))
+      map((data) => {
+        return getUserOrdersSuccessful({ orders: data });
+      })
     )
   );
 

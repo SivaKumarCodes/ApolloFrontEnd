@@ -99,6 +99,8 @@ export const initialState: Auth | null = {
 export interface Review {
   reviewText: string | null;
   rating: number | null;
+  reviewedBy: string;
+  reviewId: number;
 }
 
 export interface UserRegistration {

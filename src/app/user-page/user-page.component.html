@@ -536,7 +536,11 @@
                         (mouseenter)="hoverRating(itemIndex, i)"
                         (mouseleave)="unHoverRating(itemIndex)"
                         [ngClass]="
-                          i <= item.review?.rating!
+                          reviewHoverIndex == itemIndex &&
+                          i <= reviewHoverRating
+                            ? 'rating__star__filled'
+                            : reviewHoverIndex !== itemIndex &&
+                              i <= item.review?.rating!
                             ? 'rating__star__filled'
                             : 'rating__star__empty'
                         "
