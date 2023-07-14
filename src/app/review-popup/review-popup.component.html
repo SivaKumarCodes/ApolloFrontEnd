@@ -1,7 +1,7 @@
-<div *ngIf="isActive" class="review__container">
-  <div class="review__main">
+<div *ngIf="isActive" (click)="onClose($event)" class="review__container">
+  <div class="review__main" (click)="stopPropagation($event)">
     <div class="reviw__title">
-      <div class="close cursor-pointer" (click)="onClose()">
+      <div class="close cursor-pointer" (click)="onClose($event)">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -19,13 +19,23 @@
       <p class="review__title__text text-gray-600">WRITE REVIEW</p>
     </div>
     <div class="review__product__info">
-      <div class="review__product__thumb"></div>
+      <div
+        [ngStyle]="{
+          'background-image':
+            'url(https://apollopharmacy.sivacodes.com/api/v1/img/' + url + ')'
+        }"
+        class="review__product__thumb"
+      ></div>
       <div class="review__product__info__main flex flex-col">
         <p class="review__product__info__name block text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          {{ name }}
         </p>
-        <div class="rating__star__container">
-          <div *ngFor="let i of [1, 2, 3, 4, 5]" class="rating__star"></div>
+        <div *ngIf="rating" class="rating__star__container">
+          <div
+            *ngFor="let i of [1, 2, 3, 4, 5]"
+            [ngClass]="rating! < i ? 'hidden' : ''"
+            class="rating__star"
+          ></div>
         </div>
       </div>
     </div>

@@ -52,7 +52,9 @@
 .review__product__thumb {
   width: 6rem;
   height: 100%;
-  background: red;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .review__product__info__main {

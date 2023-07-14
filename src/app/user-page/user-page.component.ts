@@ -344,10 +344,7 @@ export class UserPageComponent {
                 url: variant.images[0],
                 orderedOn: order.timeCreated,
                 reviewExists: item.review != null,
-                review:
-                  item.review == null
-                    ? null
-                    : JSON.parse(JSON.stringify(item.review)),
+                review: item.review == null ? null : item.review,
               };
 
               this.orderInfoItems.push(info);

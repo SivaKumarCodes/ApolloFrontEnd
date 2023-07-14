@@ -24,8 +24,17 @@
             }}
           </p>
         </div>
-        <div (click)="setAddressVisible(true)" class="change__address">
-          CHANGE ADDRESS
+        <div
+          (click)="
+            addresses && addresses.length
+              ? setAddressVisible(true)
+              : addAddress()
+          "
+          class="change__address"
+        >
+          {{
+            addresses && addresses.length ? "CHANGE ADDRESS" : "ADD NEW ADDRESS"
+          }}
         </div>
       </div>
       <div class="items__selection"></div>
@@ -384,8 +393,13 @@
           {{ currencyFormat(totalAmount) }}
         </p>
       </div>
-      <div (click)="makeOrder()" class="select__address__place__order">
-        <p>PLACE ORDER</p>
+      <div
+        (click)="addAddress && addresses.length ? makeOrder() : addAddress()"
+        class="select__address__place__order"
+      >
+        <p>
+          {{ addresses && addresses.length ? "PLACE ORDER" : "ADD ADDRESS" }}
+        </p>
       </div>
       <p class="select___address__heading__secondary">Select Payment method</p>
       <div class="select__chose__payment">
@@ -503,7 +517,7 @@
         </div>
       </div>
     </div>
-    <div class="order__continue__shopping" routerLink="/">
+    <div class="order__continue__shopping cursor-pointer" routerLink="/">
       <p>CONTINUE SHOPPING</p>
     </div>
   </div>

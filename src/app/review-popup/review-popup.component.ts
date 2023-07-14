@@ -19,19 +19,33 @@ export class ReviewPopupComponent {
     review: new FormControl('', [Validators.required]),
   });
 
+  name!: string;
+  url!: string;
+  rating!: number | null;
+  review!: string | null;
+
   constructor(private state: Store) {}
 
-  onClose() {
+  onClose(event: Event) {
+    this.stopPropagation(event);
     this.state.dispatch(closeAll());
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.subuscriptions.push(
-      this.state
-        .select(isReviewPopUpActive)
-        .subscribe((data) => (this.isActive = data))
+      this.state.select(isReviewPopUpActive).subscribe((data) => {
+        this.isActive = data.isOpen;
+        this.name = data.productName;
+        this.url = data.productImgUrl;
+        this.rating = data.rating;
+        this.review = data.review;
+      })
     );
   }
 }

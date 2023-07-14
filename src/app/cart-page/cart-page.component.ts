@@ -89,6 +89,8 @@ export class CartPageComponent {
 
   paymentOptions = paymentOption;
 
+  Subscriptions!: Subscription[];
+
   changePaymentOption(paymentOption: paymentOption) {
     this.selectedPaymentOption = paymentOption;
   }
@@ -238,6 +240,7 @@ export class CartPageComponent {
     this.selectedItems.forEach(
       (item) => (totalPrice += item.purchaseQuantity * item.price)
     );
+
     this.totalAmount = totalPrice;
   }
 
@@ -289,7 +292,9 @@ export class CartPageComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.state.select(getAuthSucess).subscribe((data) => {
-      if (data) this.state.dispatch(getUserAddresses());
+      if (data) {
+        this.state.dispatch(getUserAddresses());
+      }
     });
 
     this.subscriptions.push(

@@ -185,7 +185,21 @@
       id="addresses"
       *ngIf="selectedOption == options.address"
     >
-      <div>
+      <div
+        *ngIf="addresses && addresses.length <= 0"
+        class="w-full h-full flex flex-col gap-8 justify-center items-center"
+      >
+        <h1 class="text-lightgrey font-semibold text-[2rem]">
+          No Address Registered Yet
+        </h1>
+        <div class="user__add__new__address" (click)="addAddress()">
+          <p>
+            <fa-icon id="addIcon" [icon]="plusIcon"></fa-icon> ADD NEW ADDRESS
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="addresses && addresses.length > 0">
         <div class="select__address__title__second" id="saved__addresses">
           <p
             *ngIf="defaultAddress > -1"
@@ -199,6 +213,7 @@
             </p>
           </div>
         </div>
+
         <div class="select__address__title__second">
           <p
             *ngIf="defaultAddress > -1"
@@ -493,8 +508,13 @@
                     ></fa-icon>
                   </p>
                   <p class="self-baseline text-lg mt-[2px] text-gray-500">
-                    <!-- Write a review -->
-                    {{ item.reviewExists ? "Edit Review" : "Write a review" }}
+                    {{
+                      item.reviewExists
+                        ? item.review?.reviewText
+                          ? "Write a Review"
+                          : "Edit Review"
+                        : "Rate Product"
+                    }}
                   </p>
                 </div>
                 <div
@@ -511,12 +531,12 @@
                       class="w-auto h-full flex gap-2 items-center justify-start"
                     >
                       <div
-                        *ngFor="let i of [0, 1, 2, 3, 4]"
-                        class="rating__star w-6 h-6"
-                        (mouseenter)="hoverRating(itemIndex, i + 1)"
+                        *ngFor="let i of [1, 2, 3, 4, 5]"
+                        class="rating__star w-6 h-6 cursor-pointer"
+                        (mouseenter)="hoverRating(itemIndex, i)"
                         (mouseleave)="unHoverRating(itemIndex)"
                         [ngClass]="
-                          i + 1 <= item.review?.rating!
+                          i <= item.review?.rating!
                             ? 'rating__star__filled'
                             : 'rating__star__empty'
                         "

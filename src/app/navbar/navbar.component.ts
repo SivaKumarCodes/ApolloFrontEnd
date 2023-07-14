@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { getCartCount } from '../cartStore/cart.selectors';
 import { getAuthSucess, getUserFirstName } from '../authStore/auth.selectors';
 import { showSideBar } from '../popUpStore/popUp.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -80,10 +81,17 @@ export class NavbarComponent implements OnInit {
   firstName!: string;
   authenticated!: boolean;
 
-  constructor(private state: Store) {}
+  constructor(private state: Store, private router: Router) {}
 
   showDropDown(value: dropdownContent) {
     this.dropdown.emit(value);
+  }
+
+  navigateToCart(event: Event) {
+    event.stopPropagation();
+
+    if (this.authenticated) this.router.navigate(['/cart']);
+    else this.router.navigate(['/login']);
   }
 
   ngOnInit(): void {
