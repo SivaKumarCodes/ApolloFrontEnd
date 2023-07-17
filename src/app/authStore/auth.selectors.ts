@@ -36,3 +36,8 @@ export const selectUserOrders = createSelector(
   getAuthState,
   (state) => state.orders
 );
+
+export const selectToLoadOrders = createSelector(
+  getAuthState,
+  (state) => state.loadOrders
+);

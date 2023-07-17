@@ -6,9 +6,11 @@ import {
   Creds,
   Details,
   Review,
+  ReviewSent,
   User,
   UserOrders,
   UserRegistration,
+  reviewSubmitted,
 } from './auth.store';
 
 const _AuthenticateUser = '[Auth] Authenticate user';
@@ -24,6 +26,8 @@ const _RegisterUser = '[Register] Register User';
 const _RegisterUserSucessful = '[Register] Register User Sucessful';
 
 const _getUserAddresses = '[Address] get user addresses';
+
+const _updateReview = '[Review] update Review';
 
 const _getUserAddressesSucessful = '[Address] get user addresses sucessful';
 
@@ -53,6 +57,10 @@ const _updateCredsSucessful = '[creds] update sucessful';
 const _getOrders = '[orders] get user orders';
 
 const _getOrdersSucessful = '[orders] get user orders sucess';
+
+const _submitReview = '[review] submit review';
+
+const _submitReviewSucessful = '[review] submit review sucessful';
 
 export const repopulateFromLocalStroage = createAction(_RepopulateLocalStorage);
 
@@ -141,3 +149,12 @@ export const getAllReviewsOfUserSucess = createAction(
   _getAllReviewsByUserSucess,
   props<{ reviews: Review[] }>()
 );
+
+export const submitReview = createAction(
+  _submitReview,
+  props<reviewSubmitted>()
+);
+
+export const submitReviewSucessful = createAction(_submitReviewSucessful);
+
+export const updateReview = createAction(_updateReview, props<ReviewSent>());

@@ -9,7 +9,9 @@ import {
   getUserOrders,
   logout,
   removeAddress,
+  submitReview,
   updateCreds,
+  updateReview,
 } from '../authStore/auth.actions';
 import { Router } from '@angular/router';
 
@@ -33,6 +35,7 @@ import {
   getAddresses,
   getUser,
   selectDetails,
+  selectToLoadOrders,
   selectUpdateDetails,
   selectUserOrders,
 } from '../authStore/auth.selectors';
@@ -49,6 +52,7 @@ enum selectedOption {
 }
 
 interface orderInfo {
+  productId: number;
   name: string;
   brand: string;
   size: string;
@@ -201,6 +205,28 @@ export class UserPageComponent {
     this.selectedGender = gender;
   }
 
+  submitRating(ind: number) {
+    let item = this.orderInfoItems[ind];
+
+    if (!item.reviewExists) {
+      this.state.dispatch(
+        submitReview({
+          rating: this.reviewHoverRating,
+          review: null,
+          productId: item.productId,
+        })
+      );
+    } else {
+      this.state.dispatch(
+        updateReview({
+          reviewId: item.review?.reviewId!,
+          reviewText: item.review?.reviewText!,
+          rating: this.reviewHoverRating,
+        })
+      );
+    }
+  }
+
   saveDetails() {
     this.state.dispatch(
       addDetails({
@@ -319,6 +345,8 @@ export class UserPageComponent {
     this.subscriptions.push(
       this.state.select(selectUserOrders).subscribe((data) => {
         this.orders = data;
+        this.orderInfoItems = [];
+
         data.forEach((order: UserOrders) => {
           if (order) {
             order.items.forEach((item) => {
@@ -330,6 +358,7 @@ export class UserPageComponent {
               let size: string = variant.quantity + ' ' + variant.mesurement;
 
               let info: orderInfo = {
+                productId: item.product.productId,
                 name: item.product.productName,
                 brand: item.product.brand,
                 size: size,
@@ -344,6 +373,12 @@ export class UserPageComponent {
             });
           }
         });
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(selectToLoadOrders).subscribe(() => {
+        this.state.dispatch(getUserOrders());
       })
     );
   }

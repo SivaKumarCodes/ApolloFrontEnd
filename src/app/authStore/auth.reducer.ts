@@ -4,10 +4,12 @@ import {
   clearUserData,
   getAllReviewsOfUserSucess,
   getUserAddressesSucessful,
+  getUserOrders,
   getUserOrdersSuccessful,
   logout,
   repopulateFailure,
   repopulateSuccessful,
+  submitReviewSucessful,
   updateCredsSucessful,
   updateDetails,
   updateDetailsSucessful,
@@ -63,9 +65,18 @@ const _AuthenticateReducer = createReducer(
       lastName: action.lastName,
     },
   })),
+  on(getUserOrders, (state) => ({
+    ...state!,
+    loadOrders: false,
+  })),
   on(getUserOrdersSuccessful, (state, action) => ({
     ...state!,
     orders: action.orders,
+    loadOrders: false,
+  })),
+  on(submitReviewSucessful, (state) => ({
+    ...state!,
+    loadOrders: true,
   }))
 );
 

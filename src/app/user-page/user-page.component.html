@@ -534,6 +534,7 @@
                         *ngFor="let i of [1, 2, 3, 4, 5]"
                         class="rating__star w-6 h-6 cursor-pointer"
                         (mouseenter)="hoverRating(itemIndex, i)"
+                        (click)="submitRating(itemIndex)"
                         (mouseleave)="unHoverRating(itemIndex)"
                         [ngClass]="
                           reviewHoverIndex == itemIndex &&

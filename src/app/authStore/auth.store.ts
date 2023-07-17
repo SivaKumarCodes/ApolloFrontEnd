@@ -10,6 +10,7 @@ export interface Auth {
   details: Details | null;
   updateSucessful: boolean;
   orders: UserOrders[];
+  loadOrders: boolean;
 }
 
 export interface Details {
@@ -94,13 +95,26 @@ export const initialState: Auth | null = {
     gender: null,
   },
   orders: [],
+  loadOrders: false,
 };
+
+export interface ReviewSent {
+  reviewText: string | null;
+  rating: number | null;
+  reviewId: number;
+}
 
 export interface Review {
   reviewText: string | null;
   rating: number | null;
   reviewedBy: string;
   reviewId: number;
+}
+
+export interface reviewSubmitted {
+  productId: number;
+  review: string | null;
+  rating: number | null;
 }
 
 export interface UserRegistration {

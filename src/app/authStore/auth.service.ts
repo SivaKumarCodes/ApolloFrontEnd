@@ -8,8 +8,10 @@ import {
   Creds,
   Details,
   Review,
+  ReviewSent,
   UserOrders,
   UserRegistration,
+  reviewSubmitted,
 } from './auth.store';
 
 interface loginRequest {
@@ -214,8 +216,8 @@ export class AuthService {
     };
 
     return this.http.get<UserOrders[]>(
-      'http://localhost:8080/api/v1/getorders',
-      // 'https://apollopharmacy.sivacodes.com/api/v1/getorders',
+      // 'http://localhost:8080/api/v1/getorders',
+      'https://apollopharmacy.sivacodes.com/api/v1/getorders',
       options
     );
   }
@@ -233,8 +235,48 @@ export class AuthService {
     };
 
     return this.http.get<Review[]>(
-      'http://localhost:8080/api/v1/getallreviewsofuser',
-      // 'https://apollopharmacy.sivacodes.com/api/v1/getallreviewsofuser',
+      // 'http://localhost:8080/api/v1/getallreviewsofuser',
+      'https://apollopharmacy.sivacodes.com/api/v1/getallreviewsofuser',
+      options
+    );
+  }
+
+  submitReview(token: string, review: reviewSubmitted) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<void>(
+      // 'http://localhost:8080/api/v1/review',
+      'https://apollopharmacy.sivacodes.com/api/v1/review',
+      review,
+      options
+    );
+  }
+
+  updateReview(token: string, review: ReviewSent) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.post<void>(
+      // 'http://localhost:8080/api/v1/updatereview',
+      'https://apollopharmacy.sivacodes.com/api/v1/updatereview',
+      review,
       options
     );
   }

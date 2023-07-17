@@ -36,10 +36,13 @@ import {
   repopulateFailure,
   repopulateFromLocalStroage,
   repopulateSuccessful,
+  submitReview,
+  submitReviewSucessful,
   updateCreds,
   updateCredsSucessful,
   updateDetails,
   updateDetailsSucessful,
+  updateReview,
 } from './auth.actions';
 import { getToken } from './auth.selectors';
 import { AuthService } from './auth.service';
@@ -124,6 +127,7 @@ export class AuthEffects {
               mobile: null,
             },
             orders: [],
+            loadOrders: false,
           });
         });
         return result;
@@ -226,6 +230,28 @@ export class AuthEffects {
       map((data) => {
         return getUserOrdersSuccessful({ orders: data });
       })
+    )
+  );
+
+  submitReview = createEffect(() =>
+    this.actions$.pipe(
+      ofType(submitReview),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) =>
+        this.authService.submitReview(token, action)
+      ),
+      map(() => submitReviewSucessful())
+    )
+  );
+
+  updateReview = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateReview),
+      withLatestFrom(this.state.select(getToken)),
+      switchMap(([action, token]) =>
+        this.authService.updateReview(token, action)
+      ),
+      map(() => submitReviewSucessful())
     )
   );
 
