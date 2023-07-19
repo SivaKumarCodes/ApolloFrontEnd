@@ -27,8 +27,6 @@ const _RegisterUserSucessful = '[Register] Register User Sucessful';
 
 const _getUserAddresses = '[Address] get user addresses';
 
-const _updateReview = '[Review] update Review';
-
 const _getUserAddressesSucessful = '[Address] get user addresses sucessful';
 
 const _LogOut = '[Auth] logout';
@@ -61,6 +59,10 @@ const _getOrdersSucessful = '[orders] get user orders sucess';
 const _submitReview = '[review] submit review';
 
 const _submitReviewSucessful = '[review] submit review sucessful';
+
+const _updateReview = '[Review] update Review';
+
+const _updateRating = '[Review] update Rating';
 
 export const repopulateFromLocalStroage = createAction(_RepopulateLocalStorage);
 
@@ -158,3 +160,5 @@ export const submitReview = createAction(
 export const submitReviewSucessful = createAction(_submitReviewSucessful);
 
 export const updateReview = createAction(_updateReview, props<ReviewSent>());
+
+// export const updateRating = createAction(_updateRating, props<ReviewSent>());

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { isReviewPopUpActive } from '../popUpStore/popUp.selectors';
 import { closeAll, showReviewPopup } from '../popUpStore/popUp.actions';
 import { FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
+import { submitReview, updateReview } from '../authStore/auth.actions';
 
 @Component({
   selector: 'app-review-popup',
@@ -16,7 +17,11 @@ export class ReviewPopupComponent {
   subuscriptions: Subscription[] = [];
 
   reviewForm = new FormGroup({
-    review: new FormControl('', [Validators.required]),
+    review: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^(?!s*$).+'),
+      Validators.minLength(10),
+    ]),
   });
 
   name!: string;
@@ -24,9 +29,34 @@ export class ReviewPopupComponent {
   rating!: number | null;
   review!: string | null;
   isEdit!: boolean;
+  reviweId!: number;
+  productId!: number;
+
+  submitReview() {
+    let reviewText = this.reviewForm.value.review;
+
+    if (this.isEdit) {
+      this.state.dispatch(
+        updateReview({
+          reviewId: this.reviweId,
+          rating: -1,
+          review: reviewText!,
+        })
+      );
+    } else {
+      this.state.dispatch(
+        submitReview({
+          review: reviewText!,
+          rating: this.rating,
+          productId: this.productId,
+        })
+      );
+    }
+    this.state.dispatch(closeAll());
+  }
 
   get reviewInForm() {
-    return this.reviewForm.controls.review.value;
+    return this.reviewForm.get('review');
   }
 
   setReviewInForm(review: string) {
@@ -56,11 +86,10 @@ export class ReviewPopupComponent {
         this.rating = data.rating;
         this.review = data.review;
         this.isEdit = data.isEdit;
+        this.reviweId = data.reviewId;
+        this.productId = data.productId;
 
-        if (this.isEdit) {
-          console.log('hai');
-          this.setReviewInForm(this.review!);
-        }
+        if (this.isEdit) this.setReviewInForm(this.review!);
       })
     );
   }

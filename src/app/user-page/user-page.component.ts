@@ -130,7 +130,9 @@ export class UserPageComponent {
     url: string,
     review: string,
     rating: number,
-    isEdit: boolean
+    isEdit: boolean,
+    reviewId: number,
+    productId: number
   ) {
     this.state.dispatch(
       showReviewPopup({
@@ -140,6 +142,8 @@ export class UserPageComponent {
           productImgUrl: url,
           rating: rating,
           isEdit: isEdit,
+          reviewId: reviewId,
+          productId: productId,
         },
       })
     );
@@ -220,7 +224,7 @@ export class UserPageComponent {
       this.state.dispatch(
         updateReview({
           reviewId: item.review?.reviewId!,
-          reviewText: item.review?.reviewText!,
+          review: null,
           rating: this.reviewHoverRating,
         })
       );

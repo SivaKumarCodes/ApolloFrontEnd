@@ -41,7 +41,11 @@
         </div>
       </div>
     </div>
-    <form class="review__form__main" [formGroup]="reviewForm">
+    <form
+      class="review__form__main"
+      (ngSubmit)="submitReview()"
+      [formGroup]="reviewForm"
+    >
       <div class="review__form__input">
         <textarea
           formControlName="review"
@@ -63,6 +67,11 @@
           class="submit__button cursor-pointer"
           value="SUBMIT"
           type="submit"
+          [ngClass]="
+            reviewInForm && reviewForm.dirty && reviewInForm.invalid
+              ? 'disabled disabled_submit'
+              : ''
+          "
         />
       </div>
     </form>

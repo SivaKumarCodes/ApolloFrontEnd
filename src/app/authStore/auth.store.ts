@@ -99,7 +99,7 @@ export const initialState: Auth | null = {
 };
 
 export interface ReviewSent {
-  reviewText: string | null;
+  review: string | null;
   rating: number | null;
   reviewId: number;
 }

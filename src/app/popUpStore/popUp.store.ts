@@ -11,6 +11,8 @@ export interface ReviewPopUpState {
   rating: number;
   isEdit: boolean;
   review: string | null;
+  reviewId: number;
+  productId: number;
 }
 
 export const defaultReviewData: ReviewPopUpState = {
@@ -20,6 +22,8 @@ export const defaultReviewData: ReviewPopUpState = {
   rating: 0,
   isEdit: false,
   review: null,
+  reviewId: 0,
+  productId: 0,
 };
 
 export interface ReviewPopUpData {
@@ -28,6 +32,8 @@ export interface ReviewPopUpData {
   rating: number;
   isEdit: boolean;
   review: string | null;
+  reviewId: number;
+  productId: number;
 }
 
 export const intialPopUpState: PopUpStore = {
@@ -40,5 +46,7 @@ export const intialPopUpState: PopUpStore = {
     rating: 0,
     isEdit: false,
     review: null,
+    reviewId: 0,
+    productId: 0,
   },
 };

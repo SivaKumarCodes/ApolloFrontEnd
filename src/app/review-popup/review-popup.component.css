@@ -164,4 +164,9 @@
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 3px;
+  outline: none;
+}
+
+.disabled_submit {
+  background: lightgray;
 }

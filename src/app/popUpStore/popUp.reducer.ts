@@ -28,6 +28,8 @@ export const popUpReducer = createReducer(
     reviewPopUpdata.productName = action.popUpData.productName;
     reviewPopUpdata.rating = action.popUpData.rating;
     reviewPopUpdata.review = action.popUpData.review;
+    reviewPopUpdata.reviewId = action.popUpData.reviewId;
+    reviewPopUpdata.productId = action.popUpData.productId;
 
     return {
       ...state,
