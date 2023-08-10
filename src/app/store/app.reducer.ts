@@ -9,6 +9,7 @@ import {
   loadProductGridWithFilters,
   loadProductGridWithFiltersSucesse,
   loadProductGridWithoutTagsFilters,
+  loadProductReviewsSucess,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
   loadProductsOfProductTypesSucess,
@@ -211,7 +212,7 @@ const _productReducer = createReducer(
     newActiveProductGrid.loaded = true;
     newActiveProductGrid.loading = false;
 
-    http: return {
+    return {
       ...state,
       activeProductGrid: newActiveProductGrid,
     };
@@ -228,7 +229,11 @@ const _productReducer = createReducer(
       ...state,
       activeProductGrid: newActiveGrid,
     };
-  })
+  }),
+  on(loadProductReviewsSucess, (state, action) => ({
+    ...state,
+    productReviews: action.reviews,
+  }))
 );
 
 export function ProductReducer(state: any, action: any) {

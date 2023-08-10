@@ -1,3 +1,4 @@
+import { Review } from '../authStore/auth.store';
 import { paymentOption } from '../cart-page/cart-page.component';
 
 export interface Product {
@@ -6,8 +7,16 @@ export interface Product {
   productType: string;
   brand: string;
   variants: Variant[];
-  reviewCount: number;
+  ratingCount: number;
   tags: string[];
+  avgRating: number;
+}
+
+export interface ProductReview {
+  review: string | null;
+  rating: number | null;
+  reviewedBy: string;
+  reviewId: number;
 }
 
 export class ProductTypeFilters {
@@ -139,6 +148,7 @@ export interface ProductState {
   filterTags: string[];
   filterBrandCount: any;
   filterTagCount: any;
+  productReviews: ProductReview[];
 }
 
 export const initialState: ProductState = {
@@ -154,4 +164,5 @@ export const initialState: ProductState = {
   filterTags: [],
   filterBrandCount: {},
   filterTagCount: {},
+  productReviews: [],
 };

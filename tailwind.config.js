@@ -12,6 +12,8 @@ module.exports = {
       thinborder: "#e0e0e0",
       lightbluebg: "#f5f5f5",
       greentext: "#03a685",
+      greenbg: "#1aab2a",
+      fontcolor: "#525252",
       // lightgrey: "#5F7161",
     },
   },

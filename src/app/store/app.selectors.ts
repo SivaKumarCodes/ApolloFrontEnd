@@ -101,6 +101,11 @@ export const getTagFilterCount = createSelector(
   (state) => state.filterTagCount
 );
 
+export const getProductReviews = createSelector(
+  getProductState,
+  (state) => state.productReviews
+);
+
 // export const getProductsByType = createSelector(
 //   getProducts,
 //   getCurrentRoute,

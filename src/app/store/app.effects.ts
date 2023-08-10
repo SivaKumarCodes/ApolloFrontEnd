@@ -13,6 +13,8 @@ import {
   loadProductGridWithFilters,
   loadProductGridWithFiltersSucesse,
   loadProductGridWithoutTagsFilters,
+  loadProductReviews,
+  loadProductReviewsSucess,
   loadProductTypes,
   loadProductTypesSucess,
   loadProductsOfProductTypes,
@@ -129,6 +131,16 @@ export class ProductEffects {
         return this.productService.getProductsOFBrands(action.filters);
       }),
       map((data) => loadGridFiltersWithoutTagsSucess({ products: data }))
+    )
+  );
+
+  loadProductReviews$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProductReviews),
+      mergeMap((action) => {
+        return this.productService.getReviewsOfProducts(action.id);
+      }),
+      map((data) => loadProductReviewsSucess({ reviews: data }))
     )
   );
 }

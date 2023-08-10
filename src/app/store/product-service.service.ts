@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Brand, BrandFilters, Product, ProductTypeFilters } from './app.store';
+import {
+  Brand,
+  BrandFilters,
+  Product,
+  ProductReview,
+  ProductTypeFilters,
+} from './app.store';
+import { Review } from '../authStore/auth.store';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +56,18 @@ export class ProductService {
       'https://apollopharmacy.sivacodes.com/api/v1/productsbytype',
       // 'http://localhost:8080/api/v1/productsbytype',
       filters
+    );
+  }
+
+  getReviewsOfProducts(id: number) {
+    return this.http.get<ProductReview[]>(
+      'https://apollopharmacy.sivacodes.com/api/v1/getreviews',
+      // 'http://localhost:8080/api/v1/getreviews',
+      {
+        params: {
+          id,
+        },
+      }
     );
   }
 }

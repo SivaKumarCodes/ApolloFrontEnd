@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addToCartEffect } from '../cartStore/cart.actions';
-import { Product, Variant } from '../store/app.store';
-import { LoadProductData } from '../store/app.actions';
-import { activeProduct, activeProductLoading } from '../store/app.selectors';
+import { Product, ProductReview, Variant } from '../store/app.store';
+import { LoadProductData, loadProductReviews } from '../store/app.actions';
+import {
+  activeProduct,
+  activeProductLoading,
+  getProductReviews,
+} from '../store/app.selectors';
 import { Subscription } from 'rxjs';
 import { ViewportScroller } from '@angular/common';
+import { Review } from '../authStore/auth.store';
 
 @Component({
   selector: 'app-product-page',
@@ -23,6 +28,7 @@ export class ProductPageComponent {
   quantity: number = 1;
   quantityDisabled: boolean = true;
   subscriptions: Subscription[] = [];
+  reviews!: ProductReview[];
 
   increaseQuantity() {
     if (this.quantity < 30) this.quantity++;
@@ -55,6 +61,7 @@ export class ProductPageComponent {
     private state: Store,
     private veiwportScroller: ViewportScroller
   ) {}
+
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -66,7 +73,20 @@ export class ProductPageComponent {
       .subscribe((data) => {
         this.product = data;
         this.selectedVariant = this.product?.variants[0];
+
+        if (data) {
+          this.state.dispatch(
+            loadProductReviews({ id: this.product?.productId! })
+          );
+        }
       });
+
+    this.subscriptions.push(
+      this.state.select(getProductReviews).subscribe((data) => {
+        this.reviews = data.filter((i) => i.review !== null);
+      })
+    );
+
     this.subscriptions.push(ProductSubscription);
 
     let loadingSubscription = this.state

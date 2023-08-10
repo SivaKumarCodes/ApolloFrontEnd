@@ -596,7 +596,7 @@ label {
 }
 
 .rating__star__empty {
-  background-image: url("/assets/white-star.svg");
+  background-image: url("/assets/whiteStar.svg");
 }
 
 .rating__star__filled {

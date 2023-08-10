@@ -1,5 +1,12 @@
 import { createAction, createSelector, props } from '@ngrx/store';
-import { Brand, BrandFilters, Product, ProductTypeFilters } from './app.store';
+import {
+  Brand,
+  BrandFilters,
+  Product,
+  ProductReview,
+  ProductTypeFilters,
+} from './app.store';
+import { Review } from '../authStore/auth.store';
 
 const _loadingBrands: string = '[some Brands] loading brands';
 const _loadingBrandsSucess: string = '[some Brands] loading brands sucess';
@@ -34,6 +41,10 @@ const _loadGridBrandsFromFiltersSucess =
 
 const _loadCartProducts = '[cart products] load';
 const _loadCartProductsSucess = '[cart products] load sucess';
+
+const _loadCartProductReviews = '[products reviews] load reviews';
+const _loadCartProductReviewsSucessful =
+  '[products reviews] load reviews sucessful';
 
 export const loadSomeBrands = createAction(_loadingBrands);
 export const loadSomeBrandsSucessful = createAction(
@@ -124,4 +135,14 @@ export const loadCartProducts = createAction(_loadCartProducts);
 export const loadCartProductsSucess = createAction(
   _loadCartProductsSucess,
   props<{ products: Product[] }>()
+);
+
+export const loadProductReviews = createAction(
+  _loadCartProductReviews,
+  props<{ id: number }>()
+);
+
+export const loadProductReviewsSucess = createAction(
+  _loadCartProductReviewsSucessful,
+  props<{ reviews: ProductReview[] }>()
 );
