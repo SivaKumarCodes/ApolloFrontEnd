@@ -20,8 +20,12 @@
       {{ product.variants[0].quantity + " " + product.variants[0].mesurement }}
     </p>
   </div>
-  <div *ngIf="product.avgRating != null" class="productbatch__rating">
-    <div class="productbatch__rating__text">
+  <div class="productbatch__rating">
+    <div
+      class="productbatch__rating__text"
+      *ngIf="product.avgRating != null"
+      [style.background-color]="colors[math.trunc(product.avgRating) - 1]"
+    >
       <p class="rating__text">{{ product.avgRating }}</p>
       <span class="rating__star_con">
         <svg

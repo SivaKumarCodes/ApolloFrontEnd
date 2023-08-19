@@ -22,7 +22,7 @@ export class ProductService {
 
   getProductByName(name: string) {
     return this.http.get<Product>(
-      // 'http://localhost:8080/api/v1/product'
+      // 'http://localhost:8080/api/v1/product',
       'https://apollopharmacy.sivacodes.com/api/v1/product',
       {
         params: {
@@ -47,6 +47,7 @@ export class ProductService {
   getProductsOFBrands(filters: BrandFilters) {
     return this.http.post<Product[]>(
       'https://apollopharmacy.sivacodes.com/api/v1/productsbybrand',
+      // 'http://localhost:8080/api/v1/productsbybrand',
       filters
     );
   }

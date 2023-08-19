@@ -25,6 +25,10 @@ export class ProductBatchComponent {
 
   LoggedIn!: boolean;
 
+  colors: string[] = ['#dc3545', '#FF5F00', '#F6BE00', '#1aab2a', '#1aab2a'];
+
+  math = Math;
+
   constructor(private state: Store, private router: Router) {}
 
   currencyFormat(i: number) {
