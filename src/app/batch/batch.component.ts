@@ -10,7 +10,12 @@ export class BatchComponent implements OnInit {
   @Input() name!: string;
   @Input() id!: number;
 
-  constructor() {}
+  imageUrl: string;
+
+  constructor() {
+    this.imageUrl =
+      'https://apollopharmacy.sivacodes.com/api/v1/brand/' + this.url;
+  }
 
   ngOnInit(): void {}
 }

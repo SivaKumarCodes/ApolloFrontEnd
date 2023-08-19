@@ -10,6 +10,8 @@ import {
   User,
   UserOrders,
   UserRegistration,
+  check,
+  loginDetails,
   reviewSubmitted,
 } from './auth.store';
 
@@ -63,6 +65,10 @@ const _submitReviewSucessful = '[review] submit review sucessful';
 const _updateReview = '[Review] update Review';
 
 const _updateRating = '[Review] update Rating';
+
+const _checkCreds = '[login] check creds';
+
+const _checkCredsSucess = '[login] check creds sucess';
 
 export const repopulateFromLocalStroage = createAction(_RepopulateLocalStorage);
 
@@ -160,5 +166,15 @@ export const submitReview = createAction(
 export const submitReviewSucessful = createAction(_submitReviewSucessful);
 
 export const updateReview = createAction(_updateReview, props<ReviewSent>());
+
+export const checkLogin = createAction(
+  _checkCreds,
+  props<{ details: loginDetails }>()
+);
+
+export const updateLoginCheck = createAction(
+  _checkCredsSucess,
+  props<{ value: check }>()
+);
 
 // export const updateRating = createAction(_updateRating, props<ReviewSent>());

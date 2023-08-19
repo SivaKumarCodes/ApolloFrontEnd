@@ -11,6 +11,17 @@ export interface Auth {
   updateSucessful: boolean;
   orders: UserOrders[];
   loadOrders: boolean;
+  credientialsChecked: boolean;
+  credientialsFalse: boolean;
+  lastLoginDetails: loginDetails | null;
+}
+export class loginDetails {
+  email: string;
+  password: string;
+  constructor(email: string, password: string) {
+    this.email = email;
+    this.password = password;
+  }
 }
 
 export interface Details {
@@ -96,7 +107,14 @@ export const initialState: Auth | null = {
   },
   orders: [],
   loadOrders: false,
+  credientialsChecked: false,
+  credientialsFalse: false,
+  lastLoginDetails: null,
 };
+
+export interface check {
+  value: boolean;
+}
 
 export interface ReviewSent {
   review: string | null;

@@ -20,9 +20,9 @@
       {{ product.variants[0].quantity + " " + product.variants[0].mesurement }}
     </p>
   </div>
-  <div class="productbatch__rating">
+  <div *ngIf="product.avgRating != null" class="productbatch__rating">
     <div class="productbatch__rating__text">
-      <p class="rating__text">4.5</p>
+      <p class="rating__text">{{ product.avgRating }}</p>
       <span class="rating__star_con">
         <svg
           class="rating__star"

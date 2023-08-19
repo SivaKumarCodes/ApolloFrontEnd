@@ -10,8 +10,14 @@
       <h1 class="product__name">{{ product?.productName }}</h1>
 
       <div class="productbatch__rating">
-        <div class="productbatch__rating__text">
-          <p class="rating__text">4.5</p>
+        <div
+          class="productbatch__rating__text"
+          *ngIf="product?.avgRating != null && product?.avgRating! > 0"
+          [style.background-color]="product?.avgRating ? colors[colorInd] : ''"
+        >
+          <p class="rating__text">
+            {{ product?.avgRating == null ? 0 : product?.avgRating }}
+          </p>
           <span class="rating__star_con">
             <svg
               class="rating__star"
@@ -28,7 +34,12 @@
             </svg>
           </span>
         </div>
-        <p class="reveiw__count">1756 ratings</p>
+        <p
+          class="reveiw__count"
+          [ngClass]="product?.ratingCount == null ? 'danger' : ''"
+        >
+          {{ product?.ratingCount == null ? 0 : product?.ratingCount }} ratings
+        </p>
       </div>
       <div class="pack__container" *ngIf="(product?.variants)!.length > 1">
         <p class="packsize">
@@ -239,8 +250,18 @@
           <div class="w-full h-auto rating__container">
             <div class="rating__bar__container w-[40rem] h-[25rem]">
               <div class="rating__box">
-                <p id="rating_number">{{ product?.avgRating?.toFixed(1) }}</p>
-                <div class="review__rating__star"></div>
+                <p
+                  id="rating_number"
+                  [style.color]="colors[productRatingRounded - 1]"
+                >
+                  {{ product?.avgRating?.toFixed(1) }}
+                </p>
+                <div
+                  class="review__rating__star"
+                  [style.background-image]="
+                    'url(/assets/' + colorSvgs[colorInd] + '_star.svg'
+                  "
+                ></div>
               </div>
               <div>
                 <p class="font-semibold">
@@ -259,9 +280,17 @@
                   <p>{{ i }}</p>
                   <div class="rating__bar__stars"></div>
                   <div class="rating__bar rounded-md">
-                    <div class="rating__bar__inner rounded-md w-2/5"></div>
+                    <div
+                      class="rating__bar__inner rounded-md w-2/5"
+                      [style.background-color]="colors[i - 1]"
+                      [style.width]="
+                        ratingPercentages[i - 1] > 0
+                          ? ratingPercentages[i - 1] + '%'
+                          : '2%'
+                      "
+                    ></div>
                   </div>
-                  <p>61&percnt;</p>
+                  <p>{{ ratingPercentages[i - 1] }}&percnt;</p>
                 </div>
               </div>
             </div>
@@ -278,7 +307,8 @@
             <div class="w-full h-8 flex justify-between items-center">
               <div class="w-auto flex gap-2 items-center h-full">
                 <div
-                  class="w-11 p-2 h-6 flex justify-center items-center gap-1 bg-greenbg"
+                  class="w-11 p-2 h-6 flex justify-center items-center gap-1"
+                  [style.background-color]="colors[review.rating! - 1]"
                 >
                   <p class="text-white text-lg font-bold">
                     {{ review.rating }}
@@ -293,6 +323,39 @@
             <p class="review__text text-fontcolor text-lg m-2">
               {{ review.review }}
             </p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!product?.ratingCount">
+        <div class="ratings">
+          <h2 id="rating__heading">Ratings <span>&#38;</span> Reviews</h2>
+          <div class="w-full h-auto rating__container">
+            <div class="rating__bar__container w-[40rem] h-[25rem]">
+              <div class="rating__box">
+                <p class="font-semibold">There are no Customer ratings yet</p>
+              </div>
+              <div class="w-full h-auto mt-8 opacity-50">
+                <div
+                  class="flex items-center h-8"
+                  *ngFor="let i of [5, 4, 3, 2, 1]"
+                >
+                  <p>{{ i }}</p>
+                  <div class="rating__bar__stars"></div>
+                  <div class="rating__bar rounded-md">
+                    <div
+                      class="rating__bar__inner rounded-md w-2/5"
+                      [style.background-color]="colors[i - 1]"
+                      [style.width]="
+                        ratingPercentages[i - 1] > 0
+                          ? ratingPercentages[i - 1] + '%'
+                          : '2%'
+                      "
+                    ></div>
+                  </div>
+                  <p>0&percnt;</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

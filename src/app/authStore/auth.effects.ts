@@ -21,6 +21,7 @@ import {
   authenticateUser,
   authenticationFailure,
   authenticationSucessful,
+  checkLogin,
   clearUserData,
   editAddress,
   getAllReviewsOfUser,
@@ -42,6 +43,7 @@ import {
   updateCredsSucessful,
   updateDetails,
   updateDetailsSucessful,
+  updateLoginCheck,
   updateReview,
 } from './auth.actions';
 import { getToken } from './auth.selectors';
@@ -128,6 +130,9 @@ export class AuthEffects {
             },
             orders: [],
             loadOrders: false,
+            credientialsChecked: false,
+            credientialsFalse: false,
+            lastLoginDetails: null,
           });
         });
         return result;
@@ -252,6 +257,14 @@ export class AuthEffects {
         this.authService.updateReview(token, action)
       ),
       map(() => submitReviewSucessful())
+    )
+  );
+
+  checkLogin = createEffect(() =>
+    this.actions$.pipe(
+      ofType(checkLogin),
+      switchMap((action) => this.authService.checkLogin(action.details)),
+      map((data) => updateLoginCheck({ value: data }))
     )
   );
 

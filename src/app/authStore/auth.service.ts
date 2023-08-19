@@ -11,6 +11,8 @@ import {
   ReviewSent,
   UserOrders,
   UserRegistration,
+  check,
+  loginDetails,
   reviewSubmitted,
 } from './auth.store';
 
@@ -277,6 +279,25 @@ export class AuthService {
       // 'http://localhost:8080/api/v1/updatereview',
       'https://apollopharmacy.sivacodes.com/api/v1/updatereview',
       review,
+      options
+    );
+  }
+
+  checkLogin(login: loginDetails) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Authorization',
+      }),
+    };
+
+    return this.http.post<check>(
+      // 'http://localhost:8080/api/v1/checkuser',
+      'https://apollopharmacy.sivacodes.com/api/v1/updatereview',
+      login,
       options
     );
   }

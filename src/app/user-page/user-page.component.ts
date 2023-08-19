@@ -321,7 +321,7 @@ export class UserPageComponent {
       })
     );
 
-    this.selectedOption = selectedOption.orders;
+    this.selectedOption = selectedOption.profile;
 
     this.state.dispatch(getUserAddresses());
 

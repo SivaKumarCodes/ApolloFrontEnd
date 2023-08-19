@@ -41,3 +41,10 @@ export const selectToLoadOrders = createSelector(
   getAuthState,
   (state) => state.loadOrders
 );
+
+export const selectCredientialsPassed = createSelector(
+  getAuthState,
+  (state) => state.credientialsFalse && state.credientialsChecked
+);
+
+// export const select

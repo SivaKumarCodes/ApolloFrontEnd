@@ -11,9 +11,10 @@ import { ɵafterNextNavigation } from '@angular/router';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { debounceTime, map, Observable, of } from 'rxjs';
-import { authenticateUser } from '../authStore/auth.actions';
+import { authenticateUser, checkLogin } from '../authStore/auth.actions';
 import { AuthService } from '../authStore/auth.service';
 import { registerUser } from '../authStore/auth.actions';
+import { selectCredientialsPassed } from '../authStore/auth.selectors';
 
 @Component({
   selector: 'app-login-component',
@@ -28,6 +29,22 @@ export class LoginComponentComponent {
       Validators.minLength(8),
     ]),
   });
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+    this.store.select(selectCredientialsPassed).subscribe((val) => {
+      if (val) {
+        this.store.dispatch(
+          authenticateUser({
+            email: this.loginForm?.value.email!,
+            password: this.loginForm?.value.password!,
+          })
+        );
+      }
+    });
+  }
 
   constructor(private authService: AuthService, private store: Store) {}
 
@@ -73,9 +90,11 @@ export class LoginComponentComponent {
 
   onLogin() {
     this.store.dispatch(
-      authenticateUser({
-        email: this.loginForm?.value.email!,
-        password: this.loginForm?.value.password!,
+      checkLogin({
+        details: {
+          email: this.loginForm?.value.email!,
+          password: this.loginForm?.value.password!,
+        },
       })
     );
   }

@@ -3,10 +3,14 @@
   [routerLink]="['/products/']"
   [queryParams]="{ brand: name }"
 >
-  <img
-    class="h-[10rem] w-auto"
-    src="{{ 'https://apollopharmacy.sivacodes.com/api/v1/brand/' + url }}"
+  <div
+    class="brand-img h-[10rem] w-full"
+    loading="lazy"
     alt=""
-  />
+    [ngStyle]="{
+      'background-image':
+        'url(https://apollopharmacy.sivacodes.com/api/v1/brand/' + url + ')'
+    }"
+  ></div>
   <p class="block font-normal text-base">{{ name }}</p>
 </div>

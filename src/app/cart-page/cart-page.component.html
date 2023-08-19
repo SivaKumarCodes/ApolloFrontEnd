@@ -80,7 +80,7 @@
           <div class="brand__title">
             <p class="product__brand">{{ item.brand }}</p>
             <p
-              routerLink="/product/{{ cartData[i].product.productId }}"
+              routerLink="/product/{{ cartData[i].product.productName }}"
               class="product__name"
             >
               {{ item.title }}
@@ -394,7 +394,7 @@
         </p>
       </div>
       <div
-        (click)="addAddress && addresses.length ? makeOrder() : addAddress()"
+        (click)="addresses && addresses.length ? makeOrder() : addAddress()"
         class="select__address__place__order"
       >
         <p>

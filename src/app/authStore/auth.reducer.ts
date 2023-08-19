@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   authenticationSucessful,
+  checkLogin,
   clearUserData,
   getAllReviewsOfUserSucess,
   getUserAddressesSucessful,
@@ -13,6 +14,7 @@ import {
   updateCredsSucessful,
   updateDetails,
   updateDetailsSucessful,
+  updateLoginCheck,
 } from './auth.actions';
 import { initialState } from './auth.store';
 import { UserPageComponent } from '../user-page/user-page.component';
@@ -43,6 +45,8 @@ const _AuthenticateReducer = createReducer(
     token: '',
     sucess: false,
     addresses: null,
+    credientialsFalse: false,
+    credientialsChecked: false,
   })),
   on(getUserAddressesSucessful, (state, action) => ({
     ...state!,
@@ -77,6 +81,14 @@ const _AuthenticateReducer = createReducer(
   on(submitReviewSucessful, (state) => ({
     ...state!,
     loadOrders: true,
+  })),
+  on(checkLogin, (state) => ({
+    ...state!,
+    credientialsChecked: true,
+  })),
+  on(updateLoginCheck, (state, action) => ({
+    ...state!,
+    credientialsFalse: action.value.value,
   }))
 );
 

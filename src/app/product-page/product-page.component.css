@@ -52,7 +52,8 @@
   height: 8%;
 }
 .rating__text {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .productbatch__rating__text {
@@ -62,7 +63,7 @@
   /* margin-top: 1.5rem; */
   width: 3rem;
   height: 2rem;
-  background-color: #1aab2a;
+  /* background-color: #1aab2a; */
   color: white;
   border-radius: 1px;
 }
@@ -81,6 +82,7 @@
 .reveiw__count {
   margin-top: 0.5rem;
   font-size: 1rem;
+  font-weight: 600;
   color: var(--main-color);
 }
 
@@ -173,7 +175,7 @@
 
 .recent__text {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-left: 0.5rem;
   font-weight: 100;
   color: black;
@@ -506,7 +508,7 @@
 .review__rating__star {
   width: 3.5rem;
   height: 3.5rem;
-  background-image: url("/assets/green_star.svg");
+  /* background-image: url("/assets/green_star.svg"); */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -539,8 +541,7 @@
 }
 
 .rating__bar__inner {
-  background-color: #1aab2a;
-  width: 50%;
+  /* background-color: #1aab2a; */
   height: 100%;
 }
 
@@ -557,4 +558,9 @@
 
 .reviews:last-child {
   border: none;
+}
+
+.danger {
+  color: #dc3545;
+  /* font-style: italic; */
 }

@@ -29,6 +29,13 @@ export class ProductPageComponent {
   quantityDisabled: boolean = true;
   subscriptions: Subscription[] = [];
   reviews!: ProductReview[];
+  colors: string[] = ['#dc3545', '#FF5F00', '#F6BE00', '#1aab2a', '#1aab2a'];
+  colorSvgs: string[] = ['red', 'orange', 'yellow', 'green', 'green'];
+  colorInd: number = 0;
+
+  productRatingRounded: number = 0;
+
+  ratingPercentages: number[] = [0, 0, 0, 0, 0];
 
   increaseQuantity() {
     if (this.quantity < 30) this.quantity++;
@@ -71,10 +78,11 @@ export class ProductPageComponent {
     let ProductSubscription = this.state
       .select(activeProduct)
       .subscribe((data) => {
-        this.product = data;
-        this.selectedVariant = this.product?.variants[0];
-
         if (data) {
+          this.product = data;
+          this.selectedVariant = this.product?.variants[0];
+          this.colorInd = Math.trunc(data.avgRating) - 1;
+          this.productRatingRounded = Math.trunc(this.product.avgRating);
           this.state.dispatch(
             loadProductReviews({ id: this.product?.productId! })
           );
@@ -84,6 +92,21 @@ export class ProductPageComponent {
     this.subscriptions.push(
       this.state.select(getProductReviews).subscribe((data) => {
         this.reviews = data.filter((i) => i.review !== null);
+        if (data) {
+          let ratingSum: number[] = [0, 0, 0, 0, 0];
+          let numRatings: number = 0;
+          data.forEach((i) => {
+            let rounded = Math.abs(i.rating ? i.rating : 0);
+            if (rounded >= 0) {
+              ratingSum[rounded - 1]++;
+              numRatings++;
+            }
+          });
+
+          ratingSum.forEach((i, ind) => {
+            this.ratingPercentages[ind] = Math.trunc((i / numRatings) * 100);
+          });
+        }
       })
     );
 
