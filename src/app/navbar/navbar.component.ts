@@ -94,6 +94,12 @@ export class NavbarComponent implements OnInit {
     else this.router.navigate(['/login']);
   }
 
+  search(event: any) {
+    this.router.navigate(['/products/'], {
+      queryParams: { search: event.target.value },
+    });
+  }
+
   ngOnInit(): void {
     this.state.select(getAuthSucess).subscribe((data) => {
       this.authenticated = data;

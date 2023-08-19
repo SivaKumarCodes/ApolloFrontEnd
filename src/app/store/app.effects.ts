@@ -98,6 +98,11 @@ export class ProductEffects {
             new ProductTypeFilters(type.state.queryParams['type'], [], [])
           );
 
+        if (type.state.queryParams['search'] != undefined)
+          return this.productService.searchProducts(
+            type.state.queryParams['search']
+          );
+
         return this.productService.getAll();
       }),
       map((data) => loadProductGridSucess({ products: data }))
