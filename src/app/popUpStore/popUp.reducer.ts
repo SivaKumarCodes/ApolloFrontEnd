@@ -1,12 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  QuantityPickerStore,
   ReviewPopUpState,
   defaultReviewData,
   intialPopUpState,
 } from './popUp.store';
 import {
+  changeQuantityInPopUp,
   closeAll,
   closeSideBar,
+  showQuantityPopUp,
   showReviewPopup,
   showSideBar,
 } from './popUp.actions';
@@ -44,5 +47,31 @@ export const popUpReducer = createReducer(
   })),
   on(closeAll, (state) => ({
     ...intialPopUpState,
-  }))
+    quantityPicker: {
+      ...intialPopUpState.quantityPicker,
+      change: state.quantityPicker.change,
+    },
+  })),
+  on(showQuantityPopUp, (state, action) => {
+    let newQuantityState: QuantityPickerStore = JSON.parse(
+      JSON.stringify(state.quantityPicker)
+    );
+    newQuantityState.showPopUp = true;
+    newQuantityState.startNumber = newQuantityState.change = action.intialValue;
+    return {
+      ...state,
+      isAnyPopUpActive: true,
+      quantityPicker: newQuantityState,
+    };
+  }),
+  on(changeQuantityInPopUp, (state, action) => {
+    let newQuantityState: QuantityPickerStore = JSON.parse(
+      JSON.stringify(state.quantityPicker)
+    );
+    newQuantityState.change = action.change;
+    return {
+      ...state,
+      quantityPicker: newQuantityState,
+    };
+  })
 );

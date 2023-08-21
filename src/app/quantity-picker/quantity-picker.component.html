@@ -1,4 +1,8 @@
-<div class="picker__container" [ngClass]="showup ? 'visible' : ''">
+<div
+  class="picker__container"
+  (click)="stopPropagation($event)"
+  [ngClass]="showup ? 'visible' : ''"
+>
   <div class="actual__picker">
     <p class="select__text">SELECT QUANTITY</p>
     <div class="close" (click)="onClose()">
@@ -26,6 +30,6 @@
         <p>{{ i }}</p>
       </div>
     </div>
-    <div class="done" (click)="done()"><p>done</p></div>
+    <div class="done" (click)="change($event)"><p>done</p></div>
   </div>
 </div>

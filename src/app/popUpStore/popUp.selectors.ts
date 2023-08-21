@@ -17,3 +17,13 @@ export const isReviewPopUpActive = createSelector(
   getPopUpState,
   (state) => state.reviewPopup
 );
+
+export const isQuantityPickerActive = createSelector(
+  getPopUpState,
+  (state) => state.quantityPicker
+);
+
+export const changeInQuantiyPicker = createSelector(
+  getPopUpState,
+  (state) => state.quantityPicker.change
+);

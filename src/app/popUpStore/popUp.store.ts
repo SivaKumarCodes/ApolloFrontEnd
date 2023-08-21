@@ -1,9 +1,3 @@
-export interface PopUpStore {
-  isAnyPopUpActive: boolean;
-  sidebar: boolean;
-  reviewPopup: ReviewPopUpState;
-}
-
 export interface ReviewPopUpState {
   isOpen: boolean;
   productName: string;
@@ -36,6 +30,18 @@ export interface ReviewPopUpData {
   productId: number;
 }
 
+export interface QuantityPickerStore {
+  showPopUp: boolean;
+  startNumber: number;
+  change: number;
+}
+export interface PopUpStore {
+  isAnyPopUpActive: boolean;
+  sidebar: boolean;
+  reviewPopup: ReviewPopUpState;
+  quantityPicker: QuantityPickerStore;
+}
+
 export const intialPopUpState: PopUpStore = {
   isAnyPopUpActive: false,
   sidebar: false,
@@ -48,5 +54,10 @@ export const intialPopUpState: PopUpStore = {
     review: null,
     reviewId: 0,
     productId: 0,
+  },
+  quantityPicker: {
+    showPopUp: false,
+    startNumber: 0,
+    change: 0,
   },
 };

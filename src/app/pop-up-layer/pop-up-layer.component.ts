@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { State, Store } from '@ngrx/store';
 import { PopUpStore } from '../popUpStore/popUp.store';
-import { isSideBarActive } from '../popUpStore/popUp.selectors';
+import {
+  isQuantityPickerActive,
+  isSideBarActive,
+} from '../popUpStore/popUp.selectors';
 import { closeAll } from '../popUpStore/popUp.actions';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
@@ -12,6 +15,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 })
 export class PopUpLayerComponent {
   sidebar!: boolean;
+  quantityPicker!: boolean;
 
   closePopUp() {
     this.state.dispatch(closeAll());
@@ -25,5 +29,9 @@ export class PopUpLayerComponent {
     this.state.select(isSideBarActive).subscribe((data) => {
       this.sidebar = data;
     });
+
+    // this.state.select(isQuantityPickerActive).subscribe((data) => {
+    //   this.quantityPicker = data.showPopUp;
+    // });
   }
 }

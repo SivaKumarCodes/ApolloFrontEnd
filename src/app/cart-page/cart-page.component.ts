@@ -38,6 +38,8 @@ import { Product, Variant } from '../store/app.store';
 import { AddressType } from '../authStore/auth.store';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { AddressChangerComponent } from '../address-changer/address-changer.component';
+import { showQuantityPopUp } from '../popUpStore/popUp.actions';
+import { changeInQuantiyPicker } from '../popUpStore/popUp.selectors';
 
 export enum paymentOption {
   UPI,
@@ -90,6 +92,8 @@ export class CartPageComponent {
   paymentOptions = paymentOption;
 
   Subscriptions!: Subscription[];
+
+  previousSelection: number = 0;
 
   changePaymentOption(paymentOption: paymentOption) {
     this.selectedPaymentOption = paymentOption;
@@ -155,14 +159,13 @@ export class CartPageComponent {
     else return this.minusIcon;
   }
 
-  changeQuantity(i: number) {
+  changeQuantity(i: number, ind: number) {
     this.showQuantityPicker = false;
     // let activeItem = this.cartData[this.activeCartItem];
-    console.log(i);
     let activeItem: cartItem = {
-      productId: this.cartData[i].product.productId,
-      variantId: this.cartData[i].variantId,
-      quantity: this.cartData[i].quantity,
+      productId: this.cartData[ind].product.productId,
+      variantId: this.cartData[ind].variantId,
+      quantity: this.cartData[ind].quantity,
     };
 
     if (activeItem.quantity > i) {
@@ -172,12 +175,21 @@ export class CartPageComponent {
       activeItem.quantity = i - activeItem.quantity;
       this.state.dispatch(addToCartEffect(activeItem));
     }
+
     this.totalPrice();
   }
 
   showPicker(i: number) {
     this.showQuantityPicker = true;
     this.activeCartItem = i;
+
+    this.state.dispatch(
+      showQuantityPopUp({
+        intialValue: this.cartData[this.activeCartItem].quantity,
+      })
+    );
+
+    this.previousSelection = i;
   }
 
   closePicker() {
@@ -362,6 +374,14 @@ export class CartPageComponent {
     this.subscriptions.push(
       this.state.select(getCartLoading).subscribe((data) => {
         this.cartLoading = data;
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(changeInQuantiyPicker).subscribe((data) => {
+        if (data > 0) {
+          this.changeQuantity(data, this.previousSelection);
+        }
       })
     );
   }
