@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
   display: block;
+  /* padding-bottom: 4rem; */
 }
 
 .title {
@@ -15,6 +16,10 @@
   display: block;
   margin-top: 2rem;
   min-height: 16rem;
+}
+
+.footer {
+  margin-top: 4rem;
 }
 
 .landing__carousel {

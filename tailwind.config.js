@@ -14,6 +14,7 @@ module.exports = {
       greentext: "#03a685",
       greenbg: "#1aab2a",
       fontcolor: "#525252",
+      dangerRed: "#dc3545",
       // lightgrey: "#5F7161",
     },
   },

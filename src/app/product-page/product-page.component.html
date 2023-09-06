@@ -111,12 +111,14 @@
           <p class="inclusive__of__all">Inclusive of all taxes.</p>
           <p class="in__stock">In Stock</p>
           <div class="quantity__container">
-            <div class="quantity">
-              <p class="quantity__text">{{ quantity }}</p>
-            </div>
-            <div class="quantity__controls">
-              <span class="plus" (click)="increaseQuantity()">&#43;</span>
-              <span class="minus" (click)="decreaseQuantity()">&#8722;</span>
+            <div
+              class="quantity-box cursor-pointer w-auto h-8 p-2 flex items-center bg-blue-950"
+              (click)="openQuantityPicker(quantity)"
+            >
+              <p class="quantity-text text-base block">
+                Qty : <span>{{ quantity }}</span>
+                <fa-icon class="ml-1" [icon]="downIcon"></fa-icon>
+              </p>
             </div>
             <p class="times__quantity">
               &times;
@@ -361,5 +363,8 @@
       </div>
     </div>
     <div class="rigth"></div>
+  </div>
+  <div class="footer-container w-full h-fit pt-16 bg-lig">
+    <app-footer></app-footer>
   </div>
 </div>

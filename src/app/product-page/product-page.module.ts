@@ -7,6 +7,7 @@ import { ProductViewerComponent } from '../product-viewer/product-viewer.compone
 import { AppModule } from '../app.module';
 import { LoadingComponent } from '../loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LandingPageModule } from '../landing-page/landing-page.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ProductViewerComponent,
     LoadingComponent,
   ],
-  imports: [CommonModule, ProductPageRoutingModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    ProductPageRoutingModule,
+    FontAwesomeModule,
+    LandingPageModule,
+  ],
   exports: [ProductViewerComponent, LoadingComponent],
 })
 export class ProductPageModule {}

@@ -564,3 +564,11 @@
   color: #dc3545;
   /* font-style: italic; */
 }
+
+.quantity-box {
+  background-color: aliceblue;
+}
+
+.footer-container {
+  background-color: #f8f8f8;
+}

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { addToCartEffect } from '../cartStore/cart.actions';
 import { Product, ProductReview, Variant } from '../store/app.store';
 import { LoadProductData, loadProductReviews } from '../store/app.actions';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import {
   activeProduct,
   activeProductLoading,
@@ -11,6 +12,8 @@ import {
 import { Subscription } from 'rxjs';
 import { ViewportScroller } from '@angular/common';
 import { Review } from '../authStore/auth.store';
+import { changeInQuantiyPicker } from '../popUpStore/popUp.selectors';
+import { showQuantityPopUp } from '../popUpStore/popUp.actions';
 
 @Component({
   selector: 'app-product-page',
@@ -32,6 +35,7 @@ export class ProductPageComponent {
   colors: string[] = ['#dc3545', '#FF5F00', '#F6BE00', '#1aab2a', '#1aab2a'];
   colorSvgs: string[] = ['red', 'orange', 'yellow', 'green', 'green'];
   colorInd: number = 0;
+  downIcon = faCaretDown;
 
   productRatingRounded: number = 0;
 
@@ -52,6 +56,10 @@ export class ProductPageComponent {
   changeVariant(n: number) {
     this.selectedVariantInd = n;
     this.selectedVariant = this.product?.variants[n];
+  }
+
+  openQuantityPicker(start: number) {
+    this.state.dispatch(showQuantityPopUp({ intialValue: start }));
   }
 
   addToCart() {
@@ -112,11 +120,17 @@ export class ProductPageComponent {
 
     this.subscriptions.push(ProductSubscription);
 
-    let loadingSubscription = this.state
-      .select(activeProductLoading)
-      .subscribe((data) => {
+    this.subscriptions.push(
+      this.state.select(activeProductLoading).subscribe((data) => {
         this.loading = data;
-      });
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(changeInQuantiyPicker).subscribe((data) => {
+        if (data > 0) this.quantity = data;
+      })
+    );
   }
 
   ngOnDestroy(): void {

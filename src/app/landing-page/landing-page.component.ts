@@ -20,7 +20,7 @@ export class LandingPageComponent implements OnInit {
   constructor(private state: Store) {}
 
   subscriptions: Subscription[] = [];
-  productTypes!: string[];
+  productTypes: string[] = [];
   sliderOfType = sliderType;
 
   ngOnInit(): void {

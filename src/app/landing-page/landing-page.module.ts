@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { ProductReducer } from '../store/app.reducer';
 import { AppModule } from '../app.module';
 import { BatchComponent } from '../batch/batch.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BatchComponent } from '../batch/batch.component';
     CarouselComponent,
     SliderComponent,
     BatchComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,6 @@ import { BatchComponent } from '../batch/batch.component';
     ProductBatchModule,
     StoreModule.forFeature('products', ProductReducer),
   ],
-  exports: [CarouselComponent, BatchComponent],
+  exports: [CarouselComponent, BatchComponent, FooterComponent],
 })
 export class LandingPageModule {}
