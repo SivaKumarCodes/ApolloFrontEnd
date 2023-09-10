@@ -13,12 +13,12 @@ h1 {
 }
 
 .footer_info_text > h1 {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .footer_info_text > p {
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   color: #666;
 }
 
@@ -42,4 +42,22 @@ h1 {
   display: block;
   font-size: 1rem;
   font-weight: 600;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: auto;
+  width: auto;
+}
+
+.footer-links > h3 {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.footer-links > p {
+  font-size: 0.9rem;
+  color: #666;
 }
