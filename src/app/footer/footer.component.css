@@ -61,3 +61,8 @@ h1 {
   font-size: 0.9rem;
   color: #666;
 }
+
+.app_download {
+  background-position: center;
+  background-size: cover;
+}
