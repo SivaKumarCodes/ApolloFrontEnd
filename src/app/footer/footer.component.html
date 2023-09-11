@@ -208,10 +208,51 @@
     <div class="footer-links">
       <h3>Connect</h3>
       <p class="!text-[1rem]">Social Links</p>
+      <div class="flex w-auto gap-2">
+        <div
+          class="w-8 h-8"
+          *ngFor="
+            let i of [
+              'Facebook',
+              'Instagram',
+              'Twitter',
+              'Youtube',
+              'LinkedIn',
+              'Medium'
+            ]
+          "
+          [style.background-image]="
+            'url(assets/socialMediaIcons/' + i + '.svg)'
+          "
+        ></div>
+      </div>
+      <p>Want daily dose of health ?</p>
+      <div
+        class="bg-main rounded-lg w-20 h-10 text-base text-white flex items-center justify-center"
+      >
+        Sign Up
+      </div>
     </div>
-  </div>
-
-  <div class="footer-links">
-    <h3>Useful Links</h3>
+    <div class="footer-links">
+      <h3>Download App</h3>
+      <div class="flex flex-col">
+        <div
+          [style.background-image]="
+            'url(' +
+            'assets/socialMediaIcons/google-play-badge-logo-svgrepo-com.svg' +
+            ')'
+          "
+          class="app_download w-44 h-20"
+        ></div>
+        <div
+          [style.background-image]="
+            'url(' +
+            '/assets/socialMediaIcons/download-on-the-app-store-apple-logo-svgrepo-com.svg' +
+            ')'
+          "
+          class="app_download w-44 h-20"
+        ></div>
+      </div>
+    </div>
   </div>
 </div>
