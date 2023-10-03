@@ -45,37 +45,54 @@ export class NavbarComponent implements OnInit {
   options: dropdownOption[][] = [
     [
       {
-        url: '/assets/multivitamin.png',
+        url: '/assets/ProductImage_1024x1024.webp',
         name: 'Multivitamins',
         link: 'Multivitamins',
       },
       {
-        url: '/assets/nutritionalDrinks.webp',
+        url: '/assets/protinex-health-and-nutritional-drink-mix-for-adults-with-high-protein-10.jpg',
         name: 'Nutritional Drinks',
         link: 'Nutritional Drinks',
       },
       {
-        url: '/assets/proteinSupplements.webp',
+        url: '/assets/on-Chocolate_Mint_nayble.webp',
         name: 'Protein Supplements',
         link: 'Protein Supplements',
       },
       {
-        url: '/assets/fishOil.webp',
+        url: '/assets/41X7kn7DptL._SL1000_.jpg',
         name: 'Omega3 & Fish oil supplements',
         link: 'Omega3 Supplements',
       },
     ],
     [
       {
-        url: '/assets/bloodGlucose.webp',
+        url: '/assets/s-l1200.webp',
         name: 'Blood Glucose Monitors',
         link: 'Blood Glucose Monitors',
       },
     ],
-    [],
-    [],
-    [],
-    [],
+    [
+      {
+        url: '/assets/haan-forest-grace-nourishing-prebiotic-body-lotion-250ml.jpg',
+        name: 'Body Lotions',
+        link: 'Body Lotions',
+      },
+    ],
+    [
+      {
+        url: '/assets/constipation-herbal-treatment-250x250.webp',
+        name: 'Ayurvedic Immunity Boosters',
+        link: 'Ayurvedic Immunity Boosters',
+      },
+    ],
+    [
+      {
+        url: '/assets/Schwabe-Triticum-Repens-Homeopathy-Dilution-6C-30C-200C-1M-10M.webp',
+        name: 'Homeopathy Medicines',
+        link: 'Homeopathy Medicines',
+      },
+    ],
   ];
 
   firstName!: string;
