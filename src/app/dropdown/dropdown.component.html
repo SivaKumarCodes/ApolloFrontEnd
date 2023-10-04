@@ -5,8 +5,8 @@
 >
   <div
     class="actual-dropdown"
-    (mouseenter)="setVisible({ value: true })"
-    (mouseleave)="setVisible({ value: false })"
+    (mouseenter)="holdDropDown()"
+    (mouseleave)="closeDropDown()"
   >
     <div class="dropdown-list">
       <a

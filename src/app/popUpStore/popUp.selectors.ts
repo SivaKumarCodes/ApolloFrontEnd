@@ -27,3 +27,18 @@ export const changeInQuantiyPicker = createSelector(
   getPopUpState,
   (state) => state.quantityPicker.change
 );
+
+export const isDropDownActive = createSelector(
+  getPopUpState,
+  (state) => state.menuDropDown.isDropDownActive
+);
+
+export const DropdownMenuState = createSelector(
+  getPopUpState,
+  (state) => state.menuDropDown
+);
+
+export const getActiveDropDownSection = createSelector(
+  getPopUpState,
+  (state) => state.menuDropDown.activeSection
+);

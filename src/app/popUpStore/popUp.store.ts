@@ -35,8 +35,27 @@ export interface QuantityPickerStore {
   startNumber: number;
   change: number;
 }
+
+export interface dropdownOption {
+  url: string;
+  name: string;
+  link: string;
+}
+
+export interface dropdownContent {
+  index: number;
+  options: dropdownOption[];
+  value: boolean;
+}
+export interface DropDownMenuStore {
+  isDropDownActive: boolean;
+  dropDownOptions: dropdownOption[];
+  activeSection: number;
+}
+
 export interface PopUpStore {
   isAnyPopUpActive: boolean;
+  menuDropDown: DropDownMenuStore;
   sidebar: boolean;
   reviewPopup: ReviewPopUpState;
   quantityPicker: QuantityPickerStore;
@@ -45,6 +64,11 @@ export interface PopUpStore {
 export const intialPopUpState: PopUpStore = {
   isAnyPopUpActive: false,
   sidebar: false,
+  menuDropDown: {
+    isDropDownActive: false,
+    dropDownOptions: [],
+    activeSection: 0,
+  },
   reviewPopup: {
     isOpen: false,
     productName: '',

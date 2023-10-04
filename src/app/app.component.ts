@@ -8,7 +8,6 @@ import {
   repopulateCart,
   repopulteCartSucessful,
 } from './cartStore/cart.actions';
-import { dropdownContent, dropdownOption } from './navbar/navbar.component';
 import { loadProductTypes, loadSomeBrands } from './store/app.actions';
 import { Product } from './store/app.store';
 import { getAuthSucess } from './authStore/auth.selectors';
@@ -26,7 +25,6 @@ export class AppComponent {
 
   title = 'Pharmacy';
   isDropDownVisible: boolean = false;
-  options!: dropdownOption[];
 
   productTypes!: string[];
 
@@ -46,13 +44,6 @@ export class AppComponent {
 
   setactiveStateallFalse() {
     this.activeState = this.activeState.map((i) => false);
-  }
-
-  setDropDownVisible(event: dropdownContent) {
-    this.activeIndex = event.index;
-    this.activeState[event.index] = !this.activeState[event.index];
-    if (event.options.length > 0) this.options = event.options;
-    this.isDropDownVisible = event.value;
   }
 
   ngOnInit(): void {

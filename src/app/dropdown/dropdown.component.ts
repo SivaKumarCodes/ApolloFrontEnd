@@ -1,8 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { dropdownOption } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadProductGrid } from '../store/app.actions';
+import { DropdownMenuState } from '../popUpStore/popUp.selectors';
+import { dropdownOption } from '../popUpStore/popUp.store';
+import {
+  closeDropDownMenu,
+  holdDropDownMenu,
+  showDropdownMenu,
+} from '../popUpStore/popUp.actions';
 
 @Component({
   selector: 'app-dropdown',
@@ -12,25 +18,32 @@ import { loadProductGrid } from '../store/app.actions';
 export class DropdownComponent {
   constructor(private router: Router, private store: Store) {}
 
-  @Input() isVisible!: boolean;
+  isVisible!: boolean;
 
-  @Input() options!: dropdownOption[];
+  options!: dropdownOption[];
 
-  @Input() activeNav!: number;
+  activeNav!: number;
 
-  @Output() setactive: EventEmitter<{ ind: number; flag: boolean }> =
-    new EventEmitter();
+  closeDropDown() {
+    this.store.dispatch(closeDropDownMenu());
+  }
 
-  @Output() setAllinactive: EventEmitter<void> = new EventEmitter();
-
-  setVisible({ value }: { value: boolean }) {
-    this.isVisible = value;
-    this.setactive.emit({ ind: this.activeNav, flag: value });
-    this.setAllinactive.emit();
+  holdDropDown() {
+    this.store.dispatch(holdDropDownMenu());
   }
 
   follow(value: boolean, option: string) {
-    this.setVisible({ value: false });
+    this.closeDropDown();
     this.router.navigate(['/products/'], { queryParams: { type: option } });
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.store.select(DropdownMenuState).subscribe((data) => {
+      this.isVisible = data.isDropDownActive;
+      this.activeNav = data.activeSection;
+      this.options = data.dropDownOptions;
+    });
   }
 }

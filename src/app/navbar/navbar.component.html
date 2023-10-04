@@ -62,11 +62,11 @@
     <div
       *ngFor="let option of navbarOptions; let i = index"
       [attr.data-index]="i"
-      (mouseenter)="
-        showDropDown({ options: options[i], index: i, value: true })
+      (mouseenter)="showDropDown(i)"
+      (mouseleave)="closeDropDown()"
+      [ngClass]="
+        isDropdownMenuActive && activeSection == i + 1 ? 'option__active' : ''
       "
-      (mouseleave)="showDropDown({ options: [], index: i, value: false })"
-      [ngClass]="isactive[i] ? 'option__active' : ''"
       class="nav-option"
     >
       {{ option }}

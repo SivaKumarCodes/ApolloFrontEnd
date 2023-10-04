@@ -13,6 +13,12 @@ const _changeQuantityValue = '[Quantity Picker] change quantity value';
 
 const _closeActivePopup = '[popup] close All';
 
+const _showDropDownMenu = '[DropDownMenu] show';
+
+const _closeDropDownMenu = '[DropDownMenu] close';
+
+const _holdDropDownMenu = '[DropDownMenu] hold';
+
 export const showSideBar = createAction(_showSideBar);
 
 export const closeSideBar = createAction(_closeSideBar);
@@ -33,3 +39,12 @@ export const changeQuantityInPopUp = createAction(
   _changeQuantityValue,
   props<{ change: number }>()
 );
+
+export const showDropdownMenu = createAction(
+  _showDropDownMenu,
+  props<{ activeSection: number }>()
+);
+
+export const closeDropDownMenu = createAction(_closeDropDownMenu);
+
+export const holdDropDownMenu = createAction(_holdDropDownMenu);

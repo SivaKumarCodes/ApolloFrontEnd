@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { dropdownOption } from '../navbar/navbar.component';
 import { Store } from '@ngrx/store';
 import { closeAll, closeSideBar } from '../popUpStore/popUp.actions';
 import { Router } from '@angular/router';
@@ -8,6 +7,7 @@ import { isSideBarActive } from '../popUpStore/popUp.selectors';
 import { Subscription } from 'rxjs';
 import { getAuthSucess } from '../authStore/auth.selectors';
 import { getUser } from '../authStore/auth.selectors';
+import { dropdownOption } from '../popUpStore/popUp.store';
 
 @Component({
   selector: 'app-sidebar',
