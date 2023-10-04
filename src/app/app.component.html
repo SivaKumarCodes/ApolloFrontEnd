@@ -4,12 +4,11 @@
   <app-navbar [isactive]="activeState" (dropdown)="setDropDownVisible($event)">
   </app-navbar>
   <router-outlet></router-outlet>
-  <app-dropdown
+  <!-- <app-dropdown
     (setactive)="setactive($event)"
     (setAllinactive)="setactiveStateallFalse()"
     [isVisible]="isDropDownVisible"
     [options]="options"
     [activeNav]="activeIndex"
-  ></app-dropdown>
-  <!-- <app-footer></app-footer> -->
+  ></app-dropdown> -->
 </div>

@@ -14,9 +14,6 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrls: ['./pop-up-layer.component.css'],
 })
 export class PopUpLayerComponent {
-  sidebar!: boolean;
-  quantityPicker!: boolean;
-
   closePopUp() {
     this.state.dispatch(closeAll());
   }
@@ -26,12 +23,5 @@ export class PopUpLayerComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.state.select(isSideBarActive).subscribe((data) => {
-      this.sidebar = data;
-    });
-
-    // this.state.select(isQuantityPickerActive).subscribe((data) => {
-    //   this.quantityPicker = data.showPopUp;
-    // });
   }
 }
