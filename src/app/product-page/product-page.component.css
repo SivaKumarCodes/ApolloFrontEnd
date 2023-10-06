@@ -572,3 +572,55 @@
 .footer-container {
   background-color: #f8f8f8;
 }
+
+.lab_image {
+  width: 103px;
+  height: 103px;
+  margin-bottom: 10px;
+}
+
+.book_a_test_online {
+  border: 1px solid var(--main-color);
+  border-radius: 4px;
+  width: 55%;
+  height: 2.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--main-color);
+}
+
+.authentic_products {
+  font-size: 0.6rem;
+}
+
+.authentic_products > div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 3rem;
+  text-align: center;
+}
+
+.updated_on {
+  color: #2d2d31;
+}
+
+.updated_on > div > p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #525252;
+}
+
+.updated_on_time {
+  border-bottom: 1px solid #ececec;
+  padding-bottom: 1rem;
+}
+
+.want_to_know_more {
+  width: 60%;
+  height: 50%;
+}
+
+.date_info {
+  border-bottom: 1px solid #ececec;
+}

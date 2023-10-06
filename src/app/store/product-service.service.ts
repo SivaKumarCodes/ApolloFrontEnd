@@ -74,8 +74,8 @@ export class ProductService {
 
   searchProducts(keyword: string) {
     return this.http.post<Product[]>(
-      // 'https://apollpharmacy.sivacodes.com/api/v1/search',
-      'http://localhost:8080/api/v1/search',
+      'https://apollopharmacy.sivacodes.com/api/v1/search',
+      // 'http://localhost:8080/api/v1/search',
       {},
       {
         params: {
