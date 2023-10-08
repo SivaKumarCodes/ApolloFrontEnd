@@ -27,7 +27,7 @@ import { ProductService } from './product-service.service';
 import { Store } from '@ngrx/store';
 import { getProductName } from './app.selectors';
 import { getParams } from './router.selectors';
-import { BrandFilters, ProductTypeFilters } from './app.store';
+import { BrandFilters, ProductTypeFilters, SortBy } from './app.store';
 
 @Injectable()
 export class ProductEffects {
@@ -60,7 +60,12 @@ export class ProductEffects {
       mergeMap((action) =>
         this.productService
           .getProductsFromProductTypes(
-            new ProductTypeFilters(action.productType.type, [], [])
+            new ProductTypeFilters(
+              action.productType.type,
+              [],
+              [],
+              SortBy.POPULARITY
+            )
           )
           .pipe(
             map((data) =>
@@ -90,12 +95,22 @@ export class ProductEffects {
       mergeMap(([_, type]) => {
         if (type.state.queryParams['brand'] != undefined)
           return this.productService.getProductsOFBrands(
-            new BrandFilters(type.state.queryParams['brand'], [], [])
+            new BrandFilters(
+              type.state.queryParams['brand'],
+              [],
+              [],
+              SortBy.POPULARITY
+            )
           );
 
         if (type.state.queryParams['type'] != undefined)
           return this.productService.getProductsFromProductTypes(
-            new ProductTypeFilters(type.state.queryParams['type'], [], [])
+            new ProductTypeFilters(
+              type.state.queryParams['type'],
+              [],
+              [],
+              SortBy.POPULARITY
+            )
           );
 
         if (type.state.queryParams['search'] != undefined)

@@ -23,11 +23,13 @@ export class ProductTypeFilters {
   type: string;
   brands: string[];
   tags: string[];
+  sortBy: SortBy;
 
-  constructor(type: string, brands: string[], tags: string[]) {
+  constructor(type: string, brands: string[], tags: string[], sortBy: SortBy) {
     this.brands = brands;
     this.type = type;
     this.tags = tags;
+    this.sortBy = sortBy;
   }
 
   get productType() {
@@ -41,17 +43,29 @@ export class ProductTypeFilters {
   get tagsFilter() {
     return this.tags;
   }
+
+  get sortby() {
+    return this.sortBy;
+  }
+}
+
+export enum SortBy {
+  POPULARITY,
+  PRICE_LOW_TO_HIGH,
+  PRICE_HIGH_TO_LOW,
 }
 
 export class BrandFilters {
   brand: string;
   productTypes: string[];
   tags: string[];
+  sortBy: SortBy;
 
-  constructor(brand: string, types: string[], tags: string[]) {
+  constructor(brand: string, types: string[], tags: string[], sortBy: SortBy) {
     this.brand = brand;
     this.productTypes = types;
     this.tags = tags;
+    this.sortBy = sortBy;
   }
 
   get types() {
@@ -64,6 +78,10 @@ export class BrandFilters {
 
   get tagsFilter() {
     return this.tags;
+  }
+
+  get sortby() {
+    return this.sortBy;
   }
 }
 

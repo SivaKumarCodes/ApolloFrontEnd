@@ -1,7 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Observer, Subscription } from 'rxjs';
-import { BrandFilters, Product, ProductTypeFilters } from '../store/app.store';
+import {
+  BrandFilters,
+  Product,
+  ProductTypeFilters,
+  SortBy,
+} from '../store/app.store';
 import {
   loadProductGrid,
   loadProductGridBrandsWithTags,
@@ -15,6 +20,7 @@ import {
   getBrandFilters,
   getProductGrid,
   getProductGridLoading,
+  getProductsOfProductType,
   getRouterParams,
   getTagFilterCount,
   getTagsFilters,
@@ -109,7 +115,8 @@ export class ProductGridComponent {
             filters: new ProductTypeFilters(
               this.activeSubCatogory,
               [...brandsFilters],
-              [...tagsFilters]
+              [...tagsFilters],
+              SortBy.POPULARITY
             ),
           })
         );
@@ -119,7 +126,8 @@ export class ProductGridComponent {
             filters: new ProductTypeFilters(
               this.activeSubCatogory,
               [...brandsFilters],
-              [...tagsFilters]
+              [...tagsFilters],
+              SortBy.POPULARITY
             ),
           })
         );
@@ -127,7 +135,12 @@ export class ProductGridComponent {
     } else {
       this.store.dispatch(
         loadProductGridBrandsWithTags({
-          filters: new BrandFilters(this.activeBrand, [], [...tagsFilters]),
+          filters: new BrandFilters(
+            this.activeBrand,
+            [],
+            [...tagsFilters],
+            SortBy.POPULARITY
+          ),
         })
       );
     }
