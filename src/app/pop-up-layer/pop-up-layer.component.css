@@ -5,6 +5,7 @@
   position: relative;
   /* display: none; */
   transition: all 1s ease-in;
+  z-index: 999;
 }
 
 .sidebar {

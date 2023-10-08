@@ -26,8 +26,9 @@
 
 .menu__bar__icon {
   display: none;
-  width: 2.5rem;
-  margin-bottom: 1rem;
+  width: 2rem;
+  height: 60%;
+  margin-bottom: 0.3rem;
   cursor: pointer;
 }
 
@@ -301,22 +302,29 @@ a {
   .grid-container {
     grid-template-columns: 10rem 1fr;
     grid-template-rows: 1fr;
-    height: 4rem;
+    height: 3.5rem;
   }
 
   .cart {
-    height: 50%;
+    height: 30%;
   }
 
   #cartIcon {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
+    margin-top: 0.6rem;
   }
 
   .logo-container {
     padding: 0;
+  }
+
+  .logo {
+    width: 65%;
+    height: 65%;
+    margin-top: 5px;
   }
 
   .user {
