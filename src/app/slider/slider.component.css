@@ -84,6 +84,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding-left: 0.5rem;
+  gap: 4px;
+  transition: all 1.7s, box-shadow 0.2s;
 }
 
 .arrow {
@@ -119,10 +121,9 @@
 }
 
 .slide {
-  width: calc(7.2% - 4px);
+  width: 7.2%;
   height: 100%;
-  margin-right: 4px;
-  transition: all 1.7s, box-shadow 0.2s;
+  /* margin-right: 4px; */
 }
 
 .slide:hover {
@@ -132,4 +133,16 @@
 
 .slider__container:last-child {
   margin-bottom: 0;
+}
+
+@media screen and (max-width: 1634px) {
+  .slide {
+    width: 8.4%;
+    height: 100%;
+    /* margin-right: 4px; */
+    transition: all 1.7s, box-shadow 0.2s;
+  }
+  .slides__container {
+    width: 235.2%;
+  }
 }

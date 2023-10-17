@@ -80,7 +80,9 @@ export class ProductPageComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.veiwportScroller.scrollToPosition([0, 0]);
+    setTimeout(() => {
+      this.veiwportScroller.scrollToPosition([0, 0]);
+    }, 0);
 
     this.state.dispatch(LoadProductData());
     let ProductSubscription = this.state

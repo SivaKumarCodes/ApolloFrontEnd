@@ -31,12 +31,15 @@
       <div
         class="slides__container"
         *ngIf="type == sliderTypes.product && !productsLoaded"
+        [ngStyle]="{
+          'margin-left': 'calc( -' + margin + '% - 4px)'
+        }"
       >
         <div
           class="slide"
           *ngFor="let product of products; let i = index"
           [attr.data-index]="i"
-          [ngStyle]="{ 'margin-left': i == 0 ? '-' + margin + '%' : '0' }"
+          (swipeleft)="slideLeft()"
         >
           <app-product-batch [product]="product"> </app-product-batch>
         </div>
@@ -61,12 +64,14 @@
       <div
         class="slides__container"
         *ngIf="type == sliderTypes.brand && brandsLoaded"
+        [ngStyle]="{
+          'margin-left': 'calc( -' + margin + '% - 4px)'
+        }"
       >
         <div
           class="slide"
           *ngFor="let brand of brands; let i = index"
           [attr.data-index]="i"
-          [ngStyle]="{ 'margin-left': i == 0 ? '-' + margin + '%' : '0' }"
         >
           <app-batch [id]="brand.id" [name]="brand.brand" [url]="brand.url">
           </app-batch>

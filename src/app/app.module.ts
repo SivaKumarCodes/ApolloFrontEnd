@@ -1,5 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,6 +52,7 @@ import { ReviewPopupComponent } from './review-popup/review-popup.component';
     AppRoutingModule,
     FontAwesomeModule,
     ProductPageModule,
+    HammerModule,
     StoreModule.forRoot({
       products: ProductReducer,
       router: routerReducer,

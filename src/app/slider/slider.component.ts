@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +40,11 @@ export class SliderComponent implements OnInit {
   leftVisible: boolean = false;
   rightVisible: boolean = true;
   margin: number = 0;
-  currInd: number = 1;
+  currInd: number = 7;
+
+  slideWidth: number = 7.2;
+
+  numSlides: number = 7;
 
   productTypes!: string[];
 
@@ -55,30 +59,68 @@ export class SliderComponent implements OnInit {
   constructor(private store: Store) {}
 
   slideRight() {
-    let remaining = length - this.currInd * 7;
-    this.currInd += 7;
-    this.margin += 7 * 7.2;
+    let remaining = this.length - this.currInd;
 
-    if (remaining < 1) {
-      this.rightVisible = false;
-      this.leftVisible = true;
-      return;
+    if (remaining < this.numSlides) {
+      this.margin += remaining * (this.slideWidth * 2);
+      this.currInd += remaining;
+    } else {
+      this.margin += this.numSlides * (this.slideWidth * 2);
+      this.currInd += this.numSlides;
     }
+
+    remaining = this.length - this.currInd;
+
+    if (this.currInd > this.numSlides) this.leftVisible = true;
+
+    this.checkSliderVisible();
   }
 
   slideLeft() {
-    let remaining = length + this.currInd * 7;
-    this.currInd -= 7;
-    this.margin -= 7 * 7.2;
+    if (this.currInd >= this.numSlides * 2) {
+      this.currInd -= this.numSlides;
+      this.margin -= this.numSlides * (this.slideWidth * 2);
+    } else {
+      let remaining = this.currInd - this.numSlides;
+      this.currInd -= remaining;
+      this.margin = 0;
+    }
 
-    if (remaining >= this.length) {
+    this.checkSliderVisible();
+  }
+
+  checkSliderVisible() {
+    if (this.currInd > this.numSlides) {
+      this.leftVisible = true;
+    }
+
+    if (this.currInd < this.length) {
       this.rightVisible = true;
+    }
+
+    if (this.currInd == this.length) {
+      this.rightVisible = false;
+    }
+
+    if (this.currInd == this.numSlides) {
       this.leftVisible = false;
-      return;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (window.innerWidth < 1634) {
+      this.numSlides = this.currInd = 6;
+      this.slideWidth = 8.4;
     }
   }
 
   ngOnInit(): void {
+    if (window.innerWidth < 1634) {
+      this.numSlides = this.currInd = 6;
+      this.slideWidth = 8.4;
+    }
+
     if (this.type == sliderType.product) {
       let loadingSubscription = this.store
         .select(getProductsOfProductTypeLoading, { i: this.index })
@@ -93,7 +135,7 @@ export class SliderComponent implements OnInit {
           if (data) this.length = data.length;
 
           this.products = data;
-          if (this.length >= 7) {
+          if (this.length >= this.numSlides) {
             this.leftVisible = false;
             this.rightVisible = true;
           }
@@ -110,7 +152,7 @@ export class SliderComponent implements OnInit {
         this.length = data.length;
         this.brands = data;
 
-        if (this.length >= 7) {
+        if (this.length >= this.numSlides) {
           this.leftVisible = false;
           this.rightVisible = true;
         }
@@ -118,7 +160,7 @@ export class SliderComponent implements OnInit {
       this.subscriptions.push(brandSubscription);
     }
 
-    if (this.length <= 7) {
+    if (this.length <= this.numSlides) {
       this.leftVisible = false;
       this.rightVisible = false;
     }
