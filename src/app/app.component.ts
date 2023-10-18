@@ -4,6 +4,7 @@ import {
   authenticateUser,
   repopulateFromLocalStroage,
 } from './authStore/auth.actions';
+import 'hammerjs';
 import {
   repopulateCart,
   repopulteCartSucessful,

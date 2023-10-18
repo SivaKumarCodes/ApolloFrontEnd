@@ -1,5 +1,9 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  HammerGestureConfig,
+  HammerModule,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +34,12 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { popUpReducer } from './popUpStore/popUp.reducer';
 import { ProductPageModule } from './product-page/product-page.module';
 import { ReviewPopupComponent } from './review-popup/review-popup.component';
+
+export class MyHammerConfig extends HammerGestureConfig {
+  override overrides = <any>{
+    swipe: { velocity: 0.4, threshold: 20 }, // override default settings
+  };
+}
 
 @NgModule({
   declarations: [

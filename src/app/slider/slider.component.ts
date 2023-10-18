@@ -59,6 +59,8 @@ export class SliderComponent implements OnInit {
   constructor(private store: Store) {}
 
   slideRight() {
+    if (!this.rightVisible) return;
+
     let remaining = this.length - this.currInd;
 
     if (remaining < this.numSlides) {
@@ -76,7 +78,13 @@ export class SliderComponent implements OnInit {
     this.checkSliderVisible();
   }
 
+  hai() {
+    console.log('hai');
+  }
+
   slideLeft() {
+    if (!this.leftVisible) return;
+
     if (this.currInd >= this.numSlides * 2) {
       this.currInd -= this.numSlides;
       this.margin -= this.numSlides * (this.slideWidth * 2);
@@ -109,17 +117,38 @@ export class SliderComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    this.resize();
+  }
+
+  resize() {
     if (window.innerWidth < 1634) {
       this.numSlides = this.currInd = 6;
       this.slideWidth = 8.4;
+    }
+
+    if (window.innerWidth < 1372) {
+      this.numSlides = this.currInd = 5;
+      this.slideWidth = 10;
+    }
+
+    if (window.innerWidth < 1100) {
+      this.numSlides = this.currInd = 4;
+      this.slideWidth = 12.5;
+    }
+
+    if (window.innerWidth < 1000) {
+      this.numSlides = this.currInd = 3;
+      this.slideWidth = 16.6;
+    }
+
+    if (window.innerWidth < 700) {
+      this.numSlides = this.currInd = 2;
+      this.slideWidth = 25;
     }
   }
 
   ngOnInit(): void {
-    if (window.innerWidth < 1634) {
-      this.numSlides = this.currInd = 6;
-      this.slideWidth = 8.4;
-    }
+    this.resize();
 
     if (this.type == sliderType.product) {
       let loadingSubscription = this.store

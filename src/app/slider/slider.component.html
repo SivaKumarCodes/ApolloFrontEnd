@@ -34,12 +34,13 @@
         [ngStyle]="{
           'margin-left': 'calc( -' + margin + '% - 4px)'
         }"
+        (swipeleft)="slideRight()"
+        (swiperight)="slideLeft()"
       >
         <div
           class="slide"
           *ngFor="let product of products; let i = index"
           [attr.data-index]="i"
-          (swipeleft)="slideLeft()"
         >
           <app-product-batch [product]="product"> </app-product-batch>
         </div>
@@ -67,6 +68,8 @@
         [ngStyle]="{
           'margin-left': 'calc( -' + margin + '% - 4px)'
         }"
+        (swipeleft)="slideRight()"
+        (swiperight)="slideLeft()"
       >
         <div
           class="slide"
