@@ -188,6 +188,9 @@
     width: 100%;
     padding: 1.5rem;
   }
+  /* .brand__slider {
+    padding: 1.5rem;
+  } */
   .arrow {
     display: none;
   }
@@ -196,6 +199,6 @@
   }
 
   .slider__container {
-    min-height: 12rem;
+    /* max-height: 8rem; */
   }
 }
