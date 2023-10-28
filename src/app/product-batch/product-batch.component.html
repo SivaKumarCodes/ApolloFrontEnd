@@ -46,11 +46,14 @@
   </div>
   <div class="productbatch___price">
     <p class="productbatch___price__text">
-      <fa-icon [icon]="rupeeIcon"> </fa-icon>
+      <!-- <fa-icon [icon]="rupeeIcon"> </fa-icon> -->
+      &#x20B9;
       {{ currencyFormat(product.variants[0].price) }}
     </p>
+  </div>
+  <div class="product__batch__add">
     <span class="add" *ngIf="!existsOnCart" (click)="addToCart($event)">
-      <p class="add__text">Add</p>
+      <p class="add__text">ADD</p>
       <!-- <?xml version="1.0" ?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'> -->
       <svg
         class="add__to__cart"
@@ -75,5 +78,10 @@
       <img class="checkmark" src="/assets/check-mark.svg" alt="" />
       <p class="added">added</p>
     </div>
+  </div>
+  <div
+    class="add__to__cart__full flex justify-center items-center w-full h-[10%] rounded-sm"
+  >
+    <p class="font-semibold text-sm text-main">ADD TO CART</p>
   </div>
 </div>
