@@ -43,4 +43,8 @@
   .title__section {
     display: none;
   }
+
+  .slider {
+    /* max-height: 16rem; */
+  }
 }

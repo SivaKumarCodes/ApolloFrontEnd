@@ -1,6 +1,7 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { Injectable, NgModule, isDevMode } from '@angular/core';
 import {
   BrowserModule,
+  HAMMER_GESTURE_CONFIG,
   HammerGestureConfig,
   HammerModule,
 } from '@angular/platform-browser';
@@ -34,10 +35,13 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { popUpReducer } from './popUpStore/popUp.reducer';
 import { ProductPageModule } from './product-page/product-page.module';
 import { ReviewPopupComponent } from './review-popup/review-popup.component';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
-  override overrides = <any>{
-    swipe: { velocity: 0.4, threshold: 20 }, // override default settings
+  override overrides = {
+    pinch: { enable: false },
+    rotate: { enable: false },
   };
 }
 
@@ -77,7 +81,13 @@ export class MyHammerConfig extends HammerGestureConfig {
     }),
   ],
   exports: [],
-  providers: [],
+  providers: [
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
