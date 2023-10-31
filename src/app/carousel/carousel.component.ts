@@ -16,7 +16,7 @@ export class CarouselComponent implements OnInit {
     '/assets/carousel/glucometer_test_strips_deals.avif',
     '/assets/carousel/ca664d03-a01a-4889-be7f-ddb58477b0f9_1655293525.png',
   ];
-  intervalId: any;
+  intervalId!: ReturnType<typeof setTimeout>;
 
   @ViewChild('#slide') slide: any;
   constructor() {
@@ -24,7 +24,9 @@ export class CarouselComponent implements OnInit {
     this.checked = Array(this.imgs.length).fill(false);
     this.checked[this.slideIndx] = true;
     this.marginLeft = 0;
+  }
 
+  startInterval() {
     this.intervalId = setInterval(() => {
       if (this.slideIndx >= 0 && this.slideIndx < this.imgs.length - 1)
         this.slideIndx++;
@@ -35,10 +37,16 @@ export class CarouselComponent implements OnInit {
   }
 
   onCheck(n: number) {
+    this.clearTimeOut();
     for (let i = 0; i < this.checked.length; i++) this.checked[i] = false;
     this.checked[n] = true;
     this.slideIndx = n;
     this.marginLeft = n * 20;
+    this.setMargin();
+    this.startInterval();
+  }
+
+  setMargin() {
     if (this.marginLeft == 0)
       document.documentElement.style.setProperty('--slide-margin', `0`);
     else
@@ -47,12 +55,52 @@ export class CarouselComponent implements OnInit {
         `-${this.marginLeft}%`
       );
   }
+  clearTimeOut() {
+    clearInterval(this.intervalId);
+  }
 
-  ngOnInit(): void {}
+  onSwipeLeft(n: number) {
+    this.clearTimeOut();
+    for (let i in this.checked) this.checked[i] = false;
+
+    if (n == this.imgs.length - 1) {
+      this.checked[0] = true;
+      this.slideIndx = 0;
+      this.marginLeft = 0;
+    } else {
+      this.checked[n + 1] = true;
+      this.slideIndx = n + 1;
+      this.marginLeft = this.slideIndx * 20;
+    }
+    this.setMargin();
+    this.startInterval();
+  }
+
+  onSwipeRight(n: number) {
+    this.clearTimeOut();
+    for (let i in this.checked) this.checked[i] = false;
+
+    if (n == 0) {
+      let lastSlide = this.imgs.length - 1;
+      this.checked[lastSlide] = true;
+      this.slideIndx = lastSlide;
+      this.marginLeft = lastSlide * 20;
+    } else {
+      this.checked[n - 1] = true;
+      this.slideIndx = n - 1;
+      this.marginLeft = this.slideIndx * 20;
+    }
+    this.setMargin();
+    this.startInterval();
+  }
+
+  ngOnInit(): void {
+    this.startInterval();
+  }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    clearInterval(this.intervalId);
+    this.clearTimeOut();
   }
 }

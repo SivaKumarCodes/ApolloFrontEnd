@@ -12,7 +12,8 @@
       class="slide-container"
       *ngFor="let img of imgs; let i = index"
       [ngClass]="{ slide__first: i == 0 }"
-      (swipleft)="onCheck(i + 1)"
+      (swipeleft)="onSwipeLeft(i)"
+      (swiperight)="onSwipeRight(i)"
     >
       <img src="{{ img }}" [attr.data-index]="i" alt="" class="slide" />
     </div>

@@ -1,89 +1,109 @@
-<nav class="grid-container">
-  <!-- <a routerLink="/" class="logo-container">
+<div class="navbar_with_searchbar w-full h-fit">
+  <nav class="grid-container">
+    <!-- <a routerLink="/" class="logo-container">
     <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
   </a> -->
-  <div class="menu__bar">
-    <!-- <img
+    <div class="menu__bar">
+      <!-- <img
       (click)="openSideBar()"
       class="menu__bar__icon"
       src="assets/hamMenu.svg"
       alt="menu"
       
     /> -->
-    <svg
-      width="24"
-      (click)="openSideBar()"
-      class="menu__bar__icon"
-      height="24"
-      xmlns="http://www.w3.org/2000/svg"
+      <svg
+        width="24"
+        (click)="openSideBar()"
+        class="menu__bar__icon"
+        height="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g fill="#3B3B3B" fill-rule="evenodd">
+          <path
+            d="M19.4 6.67H4.6a.67.67 0 110-1.34h14.8a.67.67 0 010 1.34M19.4 12.67H4.6a.67.67 0 110-1.34h14.8a.67.67 0 010 1.34M19.4 18.67H4.6a.67.67 0 110-1.34h14.8a.67.67 0 010 1.34"
+          ></path>
+        </g>
+      </svg>
+      <a routerLink="/" class="logo-container">
+        <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
+      </a>
+    </div>
+    <header class="header">
+      <div class="searchBar">
+        <img class="search-icon" src="/assets/search-svgrepo-com.svg" alt="" />
+        <input
+          type="text"
+          class="search-text"
+          title="Search for Medicines"
+          autocomplete="off"
+          placeholder="Search for Medicines and Supplements"
+          (keyup.enter)="search($event)"
+        />
+      </div>
+      <div class="user">
+        <a
+          class="cart profile"
+          (mouseenter)="toggleProfile(true)"
+          (mouseleave)="toggleProfile(false)"
+        >
+          <img
+            src="assets/img/profile-svgrepo-com (2).svg"
+            alt=""
+            class="cart-img profile-img"
+          />
+          <p
+            id="profile__text"
+            class="icon-text"
+            [ngClass]="authDropDown ? 'profile__text__active' : ''"
+          >
+            profile
+          </p>
+          <app-auth-dropdown
+            (click)="toggleProfile(false)"
+            [ngClass]="authDropDown ? 'profile__dropdown__visible' : ''"
+            class="profile__dropdown"
+          ></app-auth-dropdown>
+        </a>
+        <a class="cart" id="cartIcon" (click)="navigateToCart($event)">
+          <img src="assets/bag.png" alt="" class="cart-img" />
+          <p class="icon-text profile-text">cart</p>
+          <div *ngIf="cartCount$ | async" class="cart__count">
+            <p class="count__text">{{ cartCount$ | async }}</p>
+          </div>
+        </a>
+      </div>
+    </header>
+    <nav class="header-nav">
+      <div
+        *ngFor="let option of navbarOptions; let i = index"
+        [attr.data-index]="i"
+        (mouseenter)="showDropDown(i)"
+        (mouseleave)="closeDropDown()"
+        [ngClass]="
+          isDropdownMenuActive && activeSection == i + 1 ? 'option__active' : ''
+        "
+        class="nav-option"
+      >
+        {{ option }}
+      </div>
+    </nav>
+  </nav>
+  <div class="mobile_searchbar_section w-full h-12 p-2 px-4">
+    <div
+      class="mobile_searchbar_container flex justify-between items-center p-2 w-full h-full bg-white"
     >
-      <g fill="#3B3B3B" fill-rule="evenodd">
-        <path
-          d="M19.4 6.67H4.6a.67.67 0 110-1.34h14.8a.67.67 0 010 1.34M19.4 12.67H4.6a.67.67 0 110-1.34h14.8a.67.67 0 010 1.34M19.4 18.67H4.6a.67.67 0 110-1.34h14.8a.67.67 0 010 1.34"
-        ></path>
-      </g>
-    </svg>
-    <a routerLink="/" class="logo-container">
-      <img class="logo" src="assets/img/pharmacy_logo.svg" alt="" />
-    </a>
-  </div>
-  <header class="header">
-    <div class="searchBar">
-      <img class="search-icon" src="/assets/img/search.svg" alt="" />
       <input
-        type="text"
-        class="search-text"
-        title="Search for Medicines"
+        title="search"
+        placeholder="Search medicines and health products"
+        class="mobile_searchbar w-[80%]"
         autocomplete="off"
-        placeholder="Search for Medicines and Supplements"
         (keyup.enter)="search($event)"
       />
+      <img
+        src="/assets/search-svgrepo-com.svg"
+        class="mobile_searchbar_svg"
+        alt=""
+      />
     </div>
-    <div class="user">
-      <a
-        class="cart profile"
-        (mouseenter)="toggleProfile(true)"
-        (mouseleave)="toggleProfile(false)"
-      >
-        <img
-          src="assets/img/profile-svgrepo-com (2).svg"
-          alt=""
-          class="cart-img profile-img"
-        />
-        <p
-          id="profile__text"
-          class="icon-text"
-          [ngClass]="authDropDown ? 'profile__text__active' : ''"
-        >
-          profile
-        </p>
-        <app-auth-dropdown
-          (click)="toggleProfile(false)"
-          [ngClass]="authDropDown ? 'profile__dropdown__visible' : ''"
-          class="profile__dropdown"
-        ></app-auth-dropdown>
-      </a>
-      <a class="cart" id="cartIcon" (click)="navigateToCart($event)">
-        <img src="assets/bag.png" alt="" class="cart-img" />
-        <p class="icon-text profile-text">cart</p>
-        <div *ngIf="cartCount$ | async" class="cart__count">
-          <p class="count__text">{{ cartCount$ | async }}</p>
-        </div>
-      </a>
-    </div>
-  </header>
-  <nav class="header-nav">
-    <div
-      *ngFor="let option of navbarOptions; let i = index"
-      [attr.data-index]="i"
-      (mouseenter)="showDropDown(i)"
-      (mouseleave)="closeDropDown()"
-      [ngClass]="
-        isDropdownMenuActive && activeSection == i + 1 ? 'option__active' : ''
-      "
-      class="nav-option"
-    >
-      {{ option }}
-    </div>
-  </nav>
-</nav>
+  </div>
+</div>
