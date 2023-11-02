@@ -1,0 +1,20 @@
+.grid__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 10px;
+  row-gap: 10px;
+  /* height: calc(100% - 2rem); */
+}
+
+.board_item {
+  object-fit: contain;
+  object-position: center;
+}
+
+.heading {
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  color: #3b3b3b;
+  letter-spacing: normal;
+}

@@ -36,7 +36,6 @@ import { popUpReducer } from './popUpStore/popUp.reducer';
 import { ProductPageModule } from './product-page/product-page.module';
 import { ReviewPopupComponent } from './review-popup/review-popup.component';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { MobileBoardComponent } from './mobile-board/mobile-board.component';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -59,7 +58,6 @@ export class MyHammerConfig extends HammerGestureConfig {
     PopUpLayerComponent,
     SidebarComponent,
     ReviewPopupComponent,
-    MobileBoardComponent,
   ],
   imports: [
     BrowserModule,
