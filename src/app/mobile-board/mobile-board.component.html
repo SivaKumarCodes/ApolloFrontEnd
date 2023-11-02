@@ -1,0 +1,8 @@
+<div class="w-full h-fit board p-4 bg-white rounded mt-2 mb-6">
+  <h1 class="heading font-semibold mb-6">Popular categories</h1>
+  <div class="grid__container h-[22rem] w-full">
+    <a class="board_item w-full h-full" *ngFor="let img of imgs">
+      <img class="w-full h-full" src="{{ img }}" alt="nutrition" />
+    </a>
+  </div>
+</div>

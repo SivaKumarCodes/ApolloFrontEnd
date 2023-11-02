@@ -10,6 +10,7 @@ import { ProductReducer } from '../store/app.reducer';
 import { AppModule } from '../app.module';
 import { BatchComponent } from '../batch/batch.component';
 import { FooterComponent } from '../footer/footer.component';
+import { MobileBoardComponent } from '../mobile-board/mobile-board.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FooterComponent } from '../footer/footer.component';
     SliderComponent,
     BatchComponent,
     FooterComponent,
+    MobileBoardComponent,
   ],
   imports: [
     CommonModule,

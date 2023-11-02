@@ -1,3 +1,4 @@
+<app-mobile-board class="popular"></app-mobile-board>
 <div class="landing__carousel">
   <div class="carousel__container">
     <app-carousel></app-carousel>
@@ -10,7 +11,10 @@
     Apollo pharmacy : India's Leading Online Pharmacy & HealthCare Platform
   </p>
 </div>
-<app-slider [type]="sliderOfType.brand" class="slider"></app-slider>
+<app-slider
+  [type]="sliderOfType.brand"
+  class="slider brand_slider"
+></app-slider>
 <app-slider
   *ngFor="let prodType of productTypes; let i = index"
   [attr.data-index]="i"
