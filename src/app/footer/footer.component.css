@@ -30,7 +30,7 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.footer-stats > p {
+.footer_stats_text {
   font-size: 1.8rem;
   font-weight: 700;
   display: flex;
@@ -65,4 +65,45 @@ h1 {
 .app_download {
   background-position: center;
   background-size: cover;
+}
+
+@media screen and (max-width: 700px) {
+  .footer_info_text {
+    width: 95%;
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .largest_healthcare {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .largest_healthcare {
+    font-size: 1.2rem;
+  }
+  .footer_stats_text {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .largest_healthcare {
+    font-size: 1rem;
+  }
+  .footer_stats_text {
+    font-size: 1rem;
+  }
+
+  .download_app {
+    display: none;
+  }
+
+  .footer-main {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
 }
