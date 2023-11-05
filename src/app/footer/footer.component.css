@@ -67,6 +67,12 @@ h1 {
   background-size: cover;
 }
 
+@media screen and (max-width: 1375px) {
+  .footer-main {
+    flex-wrap: wrap;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .footer_info_text {
     width: 95%;
@@ -93,6 +99,7 @@ h1 {
   .largest_healthcare {
     font-size: 1rem;
   }
+
   .footer_stats_text {
     font-size: 1rem;
   }
@@ -103,7 +110,9 @@ h1 {
 
   .footer-main {
     height: auto;
-    flex-wrap: wrap;
     padding: 1rem;
+    gap: 0;
+    row-gap: 2rem;
+    justify-content: space-between;
   }
 }
