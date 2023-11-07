@@ -32,3 +32,15 @@
   border-radius: 1rem;
   margin-left: 5rem;
 }
+
+@media screen and (max-width: 1653px) {
+  .sidebar {
+    margin-left: 4rem;
+  }
+}
+
+@media screen and (max-width: 1501px) {
+  .sidebar {
+    margin-left: 3rem;
+  }
+}

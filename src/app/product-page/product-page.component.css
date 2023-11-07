@@ -14,7 +14,7 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-self: start;
+  justify-items: start;
   align-items: flex-start;
 }
 
@@ -300,6 +300,7 @@
 .offers {
   width: 100%;
   height: 8rem;
+  display: flex;
   flex-direction: row;
   border: 1px dashed #979797;
   border-radius: 15px;
@@ -311,6 +312,9 @@
 .AdditionalOffers__offer-heading {
   height: 1.4rem;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   color: #fff;
   background-color: #1aab2a;
@@ -390,7 +394,9 @@
 
 .price__slashed,
 .price__off {
-  display: inline;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.2rem;
   font-weight: 100;
   color: black;
@@ -623,4 +629,192 @@
 
 .date_info {
   border-bottom: 1px solid #ececec;
+}
+
+#consult_a_doctor {
+  width: 40%;
+}
+
+@media screen and (max-width: 1754px) {
+  .delivery__text {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1754px) {
+  .delivery__text {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 1754px) {
+  .delivery__text {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 1653px) {
+  /* .image__container{
+
+  } */
+  .titile__section {
+    margin-right: 6rem;
+    margin-left: 2rem;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .titile__section {
+    width: 36rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+
+  /* .buy__section {
+    width: 32rem;
+  } */
+}
+
+@media screen and (max-width: 1501px) {
+  .image__container {
+    width: 33rem;
+  }
+}
+
+@media screen and (max-width: 1469px) {
+  .price {
+    font-size: 2.8rem;
+  }
+}
+
+@media screen and (max-width: 1460px) {
+  .price {
+    font-size: 2.6rem;
+  }
+}
+
+@media screen and (max-width: 1460px) {
+  .price {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 1445px) {
+  .price {
+    font-size: 2.4rem;
+  }
+}
+
+@media screen and (max-width: 1441px) {
+  .image__container {
+    width: 31rem;
+  }
+}
+
+@media screen and (max-width: 1408px) {
+  .titile__section {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 1377px) {
+  .titile__section {
+    width: 28rem;
+  }
+}
+
+@media screen and (max-width: 1377px) {
+  .price {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 1336px) {
+  .image__container {
+    width: 30rem;
+  }
+
+  .titile__section {
+    width: 26rem;
+  }
+}
+
+@media screen and (max-width: 1288px) {
+  .buy__section__main {
+    padding: 1.8rem;
+  }
+
+  .titile__section {
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 1288px) {
+  .price {
+    font-size: 2.1rem;
+  }
+}
+
+@media screen and (max-width: 1277px) {
+  .titile__section {
+    width: 24rem;
+  }
+}
+
+@media screen and (max-width: 1244px) {
+  .image__container {
+    width: 28rem;
+  }
+}
+
+@media screen and (max-width: 1244px) {
+  .price {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 1207px) {
+  .price__off {
+    width: 4.5rem;
+  }
+  .image__container {
+    width: 25rem;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .titile__section {
+    width: 22rem;
+  }
+}
+
+@media screen and (max-width: 1049px) {
+  .titile__section {
+    width: 20rem;
+  }
+}
+
+@media screen and (max-width: 1541px) {
+  .book_a_test_online {
+    width: 70%;
+  }
+  #consult_a_doctor {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 1541px) {
+  .left {
+    width: 65%;
+  }
+  .rigth {
+    width: 25%;
+  }
+  .book_a_test_online {
+    width: 70%;
+  }
+  #consult_a_doctor {
+    width: 50%;
+  }
 }
