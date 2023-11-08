@@ -635,6 +635,10 @@
   width: 40%;
 }
 
+.mobile_view {
+  display: none;
+}
+
 @media screen and (max-width: 1754px) {
   .delivery__text {
     font-size: 1.2rem;
@@ -816,5 +820,14 @@
   }
   #consult_a_doctor {
     width: 50%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .desktop_view {
+    display: none;
+  }
+  .mobile_view {
+    display: block;
   }
 }

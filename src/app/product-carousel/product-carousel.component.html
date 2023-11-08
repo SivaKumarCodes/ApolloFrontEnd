@@ -1,0 +1,35 @@
+<div
+  class="w-full h-auto py-8"
+  (swipeleft)="swipeLeft()"
+  (swiperight)="swipeRight()"
+>
+  <div class="image__container w-full h-[20rem]">
+    <div
+      class="image_slider flex overflow-hidden h-full"
+      [ngStyle]="{
+        width: imgsLength * 100 + 'vw'
+      }"
+      [style.margin-left]="'-' + margin + 'vw'"
+    >
+      <div
+        class="h-full product_img w-[100vw]"
+        *ngFor="let img of imgs"
+        [style.background-image]="
+          'url(https://apollopharmacy.sivacodes.com/api/v1/img/' + img + ')'
+        "
+      ></div>
+    </div>
+    <div
+      class="buttons_container w-full gap-1 h-6 flex justify-center items-center"
+    >
+      <div
+        class="h-[4px] w-[4px] rounded-full"
+        *ngFor="let img of imgs; index as i"
+        [ngStyle]="{
+          'background-color':
+            i == activeImage ? 'rgb(54, 65, 74)' : 'rgb(107,114,128)'
+        }"
+      ></div>
+    </div>
+  </div>
+</div>
