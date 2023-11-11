@@ -19,7 +19,6 @@ export class ProductCarouselComponent {
   constructor(private store: Store) {}
 
   swipeLeft() {
-    console.log('left');
     if (this.activeImage < this.imgsLength - 1) {
       ++this.activeImage;
       this.margin = this.activeImage * 100;
@@ -30,7 +29,6 @@ export class ProductCarouselComponent {
   }
 
   swipeRight() {
-    console.log('right');
     if (this.activeImage == 0) {
       this.activeImage = this.imgsLength - 1;
       this.margin = (this.imgsLength - 1) * 100;

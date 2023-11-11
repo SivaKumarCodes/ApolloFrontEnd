@@ -14,7 +14,8 @@ import { ViewportScroller } from '@angular/common';
 import { Review } from '../authStore/auth.store';
 import { changeInQuantiyPicker } from '../popUpStore/popUp.selectors';
 import { showQuantityPopUp } from '../popUpStore/popUp.actions';
-
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
@@ -37,9 +38,18 @@ export class ProductPageComponent {
   colorInd: number = 0;
   downIcon = faCaretDown;
 
+  rightIcon = faAngleRight;
+
   productRatingRounded: number = 0;
 
   ratingPercentages: number[] = [0, 0, 0, 0, 0];
+
+  toggleInformation: boolean = false;
+
+  toggleInfoState(el: HTMLElement) {
+    this.toggleInformation = !this.toggleInformation;
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
 
   increaseQuantity() {
     if (this.quantity < 30) this.quantity++;
@@ -72,8 +82,14 @@ export class ProductPageComponent {
     );
   }
 
+  buyNow() {
+    this.addToCart();
+    this.router.navigate(['/cart']);
+  }
+
   constructor(
     private state: Store,
+    private router: Router,
     private veiwportScroller: ViewportScroller
   ) {}
 

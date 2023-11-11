@@ -333,13 +333,16 @@
             </div>
           </div>
         </div>
+
         <div *ngIf="!product?.ratingCount">
           <div class="ratings">
             <h2 id="rating__heading">Ratings <span>&#38;</span> Reviews</h2>
             <div class="w-full h-auto rating__container">
               <div class="rating__bar__container w-[40rem] h-[25rem]">
                 <div class="rating__box">
-                  <p class="font-semibold">There are no Customer ratings yet</p>
+                  <p class="font-semibold" id="no_ratings_text">
+                    There are no Customer ratings yet
+                  </p>
                 </div>
                 <div class="w-full h-auto mt-8 opacity-50">
                   <div
@@ -347,6 +350,8 @@
                     *ngFor="let i of [5, 4, 3, 2, 1]"
                   >
                     <p>{{ i }}</p>
+                    d working directory and index state WIP on main: 5002d47 our
+                    new homepage HEAD is now at 5002d47 our new home
                     <div class="rating__bar__stars"></div>
                     <div class="rating__bar rounded-md">
                       <div
@@ -367,6 +372,7 @@
           </div>
         </div>
       </div>
+
       <div class="rigth flex flex-col justify-start bg-lightbluebg gap-8">
         <div
           class="book_a_test w-full bg-white flex flex-col justify-center rounded items-center h-44"
@@ -457,8 +463,351 @@
   </div>
   <div class="mobile_view w-full h-full">
     <app-product-carousel> </app-product-carousel>
+    <div class="w-full h-fit pl-4 py-4">
+      <h1 class="product__name">{{ product?.productName }}</h1>
+      <div class="productbatch__rating">
+        <div
+          class="productbatch__rating__text"
+          *ngIf="product?.avgRating != null && product?.avgRating! > 0"
+          [style.background-color]="product?.avgRating ? colors[colorInd] : ''"
+        >
+          <p class="rating__text">
+            {{ product?.avgRating == null ? 0 : product?.avgRating }}
+          </p>
+          <span class="rating__star_con">
+            <svg
+              class="rating__star"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="15"
+              viewBox="0 0 51 48"
+            >
+              <path
+                fill="#ffffff"
+                stroke="none"
+                d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+              />
+            </svg>
+          </span>
+        </div>
+        <p
+          class="reveiw__count"
+          [ngClass]="product?.ratingCount == null ? 'danger' : ''"
+        >
+          {{ product?.ratingCount == null ? 0 : product?.ratingCount }}
+          ratings
+        </p>
+      </div>
+
+      <div
+        class="poeple__bought__container flex items-center"
+        id="recent_mobile"
+      >
+        <svg
+          class="poeple__icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="9"
+        >
+          <path
+            fill="#1AAB2A"
+            stroke="#1AAB2A"
+            stroke-width=".3"
+            d="M10.1 1.61c.01.3.32.57.64.56h2.08L8.9 5.5 6.37 3.57c-.33-.3-.64-.28-.9-.1L1.2 6.98a.6.6 0 0 0-.06.83c.21.23.62.26.86.06l3.87-3.2 2.47 1.9c.18.32.7.39.97.13l4.47-3.8V5.1c0 .3.29.6.61.6s.62-.3.61-.6v-3.5c0-.31-.29-.59-.6-.59h-3.66c-.35 0-.65.28-.64.61z"
+          />
+        </svg>
+        <p class="recent__text">267 poeple brought this recently</p>
+      </div>
+      <div class="delivery flex justify-center items-center">
+        <img class="w-7 h-7 delivery_img" src="/assets/delivery.svg" alt="" />
+        <p class="delivery__text">
+          Earliest delivery by
+          <span class="delivery__time"> 10pm Tommorrow </span>
+        </p>
+      </div>
+    </div>
+    <div class="w-full h-4 bg-lightbluebg"></div>
+    <div class="w-full h-fit pl-4 pb-4 mt-4">
+      <p class="price">
+        &#8377;{{ selectedVariant?.price }} /-
+        <span class="price__slashed">&#8377;555</span>
+        <span class="price__off">52&percnt; off</span>
+      </p>
+      <p class="times__quantity">
+        {{ selectedVariant?.quantity + " " + selectedVariant?.mesurement }}
+      </p>
+      <div class="flex justify-start gap-4 mt-4">
+        <div
+          class="buy__now w-[45%] h-[3rem] flex justify-center items-center"
+          (click)="buyNow()"
+        >
+          <p class="font-semibold text-main text-lg">Buy now</p>
+        </div>
+        <div
+          class="A2C_mobile w-[45%] cursor-pointer h-[3rem] bg-main flex justify-center items-center"
+          (click)="addToCart()"
+        >
+          <p class="font-semibold text-white text-lg">Add to cart</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full h-4 bg-lightbluebg"></div>
+    <div #target class="w-full h-fit p-4">
+      <div
+        *ngIf="product?.variants?.length"
+        class="flex justify-between items-center"
+      >
+        <p class="block pack_size_text">
+          Pack Size ({{ product?.variants?.length }}):
+        </p>
+        <p class="block font-medium" id="quantity">
+          {{ selectedVariant?.quantity + " " + selectedVariant?.mesurement }}
+        </p>
+        <img
+          src="/assets/chevron-right_18px_primary.svg"
+          class="w-auto h-auto"
+          alt=""
+        />
+      </div>
+      <div class="seperator mt-4"></div>
+      <div class="delivery mt-4 flex justify-center items-center">
+        <p class="delivery__text" id="delivery_large">
+          Earliest delivery by
+          <span class="delivery__time"> 10pm Tommorrow </span>
+        </p>
+      </div>
+      <div class="seperator my-4"></div>
+      <div class="flex gap-1 items-center">
+        <img src="/assets/cash.svg" class="w-5 h-5" alt="" />
+        <p class="recent__text">Cash on delivery available</p>
+      </div>
+      <div class="flex gap-1 mt-2 items-center">
+        <img src="/assets/return.svg" class="w-5 h-5" alt="" />
+        <p class="recent__text">This product is not returnable</p>
+      </div>
+    </div>
+    <div class="w-full h-4 bg-lightbluebg"></div>
+    <div class="w-full h-fit p-4">
+      <div
+        class="product_information w-full h-[18rem] overflow-hidden"
+        [ngClass]="
+          toggleInformation ? 'info_height__full' : 'info_height__fixed'
+        "
+      >
+        <p class="text-[1.2rem] mb-4 font-medium">Product information</p>
+        <p class="Information__text">
+          <span class="Information__text__heading"
+            >{{ product?.productName }}
+          </span>
+          is your complete daily health supplement, packed with 25 essential
+          vitamins and minerals that boost immunity, maintain cardiovascular
+          health, and improve fitness and strength, enhance memory and
+          concentration and support overall wellbeing.
+        </p>
+        <h2 class="Information__headings">Key Ingredients</h2>
+        <ul class="Ingedient__List">
+          <li class="Information__text">
+            <span class="Information__text__heading"
+              >Vitamins and Amino Acids:</span
+            >
+            Choline Bitartrate, Vitamin B3, Vitamin B1, Folic Acid, Biotin,
+            Vitamin K, Vitamin D3, and Vitamin B12
+          </li>
+          <li class="Information__text">
+            <span class="Information__text__heading"> Minerals: </span>
+            Calcium, Magnesium, Zinc, Potassium, Manganese, Copper, Iodide,
+            Boron Chromium Picolinate, Selenium, Sodium Molybdate Dihydrate
+          </li>
+          <li class="Information__text">
+            <span class="Information__text__heading"> Natural Extracts </span>
+            Omega-3 Marine Triglycerides (33:22), Ginseng, Refined Wheat Germ
+            Oil, Citrus Bioflavonoids, Green Tea Extract, Polyphenols, Grape
+            Seed Extract, Mixed Carotenoids, Ginkgo Biloba, Piperine, and Lutein
+          </li>
+
+          <li class="Information__text">
+            <span class="Information__text__heading"> Probiotics: </span>
+            Lacto Bacillus
+          </li>
+        </ul>
+        <h2 class="Information__headings" id="keyBenefits">Key Benefits:</h2>
+        <ul class="Ingredient__List">
+          <li class="Information__text">
+            It is a nutritional health supplement that helps to build your
+            immunity
+          </li>
+          <li class="Information__text">
+            Its antioxidant properties help strengthen the immune system and
+            neutralise free radicals
+          </li>
+          <li class="Information__text">
+            It helps in increasing strength and stamina
+          </li>
+          <li class="Information__text">
+            It is beneficial in improving memory and concentration
+          </li>
+          <li class="Information__text">
+            It supports healthy functioning of the cardiovascular system
+          </li>
+          <li class="Information__text">
+            It helps in improving flexibility and mobility of joints and
+            regulating blood sugar levels
+          </li>
+        </ul>
+        <p class="Information__text">
+          <span class="Information__text__heading">Product Form: </span
+          >{{ selectedVariant?.mesurement }}
+        </p>
+        <h2 class="Information__headings">Safety Information:</h2>
+        <ul>
+          <li class="Information__text">Read the label carefully before use</li>
+          <li class="Information__text">Keep out of the reach of children</li>
+          <li class="Information__text">
+            Pregnant or lactating women and children with a medical condition
+            should consult a physician before use
+          </li>
+          <li class="Information__text">
+            Do not exceed the recommended daily dosage
+          </li>
+          <li class="Information__text">
+            Store in a cool, dry place and away from direct sunlight
+          </li>
+        </ul>
+      </div>
+      <p class="see_more cursor-pointer" (click)="toggleInfoState(target)">
+        {{ toggleInformation ? "See less" : "See more" }}
+      </p>
+    </div>
+    <div class="w-full h-4 bg-lightbluebg"></div>
+    <div class="w-full h-fit p-4">
+      <div class="ratings__reviews" *ngIf="product?.ratingCount">
+        <div class="ratings">
+          <h2 id="rating__heading">Ratings <span>&#38;</span> Reviews</h2>
+          <div class="w-full h-auto rating__container">
+            <div class="rating__bar__container w-[40rem] h-[25rem]">
+              <div class="rating__box">
+                <p
+                  id="rating_number"
+                  [style.color]="colors[productRatingRounded - 1]"
+                >
+                  {{ product?.avgRating?.toFixed(1) }}
+                </p>
+                <div
+                  class="review__rating__star"
+                  [style.background-image]="
+                    'url(/assets/' + colorSvgs[colorInd] + '_star.svg'
+                  "
+                ></div>
+              </div>
+              <div>
+                <p class="font-semibold">
+                  {{ product?.ratingCount }}
+                  {{ product?.ratingCount == 1 ? "Rating" : "Ratings" }}
+                  <span> &#38; </span>
+                  {{ reviews.length }}
+                  {{ reviews.length == 1 ? "Review" : "Reviews" }}
+                </p>
+              </div>
+              <div class="w-full h-auto mt-8">
+                <div
+                  class="flex items-center h-8"
+                  *ngFor="let i of [5, 4, 3, 2, 1]"
+                >
+                  <p>{{ i }}</p>
+                  <div class="rating__bar__stars"></div>
+                  <div class="rating__bar rounded-md">
+                    <div
+                      class="rating__bar__inner rounded-md w-2/5"
+                      [style.background-color]="colors[i - 1]"
+                      [style.width]="
+                        ratingPercentages[i - 1] > 0
+                          ? ratingPercentages[i - 1] + '%'
+                          : '2%'
+                      "
+                    ></div>
+                  </div>
+                  <p>{{ ratingPercentages[i - 1] }}&percnt;</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full flex flex-col justify-start h-fit">
+          <div
+            *ngFor="let review of reviews"
+            class="reviews w-full h-32 flex flex-col"
+          >
+            <div class="w-auto text-fontcolor text-base font-semibold mt-2">
+              <p>{{ review.reviewedBy }}</p>
+            </div>
+            <div class="w-full h-8 flex justify-between items-center">
+              <div class="w-auto flex gap-2 items-center h-full">
+                <div
+                  class="w-11 p-2 h-6 flex justify-center items-center gap-1"
+                  [style.background-color]="colors[review.rating! - 1]"
+                >
+                  <p class="text-white text-lg font-bold">
+                    {{ review.rating }}
+                  </p>
+                  <div class="review__star w-4 h-4"></div>
+                </div>
+                <p class="text-base text-fontcolor mt-2 font-semibold">
+                  Verified buyer
+                </p>
+              </div>
+            </div>
+            <p class="review__text text-fontcolor text-lg m-2">
+              {{ review.review }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!product?.ratingCount">
+        <div class="ratings">
+          <h2 id="rating__heading">Ratings <span>&#38;</span> Reviews</h2>
+          <div class="w-full h-auto rating__container">
+            <div class="rating__bar__container w-[40rem] h-[25rem]">
+              <div class="rating__box">
+                <p class="font-semibold" id="no_ratings_text">
+                  There are no Customer ratings yet
+                </p>
+              </div>
+              <div class="w-full h-auto mt-8 opacity-50">
+                <div
+                  class="flex items-center h-8"
+                  *ngFor="let i of [5, 4, 3, 2, 1]"
+                >
+                  <p>{{ i }}</p>
+                  <div class="rating__bar__stars"></div>
+                  <div class="rating__bar rounded-md">
+                    <div
+                      class="rating__bar__inner rounded-md w-2/5"
+                      [style.background-color]="colors[i - 1]"
+                      [style.width]="
+                        ratingPercentages[i - 1] > 0
+                          ? ratingPercentages[i - 1] + '%'
+                          : '2%'
+                      "
+                    ></div>
+                  </div>
+                  <p>0&percnt;</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full h-4 bg-lightbluebg"></div>
+    <div class="mobile_ad p-4 bg-white w-100 h-[15rem]">
+      <img
+        class="w-full h-full bg-center bg-no-repeat bg-contain"
+        src="/assets/ad_mobile.jpg"
+        alt=""
+      />
+    </div>
   </div>
-  <div class="footer-container w-full h-fit pt-16 bg-lig">
+  <div class="footer-container w-full h-fit">
     <app-footer></app-footer>
   </div>
 </div>
