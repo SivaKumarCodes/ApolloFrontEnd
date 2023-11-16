@@ -350,8 +350,6 @@
                     *ngFor="let i of [5, 4, 3, 2, 1]"
                   >
                     <p>{{ i }}</p>
-                    d working directory and index state WIP on main: 5002d47 our
-                    new homepage HEAD is now at 5002d47 our new home
                     <div class="rating__bar__stars"></div>
                     <div class="rating__bar rounded-md">
                       <div
@@ -465,7 +463,7 @@
     <app-product-carousel> </app-product-carousel>
     <div class="w-full h-fit pl-4 py-4">
       <h1 class="product__name">{{ product?.productName }}</h1>
-      <div class="productbatch__rating">
+      <div class="productbatch__rating mt-4">
         <div
           class="productbatch__rating__text"
           *ngIf="product?.avgRating != null && product?.avgRating! > 0"

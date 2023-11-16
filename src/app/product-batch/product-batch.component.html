@@ -7,7 +7,7 @@
     class="productbatch__image"
     [ngStyle]="{
       'background-image':
-        'url(https://apollopharmacy.sivacodes.com/api/v1/img/' +
+        'url(http://localhost:8080/api/v1/img/' +
         product.variants[0].images[0] +
         ')'
     }"
@@ -73,7 +73,7 @@
     </span>
 
     <div *ngIf="existsOnCart" class="added_container">
-      <img class="checkmark" src="/assets/check-mark.svg" alt="" />
+      <img class="checkmark" src="/assets/added.svg" alt="" />
       <p class="added">added</p>
     </div>
   </div>
