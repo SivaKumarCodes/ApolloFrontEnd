@@ -14,7 +14,7 @@ export class BatchComponent implements OnInit {
 
   constructor() {
     this.imageUrl =
-      'https://apollopharmacy.sivacodes.com/api/v1/brand/' + this.url;
+      'https://apollopharmacy.sivakumar.tech/api/v1/brand/' + this.url;
   }
 
   ngOnInit(): void {}

@@ -62,6 +62,14 @@
   width: 72rem;
 }
 
+.mobile_product_grid {
+  width: 100%;
+  height: auto;
+}
+
+.mobile_grid {
+}
+
 @media screen and (max-width: 1822px) {
   /* .grid__container {
     grid-template-columns: repeat(3, 16rem);
@@ -112,5 +120,11 @@
 
   .grid__container {
     column-gap: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .productGrid {
+    display: none;
   }
 }

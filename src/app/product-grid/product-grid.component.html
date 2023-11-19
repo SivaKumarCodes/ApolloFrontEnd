@@ -102,4 +102,13 @@
     </div>
   </div>
 </div>
+<div class="mobile_product_grid p-8">
+  <h1 class="text-lg font-medium">All Products</h1>
+  <div class="mobile_grid flex gap-4 mt-4 flex-col w-full h-full">
+    <app-mobile-product-batch
+      *ngFor="let product of products$ | async"
+      [product]="product"
+    ></app-mobile-product-batch>
+  </div>
+</div>
 <app-footer></app-footer>

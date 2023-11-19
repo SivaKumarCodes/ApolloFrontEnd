@@ -40,7 +40,7 @@ export class AuthService {
 
     return this.http
       .post<Auth>(
-        'https://apollopharmacy.sivacodes.com/api/v1/token/',
+        'https://apollopharmacy.sivakumar.tech/api/v1/token/',
         body,
         options
       )
@@ -49,14 +49,14 @@ export class AuthService {
 
   register(user: UserRegistration) {
     return this.http.post<void>(
-      'https://apollopharmacy.sivacodes.com/api/v1/register/',
+      'https://apollopharmacy.sivakumar.tech/api/v1/register/',
       user
     );
   }
 
   checkEmail(email: string) {
     const result = this.http.get<{ value: boolean }>(
-      'https://apollopharmacy.sivacodes.com/api/v1/checkmail/',
+      'https://apollopharmacy.sivakumar.tech/api/v1/checkmail/',
 
       {
         params: {
@@ -80,7 +80,7 @@ export class AuthService {
     };
 
     return this.http.get<Address[]>(
-      'https://apollopharmacy.sivacodes.com/api/v1/getaddresses',
+      'https://apollopharmacy.sivakumar.tech/api/v1/getaddresses',
       options
     );
   }
@@ -102,7 +102,7 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'https://apollopharmacy.sivacodes.com/api/v1/removeaddress',
+      'https://apollopharmacy.sivakumar.tech/api/v1/removeaddress',
       body,
       options
     );
@@ -121,7 +121,7 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'https://apollopharmacy.sivacodes.com/api/v1/addaddress',
+      'https://apollopharmacy.sivakumar.tech/api/v1/addaddress',
       address,
       options
     );
@@ -140,7 +140,7 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'https://apollopharmacy.sivacodes.com/api/v1/editaddress',
+      'https://apollopharmacy.sivakumar.tech/api/v1/editaddress',
       address,
       options
     );
@@ -159,7 +159,7 @@ export class AuthService {
     };
 
     return this.http.post<void>(
-      'https://apollopharmacy.sivacodes.com/api/v1/adddetails',
+      'https://apollopharmacy.sivakumar.tech/api/v1/adddetails',
       // 'http://localhost:8080/api/v1/adddetails',
       details,
       options
@@ -179,7 +179,7 @@ export class AuthService {
     };
 
     return this.http.get<Details>(
-      'https://apollopharmacy.sivacodes.com/api/v1/getdetails',
+      'https://apollopharmacy.sivakumar.tech/api/v1/getdetails',
       // 'http://localhost:8080/api/v1/getdetails',
       options
     );
@@ -198,7 +198,7 @@ export class AuthService {
     };
 
     return this.http.post<Creds>(
-      'https://apollopharmacy.sivacodes.com/api/v1/updatecreds',
+      'https://apollopharmacy.sivakumar.tech/api/v1/updatecreds',
       // 'http://localhost:8080/api/v1/updatecreds',
       creds,
       options
@@ -219,7 +219,7 @@ export class AuthService {
 
     return this.http.get<UserOrders[]>(
       // 'http://localhost:8080/api/v1/getorders',
-      'https://apollopharmacy.sivacodes.com/api/v1/getorders',
+      'https://apollopharmacy.sivakumar.tech/api/v1/getorders',
       options
     );
   }
@@ -238,7 +238,7 @@ export class AuthService {
 
     return this.http.get<Review[]>(
       // 'http://localhost:8080/api/v1/getallreviewsofuser',
-      'https://apollopharmacy.sivacodes.com/api/v1/getallreviewsofuser',
+      'https://apollopharmacy.sivakumar.tech/api/v1/getallreviewsofuser',
       options
     );
   }
@@ -257,7 +257,7 @@ export class AuthService {
 
     return this.http.post<void>(
       // 'http://localhost:8080/api/v1/review',
-      'https://apollopharmacy.sivacodes.com/api/v1/review',
+      'https://apollopharmacy.sivakumar.tech/api/v1/review',
       review,
       options
     );
@@ -277,7 +277,7 @@ export class AuthService {
 
     return this.http.post<void>(
       // 'http://localhost:8080/api/v1/updatereview',
-      'https://apollopharmacy.sivacodes.com/api/v1/updatereview',
+      'https://apollopharmacy.sivakumar.tech/api/v1/updatereview',
       review,
       options
     );
@@ -296,7 +296,7 @@ export class AuthService {
 
     return this.http.post<check>(
       // 'http://localhost:8080/api/v1/checkuser',
-      'https://apollopharmacy.sivacodes.com/api/v1/updatereview',
+      'https://apollopharmacy.sivakumar.tech/api/v1/updatereview',
       login,
       options
     );

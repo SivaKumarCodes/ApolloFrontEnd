@@ -7,9 +7,10 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { ProductBatchModule } from '../product-batch/product-batch.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LandingPageModule } from '../landing-page/landing-page.module';
+import { MobileProductBatchComponent } from '../mobile-product-batch/mobile-product-batch.component';
 
 @NgModule({
-  declarations: [ProductGridComponent],
+  declarations: [ProductGridComponent, MobileProductBatchComponent],
   imports: [
     CommonModule,
     ProductGridRoutingModule,

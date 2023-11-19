@@ -17,7 +17,7 @@ export class ProductService {
   prefix: string = 'http://localhost:8080';
   getAll() {
     return this.http.get<Product[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/products'
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/products'
       '/api/v1/products'
     );
   }
@@ -25,7 +25,7 @@ export class ProductService {
   getProductByName(name: string) {
     return this.http.get<Product>(
       '/api/v1/product',
-      // 'https://apollopharmacy.sivacodes.com/api/v1/product',
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/product',
       {
         params: {
           name,
@@ -36,21 +36,21 @@ export class ProductService {
 
   getSomeBrands() {
     return this.http.get<Brand[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/getbrands'
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/getbrands'
       '/api/v1/getbrands'
     );
   }
 
   getProductTypes() {
     return this.http.get<string[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/getproducttypes'
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/getproducttypes'
       '/api/v1/getproducttypes'
     );
   }
 
   getProductsOFBrands(filters: BrandFilters) {
     return this.http.post<Product[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/productsbybrand',
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/productsbybrand',
       '/api/v1/productsbybrand',
       filters
     );
@@ -58,7 +58,7 @@ export class ProductService {
 
   getProductsFromProductTypes(filters: ProductTypeFilters) {
     return this.http.post<Product[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/productsbytype',
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/productsbytype',
       '/api/v1/productsbytype',
       filters
     );
@@ -66,7 +66,7 @@ export class ProductService {
 
   getReviewsOfProducts(id: number) {
     return this.http.get<ProductReview[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/getreviews',
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/getreviews',
       '/api/v1/getreviews',
       {
         params: {
@@ -78,7 +78,7 @@ export class ProductService {
 
   searchProducts(keyword: string) {
     return this.http.post<Product[]>(
-      // 'https://apollopharmacy.sivacodes.com/api/v1/search',
+      // 'https://apollopharmacy.sivakumar.tech/api/v1/search',
       '/api/v1/search',
       {},
       {

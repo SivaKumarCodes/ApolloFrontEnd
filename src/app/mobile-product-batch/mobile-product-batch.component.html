@@ -1,1 +1,49 @@
-<p>mobile-product-batch works!</p>
+<div class="product__container w-full h-[12rem] flex gap-4">
+  <div class="h-full w-[40%] flex items-start">
+    <div
+      class="productbatch__image w-full h-[95%]"
+      [ngStyle]="{
+        'background-image':
+          'url(https://apollopharmacy.sivakumar.tech/api/v1/img/' +
+          product.variants[0].images[0] +
+          ')'
+      }"
+    ></div>
+  </div>
+  <div class="h-full w-[59%] flex flex-col gap-1">
+    <div class="productbatch__title">
+      {{ product.productName }}
+    </div>
+    <div class="productbatch__info">
+      <p class="productbatch__info__text">
+        {{
+          product.variants[0].quantity + " " + product.variants[0].mesurement
+        }}
+      </p>
+    </div>
+    <div class="productbatch__rating">
+      <div
+        class="productbatch__rating__text"
+        *ngIf="product.avgRating"
+        [style.background-color]="colors[math.trunc(product.avgRating) - 1]"
+      >
+        <p class="rating__text">{{ product.avgRating }}</p>
+        <span class="rating__star_con">
+          <svg
+            class="rating__star"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="15"
+            viewBox="0 0 51 48"
+          >
+            <path
+              fill="#ffffff"
+              stroke="none"
+              d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
