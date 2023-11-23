@@ -71,7 +71,7 @@
 }
 
 .productbatch___price__text {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.5;
   color: #3b3b3b;
@@ -79,8 +79,9 @@
 
 .add {
   /* box-sizing: content-box; */
-  width: 6rem;
-  height: 3rem;
+  width: 8rem;
+  height: 2.5rem;
+  border-radius: 5px;
   /* background-color: lightgrey; */
   border: 1px solid var(--main-color);
   display: flex;
@@ -103,7 +104,7 @@
 
 .add__text {
   color: var(--main-color);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -115,4 +116,22 @@
 
 .rating__number {
   display: block;
+}
+
+.added_container {
+  margin-right: 1rem;
+  display: flex;
+  width: auto;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  grid-area: add;
+  gap: 5px;
+  color: var(--main-color);
+  font-size: 1rem;
+}
+
+.checkmark {
+  width: 1.6rem;
+  height: 1.6rem;
 }

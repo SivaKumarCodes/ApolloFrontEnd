@@ -1,4 +1,7 @@
-<div class="product__container w-full h-[12rem] flex gap-4">
+<div
+  class="product__container w-full flex h-[12rem] gap-4"
+  [routerLink]="['/product', product.productName]"
+>
   <div class="h-full w-[40%] flex items-start">
     <div
       class="productbatch__image w-full h-[95%]"
@@ -44,6 +47,23 @@
           </svg>
         </span>
       </div>
+    </div>
+
+    <div class="productbatch___price">
+      <p class="productbatch___price__text">
+        &#x20B9;{{ currencyFormat(product.variants[0].price) }}
+      </p>
+    </div>
+
+    <div class="product__batch__add">
+      <span class="add" *ngIf="!existsOnCart" (click)="addToCart($event)">
+        <p class="add__text">Add To Cart</p>
+      </span>
+    </div>
+
+    <div *ngIf="existsOnCart" class="added_container">
+      <img class="checkmark" src="/assets/added.svg" alt="" />
+      <p class="added">added</p>
     </div>
   </div>
 </div>

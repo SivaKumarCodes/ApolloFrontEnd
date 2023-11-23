@@ -9,20 +9,21 @@ import { LoadingComponent } from '../loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LandingPageModule } from '../landing-page/landing-page.module';
 import { ProductCarouselComponent } from '../product-carousel/product-carousel.component';
+import { LoadingModule } from '../loading/loading.module';
 
 @NgModule({
   declarations: [
     ProductPageComponent,
     ProductViewerComponent,
     ProductCarouselComponent,
-    LoadingComponent,
   ],
   imports: [
     CommonModule,
     ProductPageRoutingModule,
     FontAwesomeModule,
     LandingPageModule,
+    LoadingModule,
   ],
-  exports: [ProductViewerComponent, LoadingComponent],
+  exports: [ProductViewerComponent],
 })
 export class ProductPageModule {}

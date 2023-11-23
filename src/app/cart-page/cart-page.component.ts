@@ -40,6 +40,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { AddressChangerComponent } from '../address-changer/address-changer.component';
 import { showQuantityPopUp } from '../popUpStore/popUp.actions';
 import { changeInQuantiyPicker } from '../popUpStore/popUp.selectors';
+import { ViewportScroller } from '@angular/common';
 
 export enum paymentOption {
   UPI,
@@ -207,7 +208,7 @@ export class CartPageComponent {
     this.totalPrice();
   }
 
-  constructor(private state: Store) {}
+  constructor(private state: Store, private scroller: ViewportScroller) {}
 
   removeFromCart(i: number) {
     let result: cartItem = {
@@ -303,6 +304,11 @@ export class CartPageComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+
+    setTimeout(() => {
+      this.scroller.scrollToPosition([0, 0]);
+    }, 0);
+
     this.state.select(getAuthSucess).subscribe((data) => {
       if (data) {
         this.state.dispatch(getUserAddresses());

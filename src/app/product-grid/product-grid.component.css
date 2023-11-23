@@ -65,9 +65,7 @@
 .mobile_product_grid {
   width: 100%;
   height: auto;
-}
-
-.mobile_grid {
+  display: none;
 }
 
 @media screen and (max-width: 1822px) {
@@ -126,5 +124,9 @@
 @media screen and (max-width: 1024px) {
   .productGrid {
     display: none;
+  }
+
+  .mobile_product_grid {
+    display: block;
   }
 }

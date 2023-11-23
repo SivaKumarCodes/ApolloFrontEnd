@@ -42,7 +42,7 @@ export class ProductBatchComponent {
   }
 
   addToCart(event: Event) {
-    event.stopPropagation();
+    event.stopImmediatePropagation();
 
     const result = {
       productId: this.product.productId,

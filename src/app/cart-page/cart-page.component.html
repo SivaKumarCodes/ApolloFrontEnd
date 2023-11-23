@@ -10,7 +10,7 @@
           <p class="address__text">
             Deliver to:
             <span class="delivery__name"
-              >{{ addresses[selectedAddress].name + " " }},
+              >{{ addresses[selectedAddress].name }},
               {{ addresses[selectedAddress].pin }}</span
             >
           </p>
@@ -45,14 +45,18 @@
         </div>
       </div>
       <div *ngIf="allItemInCart > 0" class="selection__controls">
-        <div
-          class="select_all"
-          (click)="invertSelection()"
-          [ngClass]="totalSelected > 0 ? 'selected' : ''"
-        >
-          <fa-icon class="checkmark" [icon]="getIcon()"></fa-icon>
+        <div class="w-auto h-auto flex justify-between items-center gap-4">
+          <div
+            class="select_all"
+            (click)="invertSelection()"
+            [ngClass]="totalSelected > 0 ? 'selected' : ''"
+          >
+            <fa-icon class="checkmark" [icon]="getIcon()"></fa-icon>
+          </div>
+          <p class="items_selected_text">
+            {{ totalSelected }}/{{ allItemInCart }} ITEMS SELECTED
+          </p>
         </div>
-        <p>{{ totalSelected }}/{{ allItemInCart }} ITEMS SELECTED</p>
         <h6 class="remove_all">Remove</h6>
       </div>
       <div

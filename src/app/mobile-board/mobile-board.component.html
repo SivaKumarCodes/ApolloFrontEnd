@@ -3,7 +3,12 @@
 >
   <h1 class="heading self-start font-semibold mb-6">Popular categories</h1>
   <div class="grid__container h-[90%] w-full]">
-    <a class="board_item block max-w-full" *ngFor="let img of imgs">
+    <a
+      class="board_item block max-w-full"
+      *ngFor="let img of imgs; let i = index"
+      [routerLink]="['/products']"
+      [queryParams]="{ type: links[i] }"
+    >
       <img class="w-full h-full" src="{{ img }}" alt="nutrition" />
     </a>
   </div>

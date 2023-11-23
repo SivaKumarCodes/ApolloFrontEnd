@@ -27,11 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    component: CartPageComponent,
+    loadChildren: () =>
+      import('./cart-page/cart-page.module').then((m) => m.CartPageModule),
   },
   {
     path: 'user',
-    component: UserPageComponent,
+    loadChildren: () =>
+      import('./user-page/user-page.module').then((m) => m.UserPageModule),
   },
   {
     path: '',

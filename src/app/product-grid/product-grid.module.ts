@@ -8,6 +8,8 @@ import { ProductBatchModule } from '../product-batch/product-batch.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LandingPageModule } from '../landing-page/landing-page.module';
 import { MobileProductBatchComponent } from '../mobile-product-batch/mobile-product-batch.component';
+import { LoadingModule } from '../loading/loading.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ProductGridComponent, MobileProductBatchComponent],
@@ -15,7 +17,8 @@ import { MobileProductBatchComponent } from '../mobile-product-batch/mobile-prod
     CommonModule,
     ProductGridRoutingModule,
     ProductBatchModule,
-    ProductPageModule,
+    LoadingModule,
+    RouterModule,
     FontAwesomeModule,
     LandingPageModule,
   ],
