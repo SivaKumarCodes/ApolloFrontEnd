@@ -14,7 +14,7 @@
               {{ addresses[selectedAddress].pin }}</span
             >
           </p>
-          <p class="address__text">
+          <p class="address__text address_line">
             {{
               addresses[selectedAddress].totalAddress +
                 "," +
@@ -35,6 +35,17 @@
           {{
             addresses && addresses.length ? "CHANGE ADDRESS" : "ADD NEW ADDRESS"
           }}
+        </div>
+
+        <div
+          class="change_address_mobile"
+          (click)="
+            addresses && addresses.length
+              ? setAddressVisible(true)
+              : addAddress()
+          "
+        >
+          CHANGE
         </div>
       </div>
       <div class="items__selection"></div>
@@ -104,8 +115,7 @@
             </div>
           </div>
           <p class="product__price">
-            <fa-icon [icon]="rupeeIcon"></fa-icon>
-            {{ currencyFormat(item.price * item.purchaseQuantity) }}
+            &#x20B9; {{ currencyFormat(item.price * item.purchaseQuantity) }}
           </p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -128,9 +138,9 @@
       <div class="total__price" *ngIf="allItemInCart > 0">
         <div class="price__information">
           <div class="totalPrice">
-            <p>Total Amount</p>
-            <p>
-              <fa-icon [icon]="rupeeIcon" class="rupeeSign"></fa-icon>
+            <p class="text-xl font-semibold text-[#567655]">Total Amount</p>
+            <p class="bold">
+              &#x20B9;
               {{ currencyFormat(totalAmount) }}
             </p>
           </div>
@@ -150,6 +160,133 @@
   </div>
 
   <div class="conform__address" *ngIf="OrderStep == 1">
+    <div class="choose_address_mobile p-8">
+      <p class="select__address__text font-bold" id="name">
+        {{ addresses[defaultAdress].name }}
+        <span class="font-normal text-base">(default)</span>
+        <span
+          class="select__addresss__type"
+          [ngClass]="
+            enumAddresstype[addresses[defaultAdress].addressType] == '1'
+              ? 'select__addresss__type__work'
+              : 'garbage'
+          "
+          >{{ addresses[defaultAdress].addressType }}</span
+        >
+      </p>
+
+      <p class="select__address__text mt-4">
+        {{ addresses[defaultAdress].totalAddress }}
+      </p>
+      <p class="select__address__text">
+        {{
+          addresses[defaultAdress].town +
+            " , " +
+            addresses[defaultAdress].state +
+            " - " +
+            addresses[defaultAdress].pin
+        }}
+      </p>
+      <p class="select__address__text" id="mobile">
+        Mobile :
+        <span class="select__address__bold__text"
+          >{{ addresses[defaultAdress].mobileNumber }}
+        </span>
+      </p>
+      <div
+        class="change_button_mobile w-full h-10 flex justify-center items-center"
+      >
+        <p class="font-medium text-lg">CHANGE OR ADD ADDRESS</p>
+      </div>
+    </div>
+    <div class="seperator w-full h-8 bg-lightbluebg"></div>
+    <div class="p-8">
+      <p
+        class="select___address__heading__secondary"
+        id="mobile_heading_payment"
+      >
+        Select Payment method
+      </p>
+      <div class="select__chose__payment">
+        <div
+          class="select__payment__option"
+          (click)="changePaymentOption(paymentOptions.UPI)"
+        >
+          <div
+            class="payment__inactive"
+            [ngClass]="
+              selectedPaymentOption == paymentOptions.UPI
+                ? 'payment__selection'
+                : ''
+            "
+          >
+            <fa-icon
+              class="payment__selection__tickmark"
+              [icon]="checkMarkIcon"
+            ></fa-icon>
+          </div>
+          <p>UPI</p>
+          <!-- <p>{{ selectedPaymentOption == paymentOptions.COD }}</p> -->
+        </div>
+        <div
+          class="select__payment__option"
+          (click)="changePaymentOption(paymentOptions.CARD)"
+        >
+          <div
+            class="payment__inactive"
+            [ngClass]="
+              selectedPaymentOption == paymentOptions.CARD
+                ? 'payment__selection'
+                : ''
+            "
+          >
+            <fa-icon
+              class="payment__selection__tickmark"
+              [icon]="checkMarkIcon"
+            ></fa-icon>
+          </div>
+          <p>Credit Card / Debit Card</p>
+        </div>
+        <div
+          class="select__payment__option"
+          (click)="changePaymentOption(paymentOptions.NETBANKING)"
+        >
+          <div
+            class="payment__inactive"
+            [ngClass]="
+              selectedPaymentOption == paymentOptions.NETBANKING
+                ? 'payment__selection'
+                : ''
+            "
+          >
+            <fa-icon
+              class="payment__selection__tickmark"
+              [icon]="checkMarkIcon"
+            ></fa-icon>
+          </div>
+          <p>Net Banking</p>
+        </div>
+        <div
+          class="select__payment__option"
+          (click)="changePaymentOption(paymentOptions.COD)"
+        >
+          <div
+            class="payment__inactive"
+            [ngClass]="
+              selectedPaymentOption == paymentOptions.COD
+                ? 'payment__selection'
+                : ''
+            "
+          >
+            <fa-icon
+              class="payment__selection__tickmark"
+              [icon]="checkMarkIcon"
+            ></fa-icon>
+          </div>
+          <p>Cash on Delivery (Cash/UPI)</p>
+        </div>
+      </div>
+    </div>
     <div class="select__address__left">
       <div class="select__address__title">
         <h1>Select Delivery Address</h1>
@@ -199,6 +336,7 @@
                   </g>
                 </svg>
               </div>
+
               <div class="select__address__address__selection">
                 <p class="select__address__address__name">
                   {{ addresses[defaultAdress].name }}
@@ -370,37 +508,46 @@
             ')'
           "
         ></div>
-        <p>
+        <p class="estimated_text">
           Estimated Delivery by
           <span class="select__address__bold__text">{{
             deliveryDate.getDate() +
               " " +
-              monthNames[deliveryDate.getMonth()] +
-              " " +
-              deliveryDate.getFullYear()
+              monthNames[
+                deliveryDate.getMonth()
+              ] //+
+              // " " +
+              // deliveryDate.getFullYear()
           }}</span>
         </p>
       </div>
-      <div class="select__address__price__details">
-        Price Details {{ "(" + totalSelected + " Items)" }}
+      <div class="total_price_box w-auto h-auto bg-white">
+        <div class="select__address__price__details">
+          Price Details {{ "(" + totalSelected + " Items)" }}
+        </div>
+        <div class="select__total__price">
+          <p class="select__total__price__text">Total Amount</p>
+          <p class="select__total__price__text">
+            <!-- <fa-icon [icon]="rupeeIcon"></fa-icon> -->
+            &#x20B9;{{ currencyFormat(totalAmount) }}
+          </p>
+        </div>
+        <div
+          (click)="addresses && addresses.length ? makeOrder() : addAddress()"
+          class="select__address__place__order"
+        >
+          <p>
+            {{ addresses && addresses.length ? "PLACE ORDER" : "ADD ADDRESS" }}
+          </p>
+        </div>
       </div>
-      <div class="select__total__price">
-        <p class="select__total__price__text">Total Amount</p>
-        <p class="select__total__price__text">
-          <fa-icon [icon]="rupeeIcon"></fa-icon>
-          {{ currencyFormat(totalAmount) }}
-        </p>
-      </div>
-      <div
-        (click)="addresses && addresses.length ? makeOrder() : addAddress()"
-        class="select__address__place__order"
+      <p
+        class="select___address__heading__secondary"
+        id="heading_payment_desktop"
       >
-        <p>
-          {{ addresses && addresses.length ? "PLACE ORDER" : "ADD ADDRESS" }}
-        </p>
-      </div>
-      <p class="select___address__heading__secondary">Select Payment method</p>
-      <div class="select__chose__payment">
+        Select Payment method
+      </p>
+      <div class="select__chose__payment" id="choose_payment_desktop">
         <div
           class="select__payment__option"
           (click)="changePaymentOption(paymentOptions.UPI)"
