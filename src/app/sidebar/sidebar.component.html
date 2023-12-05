@@ -3,7 +3,7 @@
   *ngIf="isActive"
   (click)="preventPropgation($event)"
 >
-  <div class="user__info" (click)="login()">
+  <div class="user__info" (click)="clickOpenUser($event)">
     <div class="user__profile gap-x-2 cursor-pointer">
       <img
         id="profile__img"

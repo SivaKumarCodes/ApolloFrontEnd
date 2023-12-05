@@ -46,12 +46,21 @@ export class SidebarComponent {
     this.state.dispatch(closeAll());
   }
 
-  openProducts(url: string) {
-    this.clearState();
-    this.router.navigate(['/products/', url]);
+  clickOpenUser(event: Event) {
+    if (this.isAuthenticated) {
+      this.navigateToUserPage();
+    } else {
+      this.login(event);
+    }
   }
 
-  login() {
+  openProducts(url: string) {
+    this.clearState();
+    this.router.navigate(['/products/'], { queryParams: { type: url } });
+  }
+
+  login(event: Event) {
+    this.preventPropgation(event);
     this.clearState();
     this.router.navigate(['login']);
   }
@@ -106,7 +115,7 @@ export class SidebarComponent {
       {
         url: '/assets/multivitamin.png',
         name: 'Multivitamins',
-        link: 'Multivitamin',
+        link: 'Multivitamins',
       },
       {
         url: '/assets/nutritionalDrinks.webp',
