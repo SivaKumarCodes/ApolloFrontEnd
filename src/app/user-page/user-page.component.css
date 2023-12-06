@@ -6,7 +6,7 @@
   align-items: flex-start;
 }
 .user__page__container {
-  width: 50%;
+  width: 75rem;
   /* height: 60%; */
   height: 30rem;
   display: grid;
@@ -617,4 +617,10 @@ label {
 .order__ratingbar__reviewButton {
   grid-area: review;
   justify-self: center;
+}
+
+@media screen and (max-width: 1250px) {
+  .user__page__container {
+    width: 65rem;
+  }
 }

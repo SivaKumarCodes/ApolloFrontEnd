@@ -25,7 +25,7 @@ export class MobileBoardComponent {
   links: string[] = [
     'Multivitamins',
     'Nutritional Drinks',
-    '',
+    'Body Lotions',
     'Blood Glucose Monitors',
     'Ayurvedic Immunity Boosters',
     'Homeopathy Medicines',

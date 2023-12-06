@@ -296,7 +296,7 @@ export class AuthService {
 
     return this.http.post<check>(
       // 'http://localhost:8080/api/v1/checkuser',
-      'https://apollopharmacy.sivakumar.tech/api/v1/updatereview',
+      'https://apollopharmacy.sivakumar.tech/api/v1/checkuser',
       login,
       options
     );

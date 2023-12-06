@@ -3,7 +3,10 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { closeAll, closeSideBar } from '../popUpStore/popUp.actions';
 import { Router } from '@angular/router';
-import { isSideBarActive } from '../popUpStore/popUp.selectors';
+import {
+  DropdownMenuState,
+  isSideBarActive,
+} from '../popUpStore/popUp.selectors';
 import { Subscription } from 'rxjs';
 import { getAuthSucess } from '../authStore/auth.selectors';
 import { getUser } from '../authStore/auth.selectors';
@@ -19,18 +22,14 @@ export class SidebarComponent {
 
   rightIcon = faChevronRight;
 
-  sideBarSubscription$!: Subscription;
-
-  loginSubscription$!: Subscription;
-
-  userSubscription$!: Subscription;
-
   isAuthenticated: boolean = false;
 
   isActive: boolean = false;
   name!: string;
 
   activeSubOptions: number = -1;
+
+  subscriptions: Subscription[] = [];
 
   setActiveSubOption(i: number) {
     if (this.activeSubOptions == i) {
@@ -77,29 +76,30 @@ export class SidebarComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.sideBarSubscription$ = this.state
-      .select(isSideBarActive)
-      .subscribe((data) => {
+    this.subscriptions.push(
+      this.state.select(isSideBarActive).subscribe((data) => {
         if (!data) this.clearState();
         this.isActive = data;
-      });
+      })
+    );
 
-    this.loginSubscription$ = this.state
-      .select(getAuthSucess)
-      .subscribe((data) => {
+    this.subscriptions.push(
+      this.state.select(getAuthSucess).subscribe((data) => {
         this.isAuthenticated = data;
-      });
-    this.userSubscription$ = this.state.select(getUser).subscribe((data) => {
-      this.name = data?.firstName + data?.lastName!;
-    });
+      })
+    );
+
+    this.subscriptions.push(
+      this.state.select(getUser).subscribe((data) => {
+        this.name = data?.firstName + data?.lastName!;
+      })
+    );
   }
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.sideBarSubscription$.unsubscribe();
-    this.loginSubscription$.unsubscribe();
-    this.userSubscription$.unsubscribe();
+    this.subscriptions.forEach((i) => i.unsubscribe());
   }
 
   navbarOptions: string[] = [
@@ -140,9 +140,27 @@ export class SidebarComponent {
         link: 'Blood Glucose Monitors',
       },
     ],
-    [],
-    [],
-    [],
+    [
+      {
+        url: '/assets/haan-forest-grace-nourishing-prebiotic-body-lotion-250ml.jpg',
+        name: 'Body Lotions',
+        link: 'Body Lotions',
+      },
+    ],
+    [
+      {
+        url: '/assets/constipation-herbal-treatment-250x250.webp',
+        name: 'Ayurvedic Immunity Boosters',
+        link: 'Ayurvedic Immunity Boosters',
+      },
+    ],
+    [
+      {
+        url: '/assets/Schwabe-Triticum-Repens-Homeopathy-Dilution-6C-30C-200C-1M-10M.webp',
+        name: 'Homeopathy Medicines',
+        link: 'Homeopathy Medicines',
+      },
+    ],
     [],
   ];
 }
