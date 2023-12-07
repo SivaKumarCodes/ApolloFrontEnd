@@ -27,12 +27,15 @@ export class QuantityPickerComponent {
     this.selected = i;
   }
 
-  onClose() {
+  onClose(event: Event) {
+    console.log('quantity');
+    this.stopPropagation(event);
     this.store.dispatch(closeAll());
   }
 
   stopPropagation(event: Event) {
     event.stopImmediatePropagation();
+    event.stopPropagation();
   }
 
   change(event: Event) {

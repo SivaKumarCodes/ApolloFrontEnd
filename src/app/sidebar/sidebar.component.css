@@ -3,9 +3,14 @@
   min-height: 100%;
   height: auto;
   background-color: white;
-  display: flex;
+  display: none;
   flex-direction: column;
 }
+
+.sidebar-visible {
+  display: flex;
+}
+
 .user__info {
   height: 7rem;
   width: 100%;

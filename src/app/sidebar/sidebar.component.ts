@@ -40,27 +40,28 @@ export class SidebarComponent {
     this.activeSubOptions = i;
   }
 
-  clearState() {
+  clearState(event: Event) {
     this.activeSubOptions = -1;
+    this.preventPropgation(event);
     this.state.dispatch(closeAll());
   }
 
   clickOpenUser(event: Event) {
     if (this.isAuthenticated) {
-      this.navigateToUserPage();
+      this.navigateToUserPage(event);
     } else {
       this.login(event);
     }
   }
 
-  openProducts(url: string) {
-    this.clearState();
+  openProducts(url: string, event: Event) {
+    this.clearState(event);
     this.router.navigate(['/products/'], { queryParams: { type: url } });
   }
 
   login(event: Event) {
     this.preventPropgation(event);
-    this.clearState();
+    this.clearState(event);
     this.router.navigate(['login']);
   }
 
@@ -68,8 +69,9 @@ export class SidebarComponent {
     event.stopPropagation();
   }
 
-  navigateToUserPage() {
-    this.clearState();
+  navigateToUserPage(event: Event) {
+    console.log('4');
+    this.clearState(event);
     this.router.navigate(['user']);
   }
 
@@ -78,7 +80,7 @@ export class SidebarComponent {
     //Add 'implements OnInit' to the class.
     this.subscriptions.push(
       this.state.select(isSideBarActive).subscribe((data) => {
-        if (!data) this.clearState();
+        if (!data) this.clearState(new Event('hello'));
         this.isActive = data;
       })
     );

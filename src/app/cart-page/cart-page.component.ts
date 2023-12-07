@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import {
+  faExclamationTriangle,
+  faRupeeSign,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -83,6 +86,7 @@ export class CartPageComponent {
   minusIcon = faMinus;
   plustIcon = faPlus;
   dotIcon = faCircle;
+  dangerIcon = faExclamationTriangle;
 
   enumAddresstype = AddressType;
 
@@ -344,6 +348,7 @@ export class CartPageComponent {
         this.totalSelected = selectedRes.length;
         this.allItemInCart = selectedRes.length;
         this.totalPrice();
+        console.log(this.currencyFormat(this.totalAmount));
       })
     );
 

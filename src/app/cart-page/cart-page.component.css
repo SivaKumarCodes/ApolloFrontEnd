@@ -766,6 +766,10 @@
   margin-left: 0.6rem;
 }
 
+.payment_options_mobile {
+  display: none;
+}
+
 @media screen and (max-width: 1430px) {
   .left__side {
     width: 56rem;
@@ -911,5 +915,9 @@
 
   .order__sucess_rigth {
     width: 100%;
+  }
+
+  .payment_options_mobile {
+    display: block;
   }
 }

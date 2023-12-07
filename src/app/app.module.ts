@@ -72,7 +72,12 @@ export class MyHammerConfig extends HammerGestureConfig {
       popup: popUpReducer,
     }),
     EffectsModule.forRoot([ProductEffects, AuthEffects, CartEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      trace: true,
+      traceLimit: 25,
+    }),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),

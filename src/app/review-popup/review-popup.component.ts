@@ -68,10 +68,12 @@ export class ReviewPopupComponent {
 
   onClose(event: Event) {
     this.stopPropagation(event);
+    console.log('hai');
     this.state.dispatch(closeAll());
   }
 
   stopPropagation(event: Event) {
+    event.stopImmediatePropagation();
     event.stopPropagation();
   }
 

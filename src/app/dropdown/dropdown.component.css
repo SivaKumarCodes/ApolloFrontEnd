@@ -1,5 +1,5 @@
 .dropdown {
-  visibility: hidden;
+  display: none;
   position: fixed;
   top: 6rem;
   left: 0%;
@@ -29,7 +29,7 @@
 }
 
 .dropdown-visible {
-  visibility: visible;
+  display: block;
 }
 
 .dropdown-option {

@@ -1,6 +1,6 @@
 <div
   class="sidebar_container px-3"
-  *ngIf="isActive"
+  [ngClass]="isActive ? 'sidebar-visible' : ''"
   (click)="preventPropgation($event)"
 >
   <div class="user__info" (click)="clickOpenUser($event)">
@@ -48,7 +48,7 @@
         <div
           *ngFor="let subOption of options[i]"
           class="sub-option pl-[0.5rem] flex justify-between cursor-pointer"
-          (click)="openProducts(subOption.link)"
+          (click)="openProducts(subOption.link, $event)"
         >
           <p>{{ subOption.name }}</p>
           <p class="text-lightgrey">

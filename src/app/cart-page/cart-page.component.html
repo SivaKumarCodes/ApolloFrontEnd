@@ -25,6 +25,13 @@
           </p>
         </div>
         <div
+          *ngIf="addresses && !addresses.length"
+          class="flex w-auto h-full gap-2 items-center"
+        >
+          <fa-icon [icon]="dangerIcon" class="text-dangerRed"></fa-icon>
+          <p class="text-dangerRed mt-1">No addresses were added</p>
+        </div>
+        <div
           (click)="
             addresses && addresses.length
               ? setAddressVisible(true)
@@ -160,7 +167,10 @@
   </div>
 
   <div class="conform__address" *ngIf="OrderStep == 1">
-    <div class="choose_address_mobile p-8">
+    <div
+      class="choose_address_mobile p-8"
+      *ngIf="addresses && addresses.length"
+    >
       <p class="select__address__text font-bold" id="name">
         {{ addresses[defaultAdress].name }}
         <span class="font-normal text-base">(default)</span>
@@ -200,7 +210,7 @@
       </div>
     </div>
     <div class="seperator w-full h-8 bg-lightbluebg"></div>
-    <div class="p-8">
+    <div class="payment_options_mobile p-8">
       <p
         class="select___address__heading__secondary"
         id="mobile_heading_payment"
@@ -528,7 +538,6 @@
         <div class="select__total__price">
           <p class="select__total__price__text">Total Amount</p>
           <p class="select__total__price__text">
-            <!-- <fa-icon [icon]="rupeeIcon"></fa-icon> -->
             &#x20B9;{{ currencyFormat(totalAmount) }}
           </p>
         </div>

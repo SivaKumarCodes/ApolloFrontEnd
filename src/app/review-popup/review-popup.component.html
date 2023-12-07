@@ -1,79 +1,79 @@
-<div *ngIf="isActive" (click)="onClose($event)" class="review__container">
-  <div class="review__main" (click)="stopPropagation($event)">
-    <div class="reviw__title">
-      <div class="close cursor-pointer" (click)="onClose($event)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          class="close__mark"
-        >
-          <path
-            fill="#000"
-            fill-rule="evenodd"
-            d="M9.031 8l6.756-6.756a.731.731 0 0 0 0-1.031.732.732 0 0 0-1.031 0L8 6.969 1.244.213a.732.732 0 0 0-1.031 0 .731.731 0 0 0 0 1.03L6.969 8 .213 14.756a.731.731 0 0 0 0 1.031.732.732 0 0 0 1.031 0L8 9.031l6.756 6.756a.732.732 0 0 0 1.031 0 .731.731 0 0 0 0-1.03L9.031 8z"
-          />
-        </svg>
-      </div>
-      <p class="review__title__text text-gray-600">
-        {{ isEdit ? "EDIT REVIEW" : "WRITE REVIEW" }}
-      </p>
-    </div>
-    <div class="review__product__info">
-      <div
-        [ngStyle]="{
-          'background-image':
-            'url(https://apollopharmacy.sivakumar.tech/api/v1/img/' + url + ')'
-        }"
-        class="review__product__thumb"
-      ></div>
-      <div class="review__product__info__main flex flex-col">
-        <p class="review__product__info__name block text-gray-700">
-          {{ name }}
-        </p>
-        <div *ngIf="rating" class="rating__star__container">
-          <div
-            *ngFor="let i of [1, 2, 3, 4, 5]"
-            [ngClass]="rating! < i ? 'hidden' : ''"
-            class="rating__star"
-          ></div>
-        </div>
-      </div>
-    </div>
-    <form
-      class="review__form__main"
-      (ngSubmit)="submitReview()"
-      [formGroup]="reviewForm"
-    >
-      <div class="review__form__input">
-        <textarea
-          formControlName="review"
-          name="review"
-          id="review"
-          cols="78"
-          rows="8"
-          placeholder="Please write product review here."
-        ></textarea>
-      </div>
-      <p class="submit__policy__text">
-        By submitting review you give us consent to publish and process personal
-        information in accordance with
-        <span class="policy__higlighted__text"> Terms of use </span> and
-        <span class="policy__higlighted__text"> Privacy Policy </span>
-      </p>
-      <div class="submit__container flex justify-center items-center">
-        <input
-          class="submit__button cursor-pointer"
-          value="SUBMIT"
-          type="submit"
-          [ngClass]="
-            reviewInForm && reviewForm.dirty && reviewInForm.invalid
-              ? 'disabled disabled_submit'
-              : ''
-          "
+<!-- <div *ngIf="isActive" (click)="onClose($event)" class="review__container"> -->
+<div class="review__main" (click)="stopPropagation($event)">
+  <div class="reviw__title">
+    <div class="close cursor-pointer" (click)="onClose($event)">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        class="close__mark"
+      >
+        <path
+          fill="#000"
+          fill-rule="evenodd"
+          d="M9.031 8l6.756-6.756a.731.731 0 0 0 0-1.031.732.732 0 0 0-1.031 0L8 6.969 1.244.213a.732.732 0 0 0-1.031 0 .731.731 0 0 0 0 1.03L6.969 8 .213 14.756a.731.731 0 0 0 0 1.031.732.732 0 0 0 1.031 0L8 9.031l6.756 6.756a.732.732 0 0 0 1.031 0 .731.731 0 0 0 0-1.03L9.031 8z"
         />
-      </div>
-    </form>
+      </svg>
+    </div>
+    <p class="review__title__text text-gray-600">
+      {{ isEdit ? "EDIT REVIEW" : "WRITE REVIEW" }}
+    </p>
   </div>
+  <div class="review__product__info">
+    <div
+      [ngStyle]="{
+        'background-image':
+          'url(https://apollopharmacy.sivakumar.tech/api/v1/img/' + url + ')'
+      }"
+      class="review__product__thumb"
+    ></div>
+    <div class="review__product__info__main flex flex-col">
+      <p class="review__product__info__name block text-gray-700">
+        {{ name }}
+      </p>
+      <div *ngIf="rating" class="rating__star__container">
+        <div
+          *ngFor="let i of [1, 2, 3, 4, 5]"
+          [ngClass]="rating! < i ? 'hidden' : ''"
+          class="rating__star"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <form
+    class="review__form__main"
+    (ngSubmit)="submitReview()"
+    [formGroup]="reviewForm"
+  >
+    <div class="review__form__input">
+      <textarea
+        formControlName="review"
+        name="review"
+        id="review"
+        cols="78"
+        rows="8"
+        placeholder="Please write product review here."
+      ></textarea>
+    </div>
+    <p class="submit__policy__text">
+      By submitting review you give us consent to publish and process personal
+      information in accordance with
+      <span class="policy__higlighted__text"> Terms of use </span> and
+      <span class="policy__higlighted__text"> Privacy Policy </span>
+    </p>
+    <div class="submit__container flex justify-center items-center">
+      <input
+        class="submit__button cursor-pointer"
+        value="SUBMIT"
+        type="submit"
+        [ngClass]="
+          reviewInForm && reviewForm.dirty && reviewInForm.invalid
+            ? 'disabled disabled_submit'
+            : ''
+        "
+      />
+    </div>
+  </form>
 </div>
+<!-- </div> -->
